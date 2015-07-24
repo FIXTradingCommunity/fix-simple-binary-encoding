@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>FIX Simple Binary Encoding by FIXTradingCommunity</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>FIX Simple Binary Encoding</h1>
+        <h2>A FIX standard for binary message encoding</h2>
+        <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h3>
+<a id="a-high-performance-message-encoding" class="anchor" href="#a-high-performance-message-encoding" aria-hidden="true"><span class="octicon octicon-link"></span></a>A high performance message encoding</h3>
+
+<p>FIX Simple Binary Encoding (SBE) targets high performance trading systems, but may be suitable for other high performance applications as well. It is optimized for low latency of encoding and decoding while keeping bandwidth utilization reasonably small. </p>
+
+<p>This encoding specification describes the wire protocol for messages (presentation layer). Thus, it provides a standard for interoperability between communicating parties. Users are free to implement the standard in a way that best suits their needs. The encoding standard is complimentary to other FIX standards for session protocol and application level behavior. SBE is intended to represent all FIX semantics.</p>
+
+<h3>
+<a id="binary-type-system" class="anchor" href="#binary-type-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Binary type system</h3>
+
+<p>In order to support traditional FIX semantics, all the documented field types are supported. However, instead of printable character representations of FIX tag=value encoding, the type system binds to native binary data types, and defines derived types as needed. </p>
+
+<p>The binary type system has been enhanced in these ways:</p>
+
+<ul>
+<li>Provides a means to specify precision of decimal numbers and timestamps, as well as valid ranges of numbers.</li>
+<li>Differentiates fixed-length character arrays from variable-length strings. </li>
+<li>Provides a consistent system of enumerations and multiple-choice fields.</li>
+</ul>
+
+<h3>
+<a id="design-principals" class="anchor" href="#design-principals" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design principals</h3>
+
+<p>SBE design strives for direct data access without complex transformations or conditional logic. This is achieved by:</p>
+
+<ul>
+<li>Usage of native binary data types and simple types derived from native binaries, such as prices and timestamps.</li>
+<li>Preference for fixed positions and fixed length fields, supporting direct access to data and avoiding the need for management of heaps of variable-length elements which must be sequentially processed.</li>
+</ul>
+
+<h3>
+<a id="message-schema" class="anchor" href="#message-schema" aria-hidden="true"><span class="octicon octicon-link"></span></a>Message schema</h3>
+
+<p>This standard describes how fields are encoded and the general structure of messages. The content of a message type is specified by a message schema. A message schema tells which fields belong to a message and their location within a message. Additionally, the metadata describes valid value ranges and information that need not be sent on the wire, such as constant values.</p>
+
+<p>Message schemas may be based on standard FIX message specifications, or may be customized as needed by agreement between counterparties.</p>
+
+<h3>
+<a id="explicit-versioning" class="anchor" href="#explicit-versioning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Explicit versioning</h3>
+
+<p>It is not always practical to update all message publishers and consumers simultaneously. Within certain constraints, message schemas and wire formats can be extended in a controlled way. Consumers using an older version of a schema should be compatible if interpretation of added fields or messages is not required for business processing.</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>The Simple Binary Encoding standard was developed by the High Performance Working Group of <a href="http://www.fixtradingcommunity.org/">FIX Trading Community™</a>, the non-profit, industry-driven standards body at the heart of global trading.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding"></a> is maintained by <a href="https://github.com/FIXTradingCommunity">FIXTradingCommunity</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
