@@ -145,43 +145,21 @@ Hexadecimal and ASCII representations (little-endian byte order):
 
   --------------------------------------------------------------------------------------------------------------------------------------------------
   **Wire format**    **Field ID**   **Name**                     **Offset**   **Length**   **Interpreted value**
-                                                                                           
-                                                                 root block                
   ------------------ -------------- ---------------------------- ------------ ------------ ---------------------------------------------------------
-  00000044                          Simple Open Framing Header                4            Message size=68
-                                                                                           
-                                    Message_Length                                        
-
-  eb50                              Simple Open Framing Header                2            SBE version 1.0 little-endian
-                                                                                           
-                                    Encoding_type                                         
-
-  3600                              messageHeader blockLength                 2            Root block size=54
-
-  6300                              messageHeader templateId                  2            Template ID=99
-
-  6400                              messageHeader schemaId                    2            Schema ID=100
-
-  0000                              messageHeader version                     2            Schema version=0
-
+  00000044                          Simple Open Framing Header   -            4            Message_Length Message size=68
+  eb50                              Simple Open Framing Header   -            2            Encoding_type SBE version 1.0 little-endian
+  3600                              messageHeader blockLength    -            2            Root block size=54
+  6300                              messageHeader templateId     -            2            Template ID=99
+  6400                              messageHeader schemaId       -            2            Schema ID=100
+  0000                              messageHeader version        -            2            Schema version=0
   4f52443030303031   11             ClOrdID                      0            8            ORD00001
-
   4143435430310000   1              Account                      8            8            ACCT01
-
-  47454d3400000000   55             Symbol                       16           8            GEM4
-                                                                                           
-                                                                                           Padded with NUL
-
+  47454d3400000000   55             Symbol                       16           8            GEM4 Padded with NUL
   31                 54             Side                         24           1            1 Buy
-
   c021ed1b04c32b13   60             TransactTime                 25           8            2013-10-10 13:35:33.135 as nanoseconds since UNIX epoch
-
   07000000           38             OrderQty                     33           4            7
-
   32                 40             OrdType                      37           1            2 Limit
-
   1a85010000000000   44             Price                        38           8            99.610
-
   0000000000000008   99             StopPx                       46           8            null
   --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -294,74 +272,37 @@ Hexadecimal and ASCII representations (little-endian byte order):
 >
 > 04 00 00 00
 
-**Interpretation**
+### Interpretation
+Offset is from beginning of block.
 
-  ---------------------------------------------------------------------------------------------------------------------------
-  **Wire format**    **Field ID**   **Name**                     **Offset**   **Length**   **Interpreted value**
-                                                                                           
-                                                                 in block                  
-  ------------------ -------------- ---------------------------- ------------ ------------ ----------------------------------
-  00000054                          Simple Open Framing Header                4            Message size=84
-                                                                                           
-                                    Message_Length                                        
+| Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
+|------------------| -------------:|----------------------------|-----------:|-----------:|:------------
+| 00000054         |               | Simple Open Framing Header |            | 4          | Message size=84
+| eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
+| 2a00             |               | messageHeader blockLength  |            | 2          | Root block size=42
+| 6200             |               | messageHeader templateId   |            | 2          | Template ID=98
+| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
+| 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 4f30303030303031 | 37            | OrderID                    | 0          | 8          | O0000001
+| 4558454330303030 | 17            | ExecID                     | 8          | 8          | EXEC0000
+| 46               | 150           | ExecType                   | 16         | 1          | F Trade
+| 31               | 39            | OrdStatus                  | 17         | 1          | 1 PartialFilled
+| 47454d3400000000 | 55            | Symbol                     | 18         | 8          | GEM4
+| de0706ffff       | 200           | MaturityMonthYear          | 26         | 5          | 201406
+| 31               | 54            | Side                       | 31         | 1          | 1 Buy
+| 01000000         | 151           | LeavesQty                  | 32         | 4          | 1
+| 06000000         | 14            | CumQty                     | 36         | 4          | 6
+| 753e             | 75            | TradeDate                  | 40         | 2          | 2013-10-11
+| 0c00             | 2112          | groupSizeEncoding          |            |            | FillsGrp block size=12
+| 0200             | 1362          | groupSizeEncoding          |            |            | FillsGrp NumInGroup=2
+| 1a85010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 0 
+| 02000000         | 1365          | FillQty                    | 8          | 4          | 2
+| 2485010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 1
+| 04000000         | 1365          | FillQty                    | 8          | 4          | 4
 
-  eb50                              Simple Open Framing Header                2            SBE version 1.0 little-endian
-                                                                                           
-                                    Encoding_type                                         
 
-  2a00                              messageHeader blockLength                 2            Root block size=42
-
-  6200                              messageHeader templateId                  2            Template ID=98
-
-  6400                              messageHeader schemaId                    2            Schema ID=100
-
-  0000                              messageHeader version                     2            Schema version=0
-
-  4f30303030303031   37             OrderID                      0            8            O0000001
-
-  4558454330303030   17             ExecID                       8            8            EXEC0000
-
-  46                 150            ExecType                     16           1            F Trade
-
-  31                 39             OrdStatus                    17           1            1 PartialFilled
-
-  47454d3400000000   55             Symbol                       18           8            GEM4
-
-  de0706ffff         200            MaturityMonthYear            26           5            201406
-                                                                                           
-                                                                                           Day and week subfields are null.
-
-  31                 54             Side                         31           1            1 Buy
-
-  01000000           151            LeavesQty                    32           4            1
-
-  06000000           14             CumQty                       36           4            6
-
-  753e               75             TradeDate                    40           2            2013-10-11
-
-  0c00               2112           groupSizeEncoding                                      FillsGrp block size=12
-                                                                                           
-                                    blockLength                                            
-
-  0200               1362           groupSizeEncoding                                      FillsGrp NumInGroup=2
-                                                                                           
-                                    numInGroup                                             
-
-  1a85010000000000   1364           FillPx                       0            8            FillsGrp instance 0
-                                                                                           
-                                                                                           99.610
-
-  02000000           1365           FillQty                      8            4            2
-
-  2485010000000000   1364           FillPx                       0            8            FillsGrp instance 1
-                                                                                           
-                                                                                           99.620
-
-  04000000           1365           FillQty                      8            4            4
-  ---------------------------------------------------------------------------------------------------------------------------
-
->Message with a variable-length field
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Message with a variable-length field
+------------------------------------
 
 ### Sample business reject message schema
 
@@ -400,34 +341,17 @@ Hexadecimal and ASCII representations (little-endian byte order):
 >
 > 20 74 68 61 74 20 69 6e 73 74 72 75 6d 65 6e 74 : that instrument
 
-**Interpretation**
+### Interpretation
 
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **Wire format**                                                                      **Field ID**   **Name**                     **Offset**   **Length**   **Interpreted value**
-                                                                                                                                                             
-                                                                                                                                   in block                  
-  ------------------------------------------------------------------------------------ -------------- ---------------------------- ------------ ------------ -----------------------------------------
-  00000040                                                                                            Simple Open Framing Header                4            Message size=64
-                                                                                                                                                             
-                                                                                                      Message_Length                                        
-
-  eb50                                                                                                Simple Open Framing Header                2            SBE version 1.0 little-endian
-                                                                                                                                                             
-                                                                                                      Encoding_type                                         
-
-  0900                                                                                                messageHeader blockLength                 2            Root block size=9
-
-  6100                                                                                                messageHeader templateId                  2            Template ID=97
-
-  6400                                                                                                messageHeader schemaId                    2            Schema ID=100
-
-  0000                                                                                                messageHeader version                     2            Schema version=0
-
-  4f52443030303031                                                                     379            BusinessRejectRefId          0            8            ORD00001
-
-  06                                                                                   380            BusinessRejectReason         8            1            6 NotAuthorized
-
-  2700                                                                                                DATA length                               2            length=39
-
-  4e6f742061757468 6f72697a65642074 6f20747261646520 7468617420696e73 7472756d656e74                  DATA varData                 —            39           Not authorized to trade that instrument
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
+|------------------| -------------:|----------------------------|-----------:|-----------:|:------------
+| 00000040         |               | Simple Open Framing Header |            | 4          | Message size=64
+| eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
+| 0900             |               | messageHeader blockLength  |            | 2          | Root block size=9
+| 6100             |               | messageHeader templateId   |            | 2          | Template ID=100
+| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=0
+| 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 4f52443030303031 |  379          | BusinessRejectRefId        | 0          | 8          | ORD00001
+| 06               |  380          | BusinessRejectReason       | 8          | 1          | 6 NotAuthorized
+| 2700             |               | DATA length                |            | 2          | length=39
+| 4e6f742061757468 6f72697a65642074 6f20747261646520 7468617420696e73 7472756d656e74 |    |             DATA varData       |          |          |  39           Not authorized to trade that instrument
