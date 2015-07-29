@@ -1,20 +1,20 @@
 Contents
 ========
 
-[Title](00 Title.md)
+[Title](00Title.md)
 
-[Introduction](01Intoduction.md)
+[1. Introduction](01Intoduction.md)
 
-[Field Encoding](02FieldEncoding.md)
+[2. Field Encoding](02FieldEncoding.md)
 
-[Message Structure](03MessageStructure.md)
+[3. Message Structure](03MessageStructure.md)
 
-[Message Schema](04MessageSchema.md)
+[4. Message Schema](04MessageSchema.md)
 
-[SchemaExtensionMechanism](05SchemaExtensionMechanism.md)
+[5. Schema Extension Mechanism](05SchemaExtensionMechanism.md)
 
-[Usage Guidelines](06UsageGuidelines.md)
+[6. Usage Guidelines](06UsageGuidelines.md)
 
-[Examples](07Examples.md)
+[7. Examples](07Examples.md)
 
-[Release Notes](08ReleaseNotes.md)
+[8 .Release Notes](08ReleaseNotes.md)

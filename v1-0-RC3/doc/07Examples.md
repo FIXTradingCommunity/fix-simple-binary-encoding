@@ -143,25 +143,24 @@ Hexadecimal and ASCII representations (little-endian byte order):
 
 **Interpretation**
 
-  --------------------------------------------------------------------------------------------------------------------------------------------------
-  **Wire format**    **Field ID**   **Name**                     **Offset**   **Length**   **Interpreted value**
-  ------------------ -------------- ---------------------------- ------------ ------------ ---------------------------------------------------------
-  00000044                          Simple Open Framing Header   -            4            Message_Length Message size=68
-  eb50                              Simple Open Framing Header   -            2            Encoding_type SBE version 1.0 little-endian
-  3600                              messageHeader blockLength    -            2            Root block size=54
-  6300                              messageHeader templateId     -            2            Template ID=99
-  6400                              messageHeader schemaId       -            2            Schema ID=100
-  0000                              messageHeader version        -            2            Schema version=0
-  4f52443030303031   11             ClOrdID                      0            8            ORD00001
-  4143435430310000   1              Account                      8            8            ACCT01
-  47454d3400000000   55             Symbol                       16           8            GEM4 Padded with NUL
-  31                 54             Side                         24           1            1 Buy
-  c021ed1b04c32b13   60             TransactTime                 25           8            2013-10-10 13:35:33.135 as nanoseconds since UNIX epoch
-  07000000           38             OrderQty                     33           4            7
-  32                 40             OrdType                      37           1            2 Limit
-  1a85010000000000   44             Price                        38           8            99.610
-  0000000000000008   99             StopPx                       46           8            null
-  --------------------------------------------------------------------------------------------------------------------------------------------------
+| Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
+|------------------| -------------:|----------------------------|-----------:|-----------:|:------------
+| 00000044         |               | Simple Open Framing Header |            | 4          | Message size=68
+| eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
+| 3600             |               | messageHeader blockLength  |            | 2          | Root block size=54
+| 6300             |               | messageHeader templateId   |            | 2          | Template ID=99
+| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
+| 0000             |               | messageHeader version      |            | 2          | Schema     version=0
+| 4f52443030303031 | 11           | ClOrdID                    | 0          | 8          | ORD00001                                                |
+| 4143435430310000 | 1            | Account                    | 8          | 8          | ACCT01                                                  |
+| 47454d3400000000 | 55           | Symbol                     | 16         | 8          | GEM4                                                    
+                                          |
+| 31               | 54           | Side                       | 24         | 1          | 1 Buy                                                   |
+| c021ed1b04c32b13 | 60           | TransactTime               | 25         | 8          | 2013-10-10 13:35:33.135 as nanoseconds since UNIX epoch |
+| 07000000         | 38           | OrderQty                   | 33         | 4          | 7                                                       |
+| 32               | 40           | OrdType                    | 37         | 1          | 2 Limit                                                 |
+| 1a85010000000000 | 44           | Price                      | 38         | 8          | 99.610                                                  |
+| 0000000000000008 | 99           | StopPx                     | 46         | 8          | null                                                    |
 
 Message with a repeating group
 ------------------------------

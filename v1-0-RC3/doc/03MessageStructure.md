@@ -42,10 +42,10 @@ Simple Open Framing Header as an SBE composite encoding (big-endian)
 The values of encodingType used to indicate SBE payloads are currently
 defined as:
 
-  Encoding[^1]                    encodingType value
-  ------------------------------- --------------------
-  SBE version 1.0 big-endian      0x5BE0
-  SBE version 1.0 little-endian   0xEB50
+| Encoding                      | encodingType value |
+|-------------------------------|--------------------|
+| SBE version 1.0 big-endian    | 0x5BE0             |
+| SBE version 1.0 little-endian | 0xEB50             |
 
 The Simple Open Framing Header specification also lists values for other
 wire formats.
@@ -100,12 +100,12 @@ Recommended message header encoding
 
 The recommended header encoding is 8 octets.
 
-  Element       Description         Primitive type   Length (octets)   Offset
-  ------------- ------------------- ---------------- ----------------- --------
-  blockLength   Root block length   uint16           2                 0
-  templateId    Template ID         uint16           2                 2
-  schemaId      Schema ID           uint16           2                 4
-  version       Schema Version      uint16           2                 6
+| Element     | Description       | Primitive type | Length (octets) | Offset |
+|-------------|-------------------|----------------|----------------:|-------:|
+| blockLength | Root block length | uint16         | 2               | 0      |
+| templateId  | Template ID       | uint16         | 2               | 2      |
+| schemaId    | Schema ID         | uint16         | 2               | 4      |
+| version     | Schema Version    | uint16         | 2               | 6      |
 
 Optionally, implementations may support any other unsigned integer types
 for blockLength.
@@ -190,12 +190,12 @@ schema.
 <field name="Symbol" id="55" type="string8" semanticType="String"/>
 ```
 
-  Field      Size   Offset
-  ---------- ------ --------
-  ClOrdID    14     0
-  Side       1      14
-  OrderQty   4      15
-  Symbol     8      19
+| Field    | Size | Offset |
+|----------|-----:|-------:|
+| ClOrdID  | 14   | 0      |
+| Side     | 1    | 14     |
+| OrderQty | 4    | 15     |
+| Symbol   | 8    | 19     |
 
 #### Field offset specified by message schema
 
@@ -225,12 +225,12 @@ Example of fields with specified offsets
  semanticType="String"/>
 ```
 
-  Field      Size   Padding preceding field   Offset
-  ---------- ------ ------------------------- --------
-  ClOrdID    14     0                         0
-  Side       1      0                         14
-  OrderQty   4      1                         16
-  Symbol     8      0                         20
+| Field    | Size | Padding preceding field | Offset |
+|----------|------|------------------------:|-------:|
+| ClOrdID  | 14   | 0                       | 0      |
+| Side     | 1    | 0                       | 14     |
+| OrderQty | 4    | 1                       | 16     |
+| Symbol   | 8    | 0                       | 20     |
 
 #### Padding at end of a message or group
 
@@ -385,10 +385,10 @@ Implementations should support uint8 and uint16 types for repeating
 group entry counts. Optionally, implementations may support any other
 unsigned integer types.
 
-  Primitive type   Description               Length (octets)   Maximum number of entries
-  ---------------- ------------------------- ----------------- ---------------------------
-  uint8            8-bit unsigned integer    1                 255
-  uint16           16-bit unsigned integer   2                 65535
+| Primitive type | Description             | Length (octets) | Maximum number of entries |
+|----------------|-------------------------|----------------:|--------------------------:|
+| uint8          | 8-bit unsigned integer  | 1               | 255                       |
+| uint16         | 16-bit unsigned integer | 2               | 65535                     |
 
 #### Encoding of repeating group dimensions
 
@@ -454,11 +454,9 @@ If a message structure violation is detected on a received message, the
 message should be rejected back to the counterparty in a way appropriate
 to the session protocol.
 
-  Error condition                                                     Error description
-  ------------------------------------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Wrong message size in header                                        A message size value smaller than the actual message may cause a message to be truncated.
-  Wrong or unknown template ID in header                              A mismatch of message schema would likely render a message unintelligible or cause fields to be misinterpreted.
-  Fixed-length field after repeating group or variable-length field   All fixed-length fields in the root of a message or in a repeating group entry must be listed before any (nested) repeating group or variable-length field.
-  Repeating group after variable-length field                         All repeating groups at the root level or in a nested repeating group must be listed before any variable length field at the same level.
-
-
+| Error condition                                                   | Error description                                                                                                                                           |
+|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Wrong message size in header                                      | A message size value smaller than the actual message may cause a message to be truncated.                                                                   |
+| Wrong or unknown template ID in header                            | A mismatch of message schema would likely render a message unintelligible or cause fields to be misinterpreted.                                             |
+| Fixed-length field after repeating group or variable-length field | All fixed-length fields in the root of a message or in a repeating group entry must be listed before any (nested) repeating group or variable-length field. |
+| Repeating group after variable-length field                       | All repeating groups at the root level or in a nested repeating group must be listed before any variable length field at the same level.                    |
