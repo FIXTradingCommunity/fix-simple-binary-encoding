@@ -107,7 +107,7 @@ See Common field schema attributes below.
 | data                             | Variable-length data encoding                                                             | 2.8.2   | Variable-length data. Must be paired with a Length field.                                                                                                                                |
 | Country                          | Fixed-length character array; size = 2 or a subset of values may use Enumeration encoding | 2.7.2   | ISO 3166-1:2013 Country code                                                                                                                                                             |
 | Currency                         | Fixed-length character array; size = 3 or a subset of values may use Enumeration encoding | 2.7.2   | ISO 4217:2008 Currency code (3 character)                                                                                                                                                |
-| Exchange                         | Fixed-length character array; size = 4 or a subset of values may use Enumeration encoding | 2.7.2   | ISO 10383 :2012 Market Identifier Code (MIC)                                                                                                                                             |
+| Exchange                         | Fixed-length character array; size = 4 or a subset of values may use Enumeration encoding | 2.7.2   | ISO 10383:2012 Market Identifier Code (MIC)                                                                                                                                             |
 | Language                         | Fixed-length character array; size = 2 or a subset of values may use Enumeration encoding | 2.7.2   | National language - uses ISO 639-1:2002 standard                                                                                                                                         |
 | Implicit enumeration—char or int | Enumeration encoding                                                                      | 2.12    | A single choice of alternative values                                                                                                                                                    |
 | Boolean                          | Boolean encoding                                                                          | 2.12.6  | Values true or false                                                                                                                                                                     |
@@ -273,7 +273,7 @@ Wire format of uint16 value decimal 10000, hexadecimal 2710.
 
 `1027`
 
-Wire format of uint32 null value 2^32^ - 1
+Wire format of uint32 null value 2<sup>32</sup> - 1
 
 `ffffffff`
 
@@ -974,7 +974,7 @@ Time with time zone encoding should only be used when required by market
 regulations. Otherwise, use UTC time encoding (see above).
 
 Time zone is represented as an offset from UTC in the ISO 8601:2004
-format �hhmm.
+format ±hhmm.
 
 ### TZTimestamp encoding
 

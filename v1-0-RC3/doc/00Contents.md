@@ -3,7 +3,7 @@ Contents
 
 [Title](00Title.md)
 
-[1. Introduction](01Intoduction.md)
+[1. Introduction](01Introduction.md)
 
 [2. Field Encoding](02FieldEncoding.md)
 

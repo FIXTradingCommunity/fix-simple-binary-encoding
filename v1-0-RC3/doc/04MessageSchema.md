@@ -246,6 +246,7 @@ The encoding of an enumeration may be char or any unsigned integer type.
 #### `<validValue>` element attributes
 
 The name attribute of the `<validValue>` uniquely identifies it.
+
 | \<validValue\> attribute | Description                                                                                                     | XML type           | Usage       | Valid values                                                     |
 |--------------------|-----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
 | name               | Symbolic name of value                                                                                          | symbolicName\_t    | required    | Must be unique among valid values in the enumeration.            |
@@ -495,7 +496,7 @@ following.
 
 ### Message with a repeating group
 
-xml```
+```xml
 <message name="ListOrder" id="2" description="Simplified
  NewOrderList. Demonstrates repeating group">
     <field name="ListID" id="66" type="string14" semanticType="String"/>
