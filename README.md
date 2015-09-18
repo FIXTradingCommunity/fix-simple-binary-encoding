@@ -15,10 +15,10 @@ RC3 specification is included here for reference only. Pull requests for this
 version will not be accepted.
 
 ### Next working draft: 1.0 Release Candidate 4
-A baseline for version 1.0 RC4 will be posted here soon. The
+A baseline for version 1.0 RC4 has been posted. The
 working group encourages users to submit issues for error corrections
 and enhancements. The working group will consider pull requests for
-changes to the working draft.
+changes to the working draft. If significant changes are accepted by the working group, then RC4 will be published as a new release candidate for public review. Otherwise, RC3 may be promoted to the final draft of SBE version 1.0.
 
 ### Previous versions
 RC3 and previous versions of SBE, as well as other FIX high performance protocols,
