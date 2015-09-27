@@ -5,7 +5,8 @@
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
-			Version: Release Candidate 3
+			Version: Release Candidate 4
+			©Copyright 2014-2015 FIX Protocol Limited
 		</xs:documentation>
 	</xs:annotation>
 
