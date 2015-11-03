@@ -18,13 +18,13 @@ groups or variable-length data.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
 
-<sbe:messageSchema xmlns:sbe="http://www.fixprotocol.org/ns/simple/RC3"
+<sbe:messageSchema 
+	xmlns:sbe="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC4/resources"
     xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
     package="Examples" id="100"
     description="Test dictionary"
     byteOrder="littleEndian"
-    xs:schemaLocation="http://www.fixprotocol.org/ns/simple/RC3/SimpleBinary1-0.xsd">
-
+	xsi:schemaLocation="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC4/resources 	SimpleBinary1-0.xsd">
 <types>
     <type name="enumEncoding" primitiveType="char"/>
     <type name="idString" length="8" primitiveType="char" semanticType="String"/>
