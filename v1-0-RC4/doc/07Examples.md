@@ -326,6 +326,15 @@ Add this encoding types element to those in the previous example.
     </enum>
 
 </types>
+
+	<sbe:message name="BusinessMessageReject" id="97"
+		blockLength="9" semanticType="j">
+		<field name="BusinesRejectRefId" id="379" type="idString"
+			offset="0" semanticType="String" />
+		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
+			offset="8" semanticType="int" />
+		<data name="Text" id="58" type="DATA" semanticType="data" />
+	</sbe:message>
 ```
 
 ### Wire format of a business reject message
