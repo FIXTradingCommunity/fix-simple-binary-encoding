@@ -301,7 +301,7 @@ value does not include the group dimensions itself.
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See section 3.4.8 below
+value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below
 for encoding of that counter.
 
 ### Empty group
@@ -385,10 +385,14 @@ Implementations should support uint8 and uint16 types for repeating
 group entry counts. Optionally, implementations may support any other
 unsigned integer types.
 
+By default, the minimum number of entries is zero, and the maximum number is the largest value of the primitiveType of the counter.
+
 | Primitive type | Description             | Length (octets) | Maximum number of entries |
 |----------------|-------------------------|----------------:|--------------------------:|
 | uint8          | 8-bit unsigned integer  | 1               | 255                       |
 | uint16         | 16-bit unsigned integer | 2               | 65535                     |
+
+The number of entries may be restricted to a specific range; see "Restricting repeating group entries" below.
 
 #### Encoding of repeating group dimensions
 
@@ -415,6 +419,19 @@ Recommended encoding of repeating group dimensions
 Wire format of NumInGroup with block length 55 octets by 3 entries
 
 `37000300`
+
+#### Restricting repeating group entries
+
+The occurrences of a repeating group may be restricted to a specific range by modifying the numInGroup member of the group dimension encoding. The minValue attribute controls the minimum number of entries, overriding the default of zero, and the maxValue attribute restricts the maximum entry count to something less than the maximum corresponding to its primitiveType. Either or both attributes may be specified.
+
+Example of a restricted group encoding
+
+```xml
+<composite name="restrictedGroupSizeEncoding">
+    <type name="blockLength" primitiveType="uint16"/>
+    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
+</composite>
+```
 
 Sequence of message body elements
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
