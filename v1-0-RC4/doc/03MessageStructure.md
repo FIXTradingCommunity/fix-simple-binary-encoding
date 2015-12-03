@@ -306,6 +306,9 @@ octets per entry. If specified, the extra space is padded at the end of
 each entry and should be set to zeroes by encoders. The blockLength
 value does not include the group dimensions itself.
 
+Note that padding will only result in deterministic alignment if the
+repeating group contains no variable-length fields.
+
 ### Entry counter 
 
 Each group is associated with a required counter field of semantic data
