@@ -124,7 +124,7 @@ The block size must be at least the sum of lengths of all fields at the
 root level of the message, and that is its default value. However, it
 may be set larger to reserve more space to effect alignment of blocks.
 This is specified by setting the blockLength attribute in a message
-schema. See section .
+schema. 
 
 ### Template ID
 
@@ -260,8 +260,9 @@ A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
 
 The order and data types of the fields are the same for each entry in a
-group. That is, the entries are homogeneous, and the position of a given
-field within any entry is fixed.
+group. That is, the entries are homogeneous. Position of a given
+field within any entry is fixed, with the exception of variable-length
+fields.
 
 A message may have no groups or an unlimited number of repeating groups
 specified in its schema.
@@ -283,6 +284,14 @@ Example repeating group encoding specification
     <field name="PartyRole" id="452" type="uint8" semanticType="int"/>
 </group>
 ```
+
+### Group block length
+
+The blockLength part of a group dimension represents total space reserved 
+for each group entry, not counting any nested repeating groups or variable-length
+fields. (Length of a variable-length Data field is given by its corresponding
+Length field.) Block length only represents message body fields; it does not
+include the length of the group dimension itself, which is a fixed size.
 
 ### Padding at end of a group entry
 
