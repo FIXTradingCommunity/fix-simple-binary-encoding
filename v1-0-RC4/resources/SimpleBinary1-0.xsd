@@ -209,6 +209,7 @@
 			<xs:element name="enum" type="sbe:enumType" />
 			<xs:element name="set" type="sbe:setType" />
 			<xs:element name="composite" type="sbe:compositeDataType" />
+			<xs:element name="ref" type="sbe:refType" />
 		</xs:choice>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attributeGroup ref="sbe:positionAttributes" />
@@ -250,6 +251,19 @@
 		</xs:simpleContent>
 	</xs:complexType>
 
+	<xs:complexType name="refType" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				A reference to any existing encoding type (simple type, enum or set)
+				to reuse as a member of a composite type
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
+		<xs:attribute name="type" type="sbe:symbolicName_t" use="required" />
+		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:versionAttributes" />
+	</xs:complexType>
+	
 	<xs:complexType name="setType" mixed="true">
 		<xs:annotation>
 			<xs:documentation>
@@ -262,6 +276,7 @@
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t"
 			use="required" />
+		<xs:attributeGroup ref="sbe:positionAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
