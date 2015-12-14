@@ -171,13 +171,6 @@
 				<xs:attribute name="maxValue" type="xs:string" use="optional" />
 				<xs:attribute name="length" type="xs:nonNegativeInteger"
 					default="1" />
-				<xs:attribute name="offset" type="xs:unsignedInt" use="optional">
-					<xs:annotation>
-						<xs:documentation>Offset from start of a composite type as a
-							zero-based index.
-						</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
 				<xs:attribute name="primitiveType" use="required">
 					<xs:simpleType>
 						<xs:restriction base="xs:token">
@@ -197,6 +190,7 @@
 				</xs:attribute>
 				<xs:attribute name="characterEncoding" type="xs:string"
 					use="optional" />
+				<xs:attributeGroup ref="sbe:positionAttributes" />
 				<xs:attributeGroup ref="sbe:presenceAttributes" />
 				<xs:attributeGroup ref="sbe:semanticAttributes" />
 				<xs:attributeGroup ref="sbe:versionAttributes" />
@@ -217,6 +211,7 @@
 			<xs:element name="composite" type="sbe:compositeDataType" />
 		</xs:choice>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
+		<xs:attributeGroup ref="sbe:positionAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
@@ -234,6 +229,7 @@
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t"
 			use="required" />
+		<xs:attributeGroup ref="sbe:positionAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
@@ -282,6 +278,7 @@
 				<xs:attribute name="name" type="sbe:symbolicName_t"
 					use="required" />
 				<xs:attribute name="description" type="xs:string" use="optional" />
+				<xs:attributeGroup ref="sbe:positionAttributes" />
 				<xs:attributeGroup ref="sbe:versionAttributes" />
 			</xs:extension>
 		</xs:simpleContent>
@@ -302,13 +299,6 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="offset" type="xs:unsignedInt" use="optional">
-			<xs:annotation>
-				<xs:documentation>Offset from start of a block as a zero-based
-					index.
-				</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<!-- start of time period - default is UNIX epoch -->
 		<xs:attribute name="epoch" type="xs:string" default="unix" />
 		<xs:attribute name="timeUnit" type="xs:string" default="nanosecond">
@@ -317,6 +307,7 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attributeGroup ref="sbe:positionAttributes" />
 		<xs:attributeGroup ref="sbe:presenceAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
@@ -354,6 +345,16 @@
 					The version of the schema in which an element was
 					deprecated. It is retained for back compatibility but should no
 					longer be used by updated applications.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="positionAttributes">
+		<xs:attribute name="offset" type="xs:unsignedInt" use="optional">
+			<xs:annotation>
+				<xs:documentation>Offset from start of a composite type or block
+					as a zero-based index.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
