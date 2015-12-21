@@ -190,7 +190,7 @@
 				</xs:attribute>
 				<xs:attribute name="characterEncoding" type="xs:string"
 					use="optional" />
-				<xs:attributeGroup ref="sbe:positionAttributes" />
+				<xs:attributeGroup ref="sbe:alignmentAttributes" />
 				<xs:attributeGroup ref="sbe:presenceAttributes" />
 				<xs:attributeGroup ref="sbe:semanticAttributes" />
 				<xs:attributeGroup ref="sbe:versionAttributes" />
@@ -212,7 +212,7 @@
 			<xs:element name="ref" type="sbe:refType" />
 		</xs:choice>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
-		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:alignmentAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
@@ -230,7 +230,7 @@
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t"
 			use="required" />
-		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:alignmentAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
@@ -260,7 +260,7 @@
 		</xs:annotation>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attribute name="type" type="sbe:symbolicName_t" use="required" />
-		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:alignmentAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
 	
@@ -276,7 +276,7 @@
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required" />
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t"
 			use="required" />
-		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:alignmentAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
 	</xs:complexType>
@@ -293,7 +293,6 @@
 				<xs:attribute name="name" type="sbe:symbolicName_t"
 					use="required" />
 				<xs:attribute name="description" type="xs:string" use="optional" />
-				<xs:attributeGroup ref="sbe:positionAttributes" />
 				<xs:attributeGroup ref="sbe:versionAttributes" />
 			</xs:extension>
 		</xs:simpleContent>
@@ -322,7 +321,7 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attributeGroup ref="sbe:positionAttributes" />
+		<xs:attributeGroup ref="sbe:alignmentAttributes" />
 		<xs:attributeGroup ref="sbe:presenceAttributes" />
 		<xs:attributeGroup ref="sbe:semanticAttributes" />
 		<xs:attributeGroup ref="sbe:versionAttributes" />
@@ -365,7 +364,7 @@
 		</xs:attribute>
 	</xs:attributeGroup>
 
-	<xs:attributeGroup name="positionAttributes">
+	<xs:attributeGroup name="alignmentAttributes">
 		<xs:attribute name="offset" type="xs:unsignedInt" use="optional">
 			<xs:annotation>
 				<xs:documentation>Offset from start of a composite type or block
