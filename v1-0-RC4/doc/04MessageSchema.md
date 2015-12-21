@@ -58,7 +58,7 @@ their encodings.
 | id               | Unique identifier of a schema                                                                    | unsignedInt        |                        | Should be unique between counterparties                                      |
 | version          | Version of this schema                                                                           | nonnegativeInteger |                        | Initial version is zero and is incremented for each version                  |
 | semanticVersion  | Version of FIX semantics                                                                         | string             | optional               | FIX versions, such as “FIX.5.0\_SP2”                                         |
-| byteOrder        | Byte order of encoding                                                                           | token              | default = littleEndian | littleEndian  bigEndian                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| byteOrder        | Byte order of encoding                                                                           | token              | default = littleEndian | littleEndian  bigEndian                                                                                                             |
 | description      | Documentation of the schema                                                                      | string             | optional               |                                                                              |
 | headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by \<types\>.                   |
 
@@ -145,8 +145,7 @@ The element value represents a constant if attribute
 | maxValue           | Highest acceptable value                                                                                                                                                                               | string             |                                   |                                                                                        |
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
 | offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section 4.4.4.3 below                                                              |
-| primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                                                                                                                                                                                                                                                                                                                   
-|
+| primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
 | semanticType       | Represents a FIX data type                                                                                                                                                                             | token              | optional                          | Same as field semanticType – see below.                                                |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
@@ -221,6 +220,37 @@ For a composite type, nullness is indicated by the value of its first
 element. For example, if a price field is optional, a null value in its
 mantissa element indicates that the price is null.
 
+### Reference to reusable types
+
+A composite type often has its elements defined in-line within the `<composite>` XML element as shown in the example above. Alternatively, a common type may be defined once on its own, and then referred to by name with the composite type using a `<ref>` element.
+
+#### `<ref>` attributes
+
+| \<ref\> attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                     |
+|--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
+| name               | Usage of the type in this composite | symbolicName\_t    | required    |       |
+| type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set name attribute. |
+| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
+| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+
+#### Type reference example
+
+In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type. Note that a
+reference may carry an offset within the composite encoding that contains it.
+
+```xml
+<enum name="booleanEnum" encodingType="uint8" semanticType="Boolean">
+    <validValue name="false">0</validValue>
+    <validValue name="true">1</validValue>
+</enum>
+
+<composite name="futuresPrice">
+    <type name="mantissa" primitiveType="int64" />
+    <type name="exponent" primitiveType="int8" />
+    <ref name="isSettlement" type="boolEnum" offset="9" />
+</composite>	
+```
+
 ### Enumeration encodings
 
 An enumeration explicitly lists the valid values of a data domain. Any
@@ -238,10 +268,10 @@ The encoding of an enumeration may be char or any unsigned integer type.
 |--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|-----------------------------------------------------------------------------------|
 | name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                                          |
 | description        | Documentation of the type                                                                                      | string             | optional    |                                                                                   |
-| encodingType       | Name of a simple encoding type                                                                                 | symbolicName\_t    | required    | Must match the name attribute of a scalar \<type\> element *or* a primitive type: char uint8 uint16 uint32 uint64                                                                                                                                                                                                                                                
- | sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
+| encodingType       | Name of a simple encoding type                                                                                 | symbolicName\_t    | required    | Must match the name attribute of a scalar \<type\> element *or* a primitive type: char uint8 uint16 uint32 uint64 | 
+| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.                  |
-
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |
 
 #### `<validValue>` element attributes
 
@@ -300,6 +330,7 @@ The encoding of a bitset should be an unsigned integer type.
 | encodingType      | Name of a simple encoding type                                                                                 | string             | required    | Must match the name attribute of a scalar \<type\> element *or* a primitive type: uint8 uint16 uint32 uint64                                                                          |
 | sinceVersion      | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
 | deprecated        | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.       
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |
 
 #### `<choice>` element attributes
 
