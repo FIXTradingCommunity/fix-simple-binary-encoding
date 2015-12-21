@@ -124,7 +124,7 @@ The block size must be at least the sum of lengths of all fields at the
 root level of the message, and that is its default value. However, it
 may be set larger to reserve more space to effect alignment of blocks.
 This is specified by setting the blockLength attribute in a message
-schema. See section .
+schema. 
 
 ### Template ID
 
@@ -260,8 +260,9 @@ A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
 
 The order and data types of the fields are the same for each entry in a
-group. That is, the entries are homogeneous, and the position of a given
-field within any entry is fixed.
+group. That is, the entries are homogeneous. Position of a given
+field within any entry is fixed, with the exception of variable-length
+fields.
 
 A message may have no groups or an unlimited number of repeating groups
 specified in its schema.
@@ -284,6 +285,14 @@ Example repeating group encoding specification
 </group>
 ```
 
+### Group block length
+
+The blockLength part of a group dimension represents total space reserved 
+for each group entry, not counting any nested repeating groups or variable-length
+fields. (Length of a variable-length Data field is given by its corresponding
+Length field.) Block length only represents message body fields; it does not
+include the length of the group dimension itself, which is a fixed size.
+
 ### Padding at end of a group entry
 
 By default, the space reserved for an entry is the sum of a group’s
@@ -297,11 +306,14 @@ octets per entry. If specified, the extra space is padded at the end of
 each entry and should be set to zeroes by encoders. The blockLength
 value does not include the group dimensions itself.
 
+Note that padding will only result in deterministic alignment if the
+repeating group contains no variable-length fields.
+
 ### Entry counter 
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See section 3.4.8 below
+value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below
 for encoding of that counter.
 
 ### Empty group
@@ -385,10 +397,14 @@ Implementations should support uint8 and uint16 types for repeating
 group entry counts. Optionally, implementations may support any other
 unsigned integer types.
 
+By default, the minimum number of entries is zero, and the maximum number is the largest value of the primitiveType of the counter.
+
 | Primitive type | Description             | Length (octets) | Maximum number of entries |
 |----------------|-------------------------|----------------:|--------------------------:|
 | uint8          | 8-bit unsigned integer  | 1               | 255                       |
 | uint16         | 16-bit unsigned integer | 2               | 65535                     |
+
+The number of entries may be restricted to a specific range; see "Restricting repeating group entries" below.
 
 #### Encoding of repeating group dimensions
 
@@ -415,6 +431,19 @@ Recommended encoding of repeating group dimensions
 Wire format of NumInGroup with block length 55 octets by 3 entries
 
 `37000300`
+
+#### Restricting repeating group entries
+
+The occurrences of a repeating group may be restricted to a specific range by modifying the numInGroup member of the group dimension encoding. The minValue attribute controls the minimum number of entries, overriding the default of zero, and the maxValue attribute restricts the maximum entry count to something less than the maximum corresponding to its primitiveType. Either or both attributes may be specified.
+
+Example of a restricted group encoding
+
+```xml
+<composite name="restrictedGroupSizeEncoding">
+    <type name="blockLength" primitiveType="uint16"/>
+    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
+</composite>
+```
 
 Sequence of message body elements
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
