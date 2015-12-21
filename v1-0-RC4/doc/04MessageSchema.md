@@ -208,7 +208,7 @@ constant exponent, which is not sent on the wire.
 
 If a message designer wishes to control byte boundary alignment or map
 to an existing data structure, element offset may optionally be
-specified on simple types within a composite type. Offset is the number
+specified on a simple type, enum or bitset within a composite type. Offset is the number
 of octets from the start of the composite; it is a zero-based index.
 
 If specified, offset must be greater than or equal to the sum of the
