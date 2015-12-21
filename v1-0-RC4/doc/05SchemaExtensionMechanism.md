@@ -35,7 +35,7 @@ Compatibility is only ensured under these conditions:
 wire format does not change.
 
 Changes that break those constraints require consumers to update to the
-current schema used by publishers. An message template that has changed in an incompatible way should be assinged a new template "id" attribute.
+current schema used by publishers. An message template that has changed in an incompatible way must be assinged a new template "id" attribute.
 
 Message schema features for extension
 -------------------------------------
@@ -115,13 +115,15 @@ encoding.
 
 Comaptibility strategy
 -----------------------
-A message decoder should compare the schema version in a received message header to the version that the decoder was built with.
+*This suggested strategy is non-normative.*
+
+A message decoder compares the schema version in a received message header to the version that the decoder was built with.
 
 If the *received version is equal to the decoder's version*, then all fields known to the decoder may be parsed, and no further analysis is required.
 
 If the *received version is greater than the decoder's version* (that is, the producer's encoder is newer than the consumer's decoder), then all fields known to the decoder may be parsed but it will be unable to parse added fields. 
 
-Also, an old decoder may encounter unexpected enumeration values. The application layer must determine whether an unexpected value is a fatal error. Probably so for a required field since the business meaning is unknown, but it may choose to allow an unknown value of an optional field to pass through. For example, if OrdType value J="Market If Touched" is added to a schema, and the consumer does not recognize it, then the application should return an order rejection with reason "order type not supported", even if it does not know what "J" represents. Note that this is not strictly a versioning problem, however. This exception handling is indistinguishable from the case where "J" was never added to the enum but was simply sent in error.
+Also, an old decoder may encounter unexpected enumeration values. The application layer determines whether an unexpected value is a fatal error. Probably so for a required field since the business meaning is unknown, but it may choose to allow an unknown value of an optional field to pass through. For example, if OrdType value J="Market If Touched" is added to a schema, and the consumer does not recognize it, then the application returns an order rejection with reason "order type not supported", even if it does not know what "J" represents. Note that this is not strictly a versioning problem, however. This exception handling is indistinguishable from the case where "J" was never added to the enum but was simply sent in error.
 
 If the *received version is less than the decoder's version* (that is, the producer's encoder is older than the consumer's decoder), then only the fields of the older version may be parsed. This information is available through metadata as "sinceVersion" attribute of a field. If sinceVersion is greater than received schema version, then the field is not available. How a decoder signals an application that a field is unavailable is an implementation detail. One strategy is for an application to provide a default value for unavailable fields.
 
