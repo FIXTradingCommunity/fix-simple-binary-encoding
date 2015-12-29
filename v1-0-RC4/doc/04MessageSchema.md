@@ -177,6 +177,7 @@ Composite encoding types are composed of two or more simple types.
 | \<type\> attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                     |
 |--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
 | name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                         |
+| offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
 | description        | Documentation of the type                                                                                      | string             | optional    |                                                                  |
 | semanticType       | Represents a FIX data type                                                                                     | token              | optional    | Same as field semanticType – see below.                          |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
@@ -229,14 +230,16 @@ A composite type often has its elements defined in-line within the `<composite>`
 | \<ref\> attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                     |
 |--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
 | name               | Usage of the type in this composite | symbolicName\_t    | required    |       |
-| type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set name attribute. |
+| type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set or composite name attribute. |
+| offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
-#### Type reference example
+#### Type reference examples
 
-In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type. Note that a
-reference may carry an offset within the composite encoding that contains it.
+**Reference to an enum**
+
+In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type. 
 
 ```xml
 <enum name="booleanEnum" encodingType="uint8" semanticType="Boolean">
@@ -247,7 +250,23 @@ reference may carry an offset within the composite encoding that contains it.
 <composite name="futuresPrice">
     <type name="mantissa" primitiveType="int64" />
     <type name="exponent" primitiveType="int8" />
-    <ref name="isSettlement" type="boolEnum" offset="9" />
+    <ref name="isSettlement" type="boolEnum" />
+</composite>	
+```
+
+**Reference to a composite type**
+
+In this example, a nested composite is formed by using a reference to another composite type. It supports the expresson of a monetary amount with its currency, such as USD150.45. Note that a reference may carry an offset within the composite encoding that contains it.
+
+```xml
+<composite name="price">
+    <type name="mantissa" primitiveType="int64" />
+    <type name="exponent" primitiveType="int8" />
+</composite>	
+
+<composite name="money">
+    <type name="currencyCode" primitiveType="char" length="3" semanticType="Currency" />
+    <ref name="amount" type="price" semanticType="Price" offset="3" />
 </composite>	
 ```
 
