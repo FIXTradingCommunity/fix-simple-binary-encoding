@@ -2,8 +2,18 @@ Release Notes
 =============
 Release Candidate 4
 -------------------
-[to come]
 
+These issues were resolved and accepted for Release Candidate 4. See issues and pull requests
+in GitHub for details and changes.
+
+| Issue | Description                                                    | Section |
+|------:|----------------------------------------------------------------|---------|
+| 2     | Schema extension is vague in terms of what compatibility means | 5
+| 3     | Extensibility of the Template ID                               | 5
+| 6     | Limiting maximum occurences of repeating group                 | 3
+| 8     | blockLength for repeating groups of variable length            | 3
+| 11    | Offsets within composite types                                 | 4
+| 12    | Composites reusing other types                                 | 4
 
 Release Candidate 3
 -------------------
