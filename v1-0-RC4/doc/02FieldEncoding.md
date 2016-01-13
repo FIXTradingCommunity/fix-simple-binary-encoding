@@ -628,7 +628,7 @@ Encoding specification for variable length data up to 65535 octets
 
 ```xml
 <composite name="varString" description="Variable-length string">
-    <type name="length" primitiveType="uint16"anticType="Length"/>
+    <type name="length" primitiveType="uint16" semanticType="Length"/>
     <type name="data" length="0" primitiveType="uint8"
     semanticType="data" characterEncoding="UTF-16"/>
 </composite>
@@ -915,7 +915,7 @@ hours, 17 minutes and 22 seconds since the UNIX epoch) with default
 schema attributes
 
 ```xml
-<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision" *semanticType="UTCTimestamp" >
+<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision" semanticType="UTCTimestamp" >
 <type name="time" primitiveType="uint64" />
 <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
@@ -930,7 +930,7 @@ byte order
 since midnight UTC) with default schema attributes
 
 ```xml
-<composite name="UTCTimeOnlyNanos" description="UTC time of day with nanosecond precision" *semanticType="UTCTimeOnly" >
+<composite name="UTCTimeOnlyNanos" description="UTC time of day with nanosecond precision" semanticType="UTCTimeOnly" >
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
@@ -1265,7 +1265,7 @@ in-line style.
 <set name="FinancialStatusEnum" encodingType="uint8">
     <choice name="Bankrupt">0</choice>
     <choice name="Pending delisting">1</choice>
-    <choice name= Restricted">2</choice>
+    <choice name="Restricted">2</choice>
 </set>
 ```
 
