@@ -12,7 +12,7 @@ XML namespace
 The Simple Binary Encoding XML schema is identified by this URL:
 
 ```xml
-xmlns:sbe=[http://www.fixprotocol.org/ns/simple/](http://www.fixtradingcommunity.org/ns/simple/1.0)RC3
+xmlns:sbe=http://fixprotocol.io/sbe/rc4
 ```
 
 Conventionally, the URI of the XML schema is aliased by the prefix

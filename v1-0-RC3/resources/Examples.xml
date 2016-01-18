@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <messageSchema
-	xmlns:sbe="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC3/resources"
+	xmlns:sbe="http://fixprotocol.io/sbe/rc3"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples"
 	id="91" version="0" byteOrder="littleEndian"
-	xsi:schemaLocation="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC3/resources SimpleBinary1-0.xsd">
+	xsi:schemaLocation="http://fixprotocol.io/sbe/rc3 SimpleBinary1-0.xsd">
 	<types>
 		<type name="date" primitiveType="uint16" semanticType="LocalMktDate" />
 		<type name="enumEncoding" primitiveType="char" />

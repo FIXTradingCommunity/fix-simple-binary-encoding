@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.fixprotocol.org/ns/simple/RC4"
+<xs:schema targetNamespace="http://fixprotocol.io/sbe/rc4"
 	version="1.0RC4" elementFormDefault="unqualified"
-	xmlns:sbe="http://www.fixprotocol.org/ns/simple/RC4" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	xmlns:sbe="http://fixprotocol.io/sbe/rc4" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
 			Version: Release Candidate 4
-			©Copyright 2014-2015 FIX Protocol Limited
+			©Copyright 2014-2016 FIX Protocol Limited
 		</xs:documentation>
 	</xs:annotation>
 
