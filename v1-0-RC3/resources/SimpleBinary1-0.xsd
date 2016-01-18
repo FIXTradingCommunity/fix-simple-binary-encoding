@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.fixprotocol.org/ns/simple/RC3"
+<xs:schema targetNamespace="http://fixprotocol.io/sbe/rc3"
 	version="1.0RC3" elementFormDefault="unqualified"
-	xmlns:sbe="http://www.fixprotocol.org/ns/simple/RC3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	xmlns:sbe="http://fixprotocol.io/sbe/rc3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding

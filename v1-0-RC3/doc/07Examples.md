@@ -19,12 +19,12 @@ groups or variable-length data.
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
 
 <sbe:messageSchema 	
-	xmlns:sbe="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC3/resources"
+	xmlns:sbe="http://fixprotocol.io/sbe/rc3"
     xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
     package="Examples" id="100"
     description="Test dictionary"
     byteOrder="littleEndian"
-	xsi:schemaLocation="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-RC3/resources 	SimpleBinary1-0.xsd">
+	xsi:schemaLocation="http://fixprotocol.io/sbe/rc3 SimpleBinary1-0.xsd">
 
 <types>
     <type name="enumEncoding" primitiveType="char"/>
