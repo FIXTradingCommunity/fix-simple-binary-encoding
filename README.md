@@ -9,20 +9,16 @@ SBE is part of a family of protocols created by the High Performance Working Gro
  of the FIX Trading Community. SBE is a presentation layer protocol (layer 6).
 
 ## Versions
-### Current approved version: 1.0 Release Candidate 3
-Version 1.0 RC3 was approved by the Global Technical Committee in December 2014. The
-RC3 specification is included here for reference only. Pull requests for this
-version will not be accepted.
 
-### Next working draft: 1.0 Release Candidate 4
-A baseline for version 1.0 RC4 has been posted. The
-working group encourages users to submit issues for error corrections
-and enhancements. The working group will consider pull requests for
-changes to the working draft. If significant changes are accepted by the working group, then RC4 will be published as a new release candidate for public review. Otherwise, RC3 may be promoted to the final draft of SBE version 1.0.
+### Current approved version: 1.0 Release Candidate 4
+Version 1.0 RC4 was approved by the Global Technical Committee on Feb. 18, 2016. 
+The release candidate will be open for public review for a period of 90 days.
+Based on public feedback, a decision will then be made to either promote the 
+candidate to final draft or to re-open it as another release candidate.
 
-### Previous versions
-RC3 and previous versions of SBE, as well as other FIX high performance protocols,
- are available as MS Word documents at [High Performance Specifications](http://www.fixtradingcommunity.org/pg/structure/tech-specs/high-performance-specifications).
+The RC4 specification is included here for reference only. Pull requests for this
+version will no longer be accepted. However, issues may be entered for corrections
+or enhancements to be considered for future releases.
 
 ## License
 FIX Simple Binary Encoding specifications are © Copyright 2014-2016 FIX Protocol Limited.
