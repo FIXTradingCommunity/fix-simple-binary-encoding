@@ -1,104 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html class="splitter-invoked">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<title>FIX Simple Binary Encoding</title>
 
-    <title>FIX Simple Binary Encoding by FIXTradingCommunity</title>
+<link rel="stylesheet" type="text/css" href="css/syntax.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/modern-business.css">
+<link rel="stylesheet" type="text/css" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/customstyles.css">
+<link rel="stylesheet" type="text/css" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/jquery.navgoco.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="../js/toc.js"></script>
+<script src="../js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<style>
+.github-repo-button {background-color:#3572b0; color:#fff; margin:5px 0 0 10px; padding:4px 10px; border-radius:3px;}
+.github-repo-button a:hover {background-color:#2f659c;}  
+</style>
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
   </head>
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>FIX Simple Binary Encoding</h1>
-        <h2>A FIX standard for binary message encoding</h2>
-        <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-<a id="a-high-performance-message-encoding" class="anchor" href="#a-high-performance-message-encoding" aria-hidden="true"><span class="octicon octicon-link"></span></a>A high performance message encoding</h3>
+<body>
 
-<p>FIX Simple Binary Encoding (SBE) targets high performance trading systems, but may be suitable for other high performance applications as well. It is optimized for low latency of encoding and decoding while keeping bandwidth utilization reasonably small. </p>
+<div id="full-height-container">
+  <div id="header-precursor"></div>
 
-<p>This encoding specification describes the wire protocol for messages (presentation layer). Thus, it provides a standard for interoperability between communicating parties. Users are free to implement the standard in a way that best suits their needs. The encoding standard is complimentary to other FIX standards for session protocol and application level behavior. SBE is intended to represent all FIX semantics.</p>
+<header id="header" role="banner" style="height:40px;">
 
-<h3>
-<a id="binary-type-system" class="anchor" href="#binary-type-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Binary type system</h3>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container topnavlinks" style="margin:0; padding:0px 10px; max-width:100%; height:41px; border-bottom:1px solid #2e3d54;">
+		
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		
+            <ul class="nav navbar-nav navbar-right" style="float:left!important;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:13px 23px 13px 10px; margin:0px; background-color:transparent;"><i class="fa  fa-bars"></i></a>
+                    <ul class="dropdown-menu">
+						<li><a href="http://fixprotocol.io/">fixprotocol.io</a></li>
+                        <li class="active"><a href="http://fixprotocol.io/fix-simple-binary-encoding/">Simple Binary Encoding</a></li>
+                        <li><a href="http://stackoverflow.com/questions/tagged/jekyll">FIXP</a></li>
+                    </ul>
+                </li>
+			</ul>
+			
+			<h1 style="margin-top:3px;padding:0;float:left;margin-left:-6px;">
+				<a href="/" style="padding:5px"><img src="images/fix-white.png" alt="FIX Protocol Standards" height="24px" style="padding:0px 8px"></a>
+			</h1>
 
-<p>In order to support traditional FIX semantics, all the documented field types are supported. However, instead of printable character representations of FIX tag=value encoding, the type system binds to native binary data types, and defines derived types as needed. </p>
+            <ul class="nav navbar-nav">
+                <li><a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding" target="_blank" class="github-repo-button" style="background-color:#3572b0; font-weight:bold; color:#fff; margin:5px 0 0 10px; padding:4px 10px; border-radius:3px;">Github Repo</a></li>
+			</ul>
+				
+            <ul class="nav navbar-nav navbar-right" style="margin-right:0;">
+                <!--uncomment this block if you want simple search instead of algolia-->
+                <li>
+                     <!--start search
+                    <div id="search-demo-container">
+                        <i class="icon-search"></i>
+						<input type="text" id="search-input">
+                        <ul id="results-container"></ul>
+                    </div> -->
+					
+                    <script src="../js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        SimpleJekyllSearch.init({
+                            searchInput: document.getElementById('search-input'),
+                            resultsContainer: document.getElementById('results-container'),
+                            dataSource: '../search.json',
+                            searchResultTemplate: '<li><a href="{url}" title="Introduction">{title}</a></li>',
+                        noResultsText: 'No results found.',
+                                limit: 10,
+                                fuzzy: true,
+                        })
+                    </script>
+                     <!--end search-->
+                </li>
+			</ul>
+           
+        </div>
+    
+	</div>
 
-<p>The binary type system has been enhanced in these ways:</p>
+</nav>
 
-<ul>
-<li>Provides a means to specify precision of decimal numbers and timestamps, as well as valid ranges of numbers.</li>
-<li>Differentiates fixed-length character arrays from variable-length strings. </li>
-<li>Provides a consistent system of enumerations and multiple-choice fields.</li>
-</ul>
+<br class="clear">
 
-<h3>
-<a id="design-principals" class="anchor" href="#design-principals" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design principals</h3>
+</header>
 
-<p>SBE design strives for direct data access without complex transformations or conditional logic. This is achieved by:</p>
 
-<ul>
-<li>Usage of native binary data types and simple types derived from native binaries, such as prices and timestamps.</li>
-<li>Preference for fixed positions and fixed length fields, supporting direct access to data and avoiding the need for management of heaps of variable-length elements which must be sequentially processed.</li>
-</ul>
+<div id="splitter" style="position: relative; height:100%; overflow:hidden;">
 
-<h3>
-<a id="message-schema" class="anchor" href="#message-schema" aria-hidden="true"><span class="octicon octicon-link"></span></a>Message schema</h3>
+    <div id="splitter-sidebar" style="position: absolute; left: 0px; width: 300px; height:100%; overflow:hidden;">
 
-<p>This standard describes how fields are encoded and the general structure of messages. The content of a message type is specified by a message schema. A message schema tells which fields belong to a message and their location within a message. Additionally, the metadata describes valid value ranges and information that need not be sent on the wire, such as constant values.</p>
-
-<p>Message schemas may be based on standard FIX message specifications, or may be customized as needed by agreement between counterparties.</p>
-
-<h3>
-<a id="explicit-versioning" class="anchor" href="#explicit-versioning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Explicit versioning</h3>
-
-<p>It is not always practical to update all message publishers and consumers simultaneously. Within certain constraints, message schemas and wire formats can be extended in a controlled way. Consumers using an older version of a schema should be compatible if interpretation of added fields or messages is not required for business processing.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>The Simple Binary Encoding standard was developed by the High Performance Working Group of <a href="http://www.fixtradingcommunity.org/">FIX Trading Community™</a>, the non-profit, industry-driven standards body at the heart of global trading.</p>
-
-<h3>
-<a id="implementations" class="anchor" href="#implementations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementations</h3>
-
-<p>We will post links to open source implementations of SBE. Implementors, contact one of the owners of the 
-FIXTradingCommunity/fix-simple-binary-encoding repository.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding"></a> is maintained by <a href="https://github.com/FIXTradingCommunity">FIXTradingCommunity</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+        <h3>FIX Links</h3>
+			<a href="http://confluence.technical-fixprotocol.org:8090/display/FPL/FIX+Protocol+Standards+Home"><i class="fa  fa-home"></i><span class="side-nav-link" style="padding-top:10px;">FIX Standards on Confluence</span></a><br>
+				<!-- <ul>
+					<li>Specifications</li>				
+					<li>Guidelines</li>
+					<li>Technical Standards</li>
+				</ul> -->
+			<a href="http://www.fixtradingcommunity.org/" target="blank"><i class="fa  fa-mail-forward"></i><span class="side-nav-link">FIX Home</span></a><br>
+			<a href="http://fixwiki.org/fixwiki/FIXwiki" class="side-nav-link" target="blank"><i class="fa  fa-mail-forward"></i><span class="side-nav-link">FIXwiki</span></a><br>
+			<a href="http://www.fixtradingcommunity.org/FIXimate/FIXimate3.0/" class="side-nav-link" target="blank"><i class="fa  fa-mail-forward"></i><span class="side-nav-link">FIXimate</span></a><br>
+			<a href="http://fixprotocol.io" target="blank"><i class="fa  fa-github"></i><span class="side-nav-link">fixprotocol.io</span></a><br>
     </div>
+	
+	<div class="vsplitbar" unselectable="on" style="z-index: 4; position: absolute; -webkit-user-select: none; cursor: ew-resize; left: 300px; height: 100%;">
+		<a href="javascript:void(0)" accesskey="L" tabindex="0" title="vsplitbar"></a>
+	</div>
+    
+	<div id="splitter-content" style="position: absolute; left: 305px; height:100%;">
+	
+		<div id="main">
 
+        <div id="main-content">
+		<p style="font-size:28px;">FIX Simple Binary Encoding</p>
+		
+        <h1 class="post-title-main">A FIX standard for binary message encoding</h1>            
+		
+        <h2>A high performance message encoding</h2>
+		
+			<p>FIX Simple Binary Encoding (SBE) targets high performance trading systems, but may be suitable for other high performance applications as well. 
+			It is optimized for low latency of encoding and decoding while keeping bandwidth utilization reasonably small.</p>
+
+			<p>This encoding specification describes the wire protocol for messages (presentation layer). Thus, it provides a standard for interoperability 
+			between communicating parties. Users are free to implement the standard in a way that best suits their needs. The encoding standard is complimentary 
+			to other FIX standards for session protocol and application level behavior. SBE is intended to represent all FIX semantics.</p>
+			
+			
+		<h2>Binary type system</h2>
+
+			<p>In order to support traditional FIX semantics, all the documented field types are supported. However, instead of printable character representations 
+			of FIX tag=value encoding, the type system binds to native binary data types, and defines derived types as needed.</p>
+			
+			<p>The binary type system has been enhanced in these ways:</p>
+
+				<ul>
+					<li>Provides a means to specify precision of decimal numbers and timestamps, as well as valid ranges of numbers.</li>
+					<li>Differentiates fixed-length character arrays from variable-length strings.</li>
+					<li>Provides a consistent system of enumerations and multiple-choice fields.</li>
+				</ul>
+
+				
+		<h2>Design principals</h2>
+
+			<p>SBE design strives for direct data access without complex transformations or conditional logic. This is achieved by:</p>
+				
+				<ul>
+					<li>Usage of native binary data types and simple types derived from native binaries, such as prices and timestamps.</li>
+					<li>Preference for fixed positions and fixed length fields, supporting direct access to data and avoiding the need for 
+					management of heaps of variable-length elements which must be sequentially processed.</li>
+				</ul>
+				
+		<h2>Message schema</h2>		
+			
+			<p>This standard describes how fields are encoded and the general structure of messages. The content of a message type is specified 
+			by a message schema. A message schema tells which fields belong to a message and their location within a message. Additionally, the 
+			metadata describes valid value ranges and information that need not be sent on the wire, such as constant values.</p>
+			
+			<p>Message schemas may be based on standard FIX message specifications, or may be customized as needed by agreement between counterparties.</p>
+
+		<h2>Explicit versioning</h2>
+		
+			<p>It is not always practical to update all message publishers and consumers simultaneously. Within certain constraints, message schemas and 
+			wire formats can be extended in a controlled way. Consumers using an older version of a schema should be compatible if interpretation of added 
+			fields or messages is not required for business processing.</p>
+
+		<h2>Authors and Contributors</h2>
+			
+			<p>The Simple Binary Encoding standard was developed by the High Performance Working Group of FIX Trading Community™, the non-profit, 
+			industry-driven standards body at the heart of global trading.</p>
+
+		<h2>Implementations</h2>
+
+			<p>We will post links to open source implementations of SBE. Implementors, contact one of the owners of the FIXTradingCommunity/fix-simple-binary-encoding repository.</p>	
+			
+		</div>
+
+		</div>
+
+	
+	</div>
+  	 
+ 
   
-  </body>
+  
+</div>
+
+	<!-- <div style="margin:0px; padding:0px; border-top:1px solid #ccc; clear:both; float:left; width:100%; display:block;">
+		<div class="row" style="padding:5px 10px; margin:0;">
+			<div class="col-lg-12 footer">
+				<p>&copy;2016 FIX Trading Company. All rights reserved.<p>
+				<p><img src="images/fix-company-logo.jpg" width="250px"/></p>
+			</div>
+		</div>
+	</div> -->
+	
+</div>
+
+
+	
+	
+</body>
+
+
 </html>
+
