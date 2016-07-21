@@ -17,6 +17,9 @@ The RC4 specification is included here for reference only. Pull requests for thi
 version will no longer be accepted. However, issues may be entered for corrections
 or enhancements to be considered for future releases.
 
+### XML namespace
+The XML namespace for SBE version 1.0 message schemas is [http://fixprotocol.io/2016/sbe](http://fixprotocol.io/2016/sbe).
+
 ## License
 FIX Simple Binary Encoding specifications are © Copyright 2014-2016 FIX Protocol Ltd.
 
