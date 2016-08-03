@@ -13,7 +13,9 @@ SBE is part of a family of protocols created by the High Performance Working Gro
 ### Current approved version: 1.0 Draft Standard
 Version 1.0 RC4 was promoted to SBE version 1.0 Draft Standard by the Global Technical Committee in June 2016. 
 
-The RC4 specification is included here for reference only. Pull requests for this
+The Draft Standard specification is available on the [FIX Trading Community site](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding).
+
+The RC4 specification is included here for reference only. Pull requests for that
 version will no longer be accepted. However, issues may be entered for corrections
 or enhancements to be considered for future releases.
 
