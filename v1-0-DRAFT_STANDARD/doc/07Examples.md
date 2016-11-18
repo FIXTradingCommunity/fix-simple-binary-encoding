@@ -16,15 +16,16 @@ groups or variable-length data.
 ### Sample order message schema
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 <sbe:messageSchema 
-	xmlns:sbe="http://fixprotocol.io/sbe/rc4"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sbe="http://fixprotocol.io/2016/sbe"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     package="Examples" id="100"
     description="Test dictionary"
     byteOrder="littleEndian"
-	xsi:schemaLocation="http://fixprotocol.io/sbe/rc4 SimpleBinary1-0.xsd">
+	xsi:schemaLocation="http://fixprotocol.io/2016/sbe sbe.xsd">
+
 <types>
     <type name="enumEncoding" primitiveType="char"/>
     <type name="idString" length="8" primitiveType="char" semanticType="String"/>

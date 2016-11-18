@@ -1131,7 +1131,7 @@ Reference to type: This specification is equivalent to the one above.
 Side field specification references the enumeration type
 
 ```xml
-<field type="Side" name="SideEnum" id="54" />
+<field name="Side" type="SideEnum" id="54" />
 ```
 
 Wire format of Side "Buy" code as hexadecimal
@@ -1147,7 +1147,7 @@ name.
 Example of a char field using a constant enum value
 
 ```xml
-<enum name="PartyIDSourceEnum" primitiveType="char">
+<enum name="PartyIDSourceEnum" encodingType="char">
     <validValue name="BIC">B</validValue>
     <validValue name="GeneralIdentifier">C</validValue>
     <validValue name="Proprietary">D</validValue>
