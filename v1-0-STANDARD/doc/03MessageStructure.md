@@ -4,10 +4,8 @@ Message Structure
 Message Framing
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-SBE messages need framing when used with protocols that do not preserve
-message boundaries, such as when they are transmitted on a streaming
-session protocol or are persisted in storage. Be aware that framing
-features may or may not be encoded in SBE.
+SBE messages have no defined message delimiter. Version 2.0 of SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
+session protocol or when persisting messages in storage. 
 
 ### Simple Open Framing Header
 
@@ -73,6 +71,10 @@ The fields of the SBE message header are:
 -   **Schema version** - the version of the message schema in which the
     message is defined
 
+-   **Group count** - the number of repeating groups in the root level of the message
+
+-   **Variable-length field count** - the number of variable-length fields in the root level of the message
+
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
@@ -95,10 +97,12 @@ Recommended message header encoding
     <type name="templateId" primitiveType="uint16"/>
     <type name="schemaId" primitiveType="uint16"/>
     <type name="version" primitiveType="uint16"/>
+	<type name="numGroups" primitiveType="uint16" />
+    <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 ```
 
-The recommended header encoding is 8 octets.
+The recommended header encoding is 12 octets.
 
 | Element     | Description       | Primitive type | Length (octets) | Offset |
 |-------------|-------------------|----------------|----------------:|-------:|
@@ -106,6 +110,8 @@ The recommended header encoding is 8 octets.
 | templateId  | Template ID       | uint16         | 2               | 2      |
 | schemaId    | Schema ID         | uint16         | 2               | 4      |
 | version     | Schema Version    | uint16         | 2               | 6      |
+| numGroups   |Number of repeating groups | uint16 | 2               | 8      |
+| numVarDataFields | Number of variable-length fields | uint16 | 2   | 10     |
 
 Optionally, implementations may support any other unsigned integer types
 for blockLength.
@@ -140,6 +146,15 @@ attributes.
 
 The version number of the message schema that was used to encode a
 message. See section 4.3.1 below for schema attributes.
+
+### Number of repeating groups
+
+A count of repeating groups at the root level of the message. The count does not include nested repeating groups.
+
+### Number of variable-length fields
+
+A count of the variable-length fields at the root level of the message. The count does not include variable-length fields within repeating groups.
+
 
 Message Body
 ----------------------------------------------------------------------------------------------------------
@@ -425,12 +440,31 @@ Recommended encoding of repeating group dimensions
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
     <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup"/>
+	<type name="numGroups" primitiveType="uint16" />
+    <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 ```
 
-Wire format of NumInGroup with block length 55 octets by 3 entries
+#### Block length
 
-`37000300`
+The total space reserved for the fixed-length fields of this repeating group, not counting
+any repeating groups or variable-length fields.
+
+#### Number of entries
+
+The number of entries in this repeating group, called NumInGroup in FIX.
+
+##### Number of repeating groups
+
+A count nested repeating groups in this repeating group.
+
+#### Number of variable-length fields
+
+A count of the variable-length fields in this repeating group.
+
+Wire format of NumInGroup with block length 55 octets by 3 entries, containing one nested group and two variable-length fields.
+
+`3700030001000200`
 
 #### Restricting repeating group entries
 
@@ -439,10 +473,7 @@ The occurrences of a repeating group may be restricted to a specific range by mo
 Example of a restricted group encoding
 
 ```xml
-<composite name="restrictedGroupSizeEncoding">
-    <type name="blockLength" primitiveType="uint16"/>
-    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
-</composite>
+<type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
 ```
 
 Sequence of message body elements
