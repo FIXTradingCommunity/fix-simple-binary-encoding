@@ -3,16 +3,16 @@
 
 XML schema for SBE message schemas
 ---------
-See [SimpleBinary1-0.xsd](../resources/SimpleBinary1-0.xsd) for the normative XML Schema Definition (XSD) for SBE.
+See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 
 XML namespace
 -----------------------------------------------------------------------------------------------------------
 
-The Simple Binary Encoding XML schema is identified by this URL:
+The Simple Binary Encoding XML schema is identified by this URL [*tentative*]:
 
 ```xml
-xmlns:sbe=http://fixprotocol.io/sbe/rc4
+xmlns:sbe=http://fixprotocol.io/2017/sbe 
 ```
 
 Conventionally, the URI of the XML schema is aliased by the prefix
