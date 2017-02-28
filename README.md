@@ -14,16 +14,23 @@ SBE is part of a family of protocols created by the High Performance Working Gro
 
 The planned lifecycle of this project is to roll out new features in a series of release candidates. After each release candidate is approved, it will be exposed to public review. Issues may be entered here in GitHub or in a discussion forum on the FIX Trading Community site. When a version is considered complete, the last release candidate will be promoted to Draft Standard. Following further public review, a Draft Standard may be promoted to the final specification for that version. Only minor errata are permitted. To reach the final stage, the Draft Standard must be reviewed for no less than 6 months, and at least two interoperable implementations must be certified. That version is henceforth immutable.
 
-### Current approved version: 1.0 Draft Standard
-Version 1.0 RC4 was promoted to SBE version 1.0 Draft Standard by the Global Technical Committee in June 2016. The next steps are certification of at least two interopable implementations and final approval by the GTC.
+### Current version: 1.0 Technical Specification
+Version 1.0 Draft Standard was promoted to SBE version 1.0 Technical Specification by the Global Technical Committee on Feb. 9, 2016. This is the final specification of version 1.0.
 
-The Draft Standard specification is available on the [FIX Trading Community site](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding).
+The standard met these criteria for promotion:
+* More than 6 months public review. During the period, some minor errors were found, and the errata were incorporated into the final specification. Thanks to users who detected those errors.
+
+* At least two interopable implementations. This was demonstrated with the conformance test suite described below.
+
+SBE standards are available here in GitHub and on the [FIX Trading Community site](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding).
 
 ### Working version: 2.0 Release Candidate 1
 
 The working group will consider issues and pull requests for the next release candidate. The planned themes for Version 2.0 Release Candidate 1 are:
 * Further enhancements to the schema extension mechanism
 * Improvement of the XML schema
+
+All users are encouraged to contribute, especially by reviewing proposed changes in the form of pull requests. Your feedback counts.
 
 ### Conformance test suite
 The [SBE Conformance project](https://github.com/FIXTradingCommunity/fix-sbe-conformance) provides a conformance test suite to verify interoperability of SBE implementations. All implementors are invited to demonstrate their conformance to the standard.
