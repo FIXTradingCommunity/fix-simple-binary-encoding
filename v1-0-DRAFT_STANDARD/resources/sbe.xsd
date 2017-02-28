@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:sbe="http://fixprotocol.io/2016/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2016/sbe" elementFormDefault="unqualified" version="1.0 Draft Standard">
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0-RC1">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
-			Version: 1.0 Draft Standard
-			© Copyright 2014-2016 FIX Protocol Limited
+			Version: 2.0 Release Candidate 1
+			© Copyright 2014-2017 FIX Protocol Limited
 			License: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 		</xs:documentation>
 	</xs:annotation>
