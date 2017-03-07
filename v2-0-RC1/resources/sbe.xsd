@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:sbe="http://fixprotocol.io/2016/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2016/sbe" elementFormDefault="unqualified" version="1.0 Draft Standard">
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC1">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
-			Version: 1.0 Draft Standard
-			© Copyright 2014-2016 FIX Protocol Limited
+			*Namespace is tentative.*
+			Version: 2.0 RC1
+			© Copyright 2014-2017 FIX Protocol Limited
 			License: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 		</xs:documentation>
 	</xs:annotation>
@@ -46,8 +47,7 @@
 			</xs:attribute>
 			<xs:attribute name="version" type="xs:nonNegativeInteger" use="required">
 				<xs:annotation>
-					<xs:documentation>The version of a message schema. Initial version
-						is 0.
+					<xs:documentation>The version of a message schema. Initial version is 0.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -113,9 +113,8 @@
 		</xs:attribute>
 		<xs:attribute name="blockLength" type="xs:nonNegativeInteger" use="optional">
 			<xs:annotation>
-				<xs:documentation>Space reserved for root level of message, not
-					include groups or variable-length
-					data elements.
+				<xs:documentation>Space reserved for root level of message or repeating group, not
+					including nested groups or variable-length data elements.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -144,21 +143,16 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:token">
 				<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-				<xs:attribute name="nullValue" type="xs:string" use="optional">
-					<xs:annotation>
-						<xs:documentation>Override of default null indicator for the data
-							type in SBE specification,
-							as a string.
-						</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="minValue" type="xs:string" use="optional"/>
-				<xs:attribute name="maxValue" type="xs:string" use="optional"/>
+				<xs:attribute name="description" type="xs:string" use="optional"/>
 				<xs:attribute name="length" type="xs:nonNegativeInteger" default="1"/>
 				<xs:attribute name="primitiveType" use="required">
 					<xs:simpleType>
 						<xs:restriction base="xs:token">
-							<xs:enumeration value="char"/>
+							<xs:enumeration value="char">
+								<xs:annotation>
+									<xs:documentation>A value of a single-byte character set</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
 							<xs:enumeration value="int8"/>
 							<xs:enumeration value="int16"/>
 							<xs:enumeration value="int32"/>
@@ -172,10 +166,17 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:attribute>
-				<xs:attribute name="characterEncoding" type="xs:string" use="optional"/>
+				<xs:attribute name="characterEncoding" type="xs:string" use="optional">
+					<xs:annotation>
+						<xs:documentation>Character set or Unicode encoding scheme</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 				<xs:attributeGroup ref="sbe:alignmentAttributes"/>
-				<xs:attributeGroup ref="sbe:presenceAttributes"/>
-				<xs:attributeGroup ref="sbe:semanticAttributes"/>
+				<xs:attributeGroup ref="sbe:presenceAttributes">
+					<xs:annotation>
+						<xs:documentation>Presence only applies within a composite type</xs:documentation>
+					</xs:annotation>
+				</xs:attributeGroup>
 				<xs:attributeGroup ref="sbe:versionAttributes"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -194,8 +195,8 @@
 			<xs:element name="ref" type="sbe:refType"/>
 		</xs:choice>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
+		<xs:attribute name="description" type="xs:string" use="optional"/>
 		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
-		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
 	</xs:complexType>
 	<xs:complexType name="enumType" mixed="true">
@@ -209,8 +210,8 @@
 		</xs:sequence>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t" use="required"/>
+		<xs:attribute name="description" type="xs:string" use="optional"/>
 		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
-		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
 	</xs:complexType>
 	<xs:complexType name="validValue">
@@ -250,8 +251,8 @@
 		</xs:sequence>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t" use="required"/>
+		<xs:attribute name="description" type="xs:string" use="optional"/>
 		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
-		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
 	</xs:complexType>
 	<xs:complexType name="choice">
@@ -284,24 +285,15 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="epoch" type="xs:string" default="unix"/>
-		<xs:attribute name="timeUnit" type="xs:string" default="nanosecond">
-			<xs:annotation>
-				<xs:documentation>Deprecated - only for back compatibility with RC2
-				</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
 		<xs:attributeGroup ref="sbe:presenceAttributes"/>
 		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
-		<!-- start of time period - default is UNIX epoch -->
 	</xs:complexType>
 	<xs:attributeGroup name="semanticAttributes">
 		<xs:annotation>
 			<xs:documentation>
-				Application layer class. Maps a field or encoding
-				to a FIX data type.
+				Application layer class. Maps a field to a FIX data type or a template to a FIX message.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="semanticType" type="xs:token" use="optional"/>
@@ -323,9 +315,9 @@
 		<xs:attribute name="deprecated" type="xs:nonNegativeInteger" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					The version of the schema in which an element was
-					deprecated. It is retained for back compatibility but should no
-					longer be used by updated applications.
+					The version of the schema in which an element was deprecated. It is retained
+					for back compatibility but should no longer be used by updated applications.
+					It may be removed in a later version.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -365,10 +357,27 @@
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+		<xs:attribute name="nullValue" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Override of default null indicator for the data
+							type in SBE specification, as a string.
+						</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="minValue" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Lower bound of a range</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="maxValue" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Upper bound of a range</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="valueRef" type="sbe:qualifiedName_t" use="optional">
 			<xs:annotation>
 				<xs:documentation>A constant value as valid value of an enum
-					in the form enum-name.valid-value-name
+					in the form enum-name.valid-value-name. Only valid if presence='constant'.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>

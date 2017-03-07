@@ -11,9 +11,7 @@ and message schema but are introduced here as an overview.
 
 ### Semantic data type
 
-The FIX semantic data type of a field tells a data domain in a broad
-sense, for example, whether it is numeric or character data, or whether
-it represents a time or price. Simple Binary Encoding represents all of
+The FIX semantic data type of a field tells a data domain interpreted at the application layer, for example, whether it is numeric or character data, or whether it represents a time or price. Simple Binary Encoding represents all of
 the semantic data types that FIX protocol has defined across all
 encodings. In message specifications, FIX data type is declared with
 attribute semanticType. See the section 2.2 below for a listing of those
@@ -21,8 +19,9 @@ FIX types.
 
 ### Encoding
 
-Encoding tells how a field of a specific data type is encoded on the
-wire. An encoding maps a FIX data type to either a simple, primitive
+Encoding tells how a data element is encoded on the wire. Encoding belongs strictly to the presentation layer. It is context-free and carries no business semantics. 
+
+An encoding maps a FIX data type to either a simple, primitive
 data type, such as a 32 bit signed integer, or to a composite type. A
 composite type is composed of two or more simple primitive types. For
 example, the FIX data type Price is encoded as a decimal, a composite
@@ -142,17 +141,10 @@ Attributes are optional unless specified otherwise.
 | maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar data types, but not to String or data types.                                          |
 | semanticType      | Tells the FIX semantic type of a field or encoding. It may be specified on either a field or its encoding.                                                                         |
 
-### Inherited attributes
-
-The attributes listed above apply to a field element or its encoding
-(wire format). Any attributes specified on an encoding are inherited by
-fields that use that encoding.
-
 ### Non-FIX types
 
 Encodings may be added to SBE messages that do not correspond to listed
-FIX data types. In that case, the encoding and fields that use the
-encoding will not have a semanticType attribute.
+FIX data types. In that case, the fields that use the encoding will not have a semanticType attribute.
 
 Integer encoding
 -------------------------------------------------------------------------------------------------------------------------------------------------------------

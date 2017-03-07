@@ -3,7 +3,7 @@
 
 XML schema for SBE message schemas
 ---------
-See [SimpleBinary1-0.xsd](../resources/SimpleBinary1-0.xsd) for the normative XML Schema Definition (XSD) for SBE.
+See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 
 XML namespace
@@ -12,7 +12,7 @@ XML namespace
 The Simple Binary Encoding XML schema is identified by this URL:
 
 ```xml
-xmlns:sbe=http://fixprotocol.io/sbe/rc4
+xmlns:sbe=http://fixprotocol.io/2017/sbe
 ```
 
 Conventionally, the URI of the XML schema is aliased by the prefix
@@ -139,10 +139,7 @@ The element value represents a constant if attribute
 |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-----------------------------------|----------------------------------------------------------------------------------------|
 | name               | Name of encoding                                                                                                                                                                                       | symbolicName\_t    | required                          | Must be unique among all encoding types in a schema.                                   |
 | description        | Documentation of the type                                                                                                                                                                              | string             | optional                          |                                                                                        |
-| presence           | Presence of any field encoded with this type                                                                                                                                                           | token              |  | required optional  constant                                                                                |
-| nullValue          | Override of special value used to indicate null for an optional field                                                                                                                                  | string             | Only valid if presence = optional | The XML string must be convertible to the scalar data type specified by primitiveType. |
-| minValue           | Lowest acceptable value                                                                                                                                                                                | string             |                                   |                                                                                        |
-| maxValue           | Highest acceptable value                                                                                                                                                                               | string             |                                   |                                                                                        |
+| presence           | Presence of this element within a composite type                                                                                                                                                           | token              |  | required optional  constant                                                                                |
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
 | offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section 4.4.4.3 below                                                              |
 | primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
@@ -150,22 +147,12 @@ The element value represents a constant if attribute
 | sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
 
-#### FIX data type specification
-
-The attribute `semanticType` must be specified on either a field or on its
-corresponding type encoding. It need not be specified in both places,
-but if it is, the two values must match.
 
 Simple type examples
 
 ```xml
-<type name="FLOAT" primitiveType="double"
- semanticType="float"/>
-<type name="TIMESTAMP" primitiveType="uint64"
- semanticType="UTCTimestamp"/>
-<type name="GeneralIdentifier" primitiveType="char"
- description="Identifies class or source
- of the PartyID" presence="constant">C</type>
+<type name="FLOAT" primitiveType="double"/>
+<type name="idString" length="8" primitiveType="char"/>
 ```
 
 ### Composite encodings
@@ -179,7 +166,6 @@ Composite encoding types are composed of two or more simple types.
 | name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                         |
 | offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
 | description        | Documentation of the type                                                                                      | string             | optional    |                                                                  |
-| semanticType       | Represents a FIX data type                                                                                     | token              | optional    | Same as field semanticType – see below.                          |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
@@ -197,7 +183,7 @@ In this example, a Price is encoded as 32 bit integer mantissa and a
 constant exponent, which is not sent on the wire.
 
 ```xml
-<composite name="decimal32" semanticType="Price">
+<composite name="decimal32">
     <type name="mantissa" primitiveType="int32" />
     <type name="exponent" primitiveType="int8"
       presence="constant">-4</type>
@@ -242,7 +228,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type. 
 
 ```xml
-<enum name="booleanEnum" encodingType="uint8" semanticType="Boolean">
+<enum name="booleanEnum" encodingType="uint8">
     <validValue name="false">0</validValue>
     <validValue name="true">1</validValue>
 </enum>
@@ -266,7 +252,7 @@ In this example, a nested composite is formed by using a reference to another co
 
 <composite name="money">
     <type name="currencyCode" primitiveType="char" length="3" semanticType="Currency" />
-    <ref name="amount" type="price" semanticType="Price" offset="3" />
+    <ref name="amount" type="price" offset="3" />
 </composite>	
 ```
 
@@ -467,7 +453,7 @@ Example field schemas
 Field that uses a composite encoding
 
 ```xml
-<composite name="intQty32" semanticType="Qty">
+<composite name="intQty32">
     <type name="mantissa" primitiveType="int32" />
    <type name="exponent" primitiveType="int8"
     presence="constant">0\</type>
