@@ -378,7 +378,7 @@ FIX Qty data type is a float type, but a decimal may be constrained to
 integer values by setting exponent to zero.
 
 ```xml
-<composite name="intQty32" semanticType="Qty">
+<composite name="intQty32">
     <type name="mantissa" primitiveType="int32" />
     <type name="exponent" primitiveType="int8"
         presence="constant">0</type>
@@ -507,7 +507,7 @@ control character (code 0).
 This is the standard encoding for char type.
 
 ```xml
-<type name="char" primitiveType="char" semanticType="char" />
+<type name="char" primitiveType="char"/>
 ```
 
 Wire format of char encoding of "A" (ASCII value 65, hexadecimal 41)
@@ -545,10 +545,9 @@ encoding.
 A typical string encoding specification
 
 ```xml
-<type name="string6" primitiveType="char" semanticType="String"
- length="6" />
+<type name="string6" primitiveType="char" length="6" />
 
-<field type="string6" name="Symbol" id="55" />
+<field type="string6" name="Symbol" id="55" semanticType="String"/>
 ```
 
 Wire format of a character array in character and hexadecimal formats
@@ -560,11 +559,10 @@ M S F T
 A character array constant specification
 
 ```xml
-<type name="EurexMarketID" semanticType="Exchange"
- primitiveType="char" length="4" description="MIC code"
+<type name="EurexMarketID" primitiveType="char" length="4" description="MIC code"
  presence="constant">XEUR</type>
 
-<field type="EurexMarketID" name="MarketID" id="1301" />
+<field type="EurexMarketID" name="MarketID" id="1301" semanticType="Exchange"/>
 ```
 
 ### Variable-length string encoding
@@ -620,9 +618,9 @@ Encoding specification for variable length data up to 65535 octets
 
 ```xml
 <composite name="varString" description="Variable-length string">
-    <type name="length" primitiveType="uint16" semanticType="Length"/>
+    <type name="length" primitiveType="uint16"/>
     <type name="data" length="0" primitiveType="uint8"
-    semanticType="data" characterEncoding="UTF-16"/>
+    characterEncoding="UTF-16"/>
 </composite>
 
 <data name="SecurityDesc" id="107" type="varString"/>
@@ -735,8 +733,8 @@ Encoding specification for variable length data up to 65535 octets
 
 ```xml
 <composite name="DATA" description="Variable-length data">
-    <type name="length" primitiveType="uint16" semanticType="Length"/>
-    <type name="data" length="0" primitiveType="uint8" semanticType="data" />
+    <type name="length" primitiveType="uint16"/>
+    <type name="data" length="0" primitiveType="uint8"/>
 </composite>
 
 <data name="RawData" id="96" type="DATA"/>
@@ -789,7 +787,7 @@ required and optional elements.
 The standard encoding specification for MonthYear
 
 ```xml
-<composite name="monthYear" semanticType="MonthYear">
+<composite name="monthYear">
     <type name="year" primitiveType="uint16" presence="optional"
     nullValue="65536" />
     <type name="month" primitiveType="uint8" minValue="1" maxValue="12" />
@@ -802,7 +800,9 @@ The standard encoding specification for MonthYear
 
 Example MonthYear field specification
 
-<field type="monthYear" name="MaturityMonthYear" id="200" />
+```xml
+<field type="monthYear" name="MaturityMonthYear" id="200"  semanticType="MonthYear"/>
+```
 
 Wire format of MonthYear 2014 June week 3 as hexadecimal
 
@@ -870,7 +870,7 @@ Timestamp with variable time units:
 Timestamp with constant time unit:
 
 ```xml
-<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision" semanticType="UTCTimestamp" >
+<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
@@ -879,7 +879,7 @@ Timestamp with constant time unit:
 Time only with variable time units:
 
 ```xml
-<composite name="UTCTime" description="Time of day with precision on the wire" semanticType="UTCTimeOnly" >
+<composite name="UTCTime" description="Time of day with precision on the wire">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
 </composite>
@@ -888,7 +888,7 @@ Time only with variable time units:
 Time only with constant time unit:
 
 ```xml
-<composite name="UTCTimeNanos" description="Time of day with millisecond precision" semanticType="UTCTimeOnly" >
+<composite name="UTCTimeNanos" description="Time of day with millisecond precision">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.millisecond" />
 </composite>
@@ -897,7 +897,7 @@ Time only with constant time unit:
 Date only specification:
 
 ```xml
-<type name="date" primitiveType="uint16" semanticType="UTCDateOnly" />
+<type name="date" primitiveType="uint16"/>
 ```
 
 ### Examples of date/time fields
@@ -907,7 +907,7 @@ hours, 17 minutes and 22 seconds since the UNIX epoch) with default
 schema attributes
 
 ```xml
-<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision" semanticType="UTCTimestamp" >
+<composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision">
 <type name="time" primitiveType="uint64" />
 <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
@@ -922,7 +922,7 @@ byte order
 since midnight UTC) with default schema attributes
 
 ```xml
-<composite name="UTCTimeOnlyNanos" description="UTC time of day with nanosecond precision" semanticType="UTCTimeOnly" >
+<composite name="UTCTimeOnlyNanos" description="UTC time of day with nanosecond precision">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
@@ -936,7 +936,7 @@ Wire format of UTCTimeOnly
 default schema attributes
 
 ```xml
-<type name="date" primitiveType="uint16" semanticType="UTCDateOnly" />
+<type name="date" primitiveType="uint16"/>
 ```
 
 Wire format of UTCDateOnly
@@ -989,7 +989,7 @@ elements within the composite encoding. See section 4.4.4.3 below.
 Standard TZTimestamp encoding specification
 
 ```xml
-<composite name="tzTimestamp" semanticType="TZTimestamp">
+<composite name="tzTimestamp">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
     <!-- Sign of timezone offset is on hour subfield -->
@@ -1028,7 +1028,7 @@ elements within the composite encoding. See section 4.4.4.3 below.
 Standard TZTimeOnly encoding specification
 
 ```xml
-<composite name="tzTimeOnly" semanticType="TZTimeOnly">
+<composite name="tzTimeOnly">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
     <!-- Sign of timezone offset is on hour subfield -->
@@ -1161,13 +1161,7 @@ Standard encoding specifications for required and optional Boolean
 fields
 
 ```xml
-<enum name="booleanEnum" encodingType="uint8" semanticType="Boolean">
-    <validValue name="false">0</validValue>
-    <validValue name="true">1</validValue>
-</enum>
-
-<enum name="optionalBoolean" encodingType="uint8" presence="optional"
-    nullValue="255" semanticType="Boolean">
+<enum name="booleanEnum" encodingType="uint8">
     <validValue name="false">0</validValue>
     <validValue name="true">1</validValue>
 </enum>
@@ -1176,7 +1170,9 @@ fields
 Example optional Boolean field
 
 ```xml
-<field type="optionalBoolean" name="SolicitedFlag" id="377" />
+<field type="requiredBoolean" name="SolicitedFlag" id="377" presence="required" semanticType="Boolean" />
+
+<field type="optionalBoolean" name="SolicitedFlag" id="377" presence="optional" nullValue="255" semanticType="Boolean" />
 ```
 
 Wire format of true value as hexadecimal

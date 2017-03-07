@@ -439,7 +439,7 @@ Recommended encoding of repeating group dimensions
 ```xml
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
-    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup"/>
+    <type name="numInGroup" primitiveType="uint16"/>
 	<type name="numGroups" primitiveType="uint16" />
     <type name="numVarDataFields" primitiveType="uint16" />
 </composite>

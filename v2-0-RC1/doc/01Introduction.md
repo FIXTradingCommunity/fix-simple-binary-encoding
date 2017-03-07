@@ -137,7 +137,7 @@ and data examples.
 This is a sample encoding specification
 
 ```xml
-<type name="short" primitiveType="int16" semanticType="int" />
+<type name="short" primitiveType="int16"/>
 ```    
 
 This is sample data as it would be transmitted on the wire
@@ -149,7 +149,7 @@ References
 
 ### Related FIX Standards 
 
-*Simple Open Framing Header*, FIX Protocol, Limited. Release Candidate 1
+*Simple Open Framing Header*, FIX Protocol, Limited. Version 1.0 Draft Standard
 specification has been published at
 <http://www.fixtradingcommunity.org/>
 

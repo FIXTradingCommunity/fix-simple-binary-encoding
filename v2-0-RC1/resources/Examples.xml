@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe.xsd">
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	package="Examples" id="91" version="0" byteOrder="littleEndian" 
+	description="sample SBE schema"
+	xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe.xsd">
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
@@ -15,15 +19,19 @@
 			<type name="day" primitiveType="uint8"/>
 			<type name="week" primitiveType="uint8"/>
 		</composite>
-		<composite name="groupSizeEncoding">
-			<type name="blockLength" primitiveType="uint16"/>
-			<type name="numInGroup" primitiveType="uint16"/>
-		</composite>
-		<composite name="messageHeader">
+		<composite name="messageHeader" description="Template ID and length of message root">
 			<type name="blockLength" primitiveType="uint16"/>
 			<type name="templateId" primitiveType="uint16"/>
 			<type name="schemaId" primitiveType="uint16"/>
 			<type name="version" primitiveType="uint16"/>
+			<type name="numGroups" primitiveType="uint16" />
+			<type name="numVarDataFields" primitiveType="uint16" />
+		</composite>
+		<composite name="groupSizeEncoding">
+			<type name="blockLength" primitiveType="uint16"/>
+			<type name="numInGroup" primitiveType="uint16"/>
+			<type name="numGroups" primitiveType="uint16" />
+			<type name="numVarDataFields" primitiveType="uint16" />
 		</composite>
 		<composite name="decimalEncoding">
 			<type name="mantissa" primitiveType="int64"/>

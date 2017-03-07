@@ -18,36 +18,34 @@ groups or variable-length data.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<sbe:messageSchema 
-	xmlns:sbe="http://fixprotocol.io/2016/sbe"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    package="Examples" id="100"
-    description="Test dictionary"
-    byteOrder="littleEndian"
-	xsi:schemaLocation="http://fixprotocol.io/2016/sbe sbe.xsd">
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	package="Examples" id="91" version="0" byteOrder="littleEndian" 
+	description="sample SBE schema"
+	xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe.xsd">
 
 <types>
-    <type name="enumEncoding" primitiveType="char"/>
-    <type name="idString" length="8" primitiveType="char" semanticType="String"/>
-    <type name="timestampEncoding" primitiveType="uint64" semanticType="UTCTimestamp"/>
+	<type name="enumEncoding" primitiveType="char"/>
+	<type name="idString" length="8" primitiveType="char"/>
 
-    <composite name="messageHeader">
-        <type name="blockLength" primitiveType="uint16"/>
-        <type name="templateId" primitiveType="uint16"/>
-        <type name="schemaId" primitiveType="uint16"/>
-        <type name="version" primitiveType="uint16"/>
-    </composite>
+	<composite name="messageHeader" description="Template ID and length of message root">
+		<type name="blockLength" primitiveType="uint16"/>
+		<type name="templateId" primitiveType="uint16"/>
+		<type name="schemaId" primitiveType="uint16"/>
+		<type name="version" primitiveType="uint16"/>
+		<type name="numGroups" primitiveType="uint16" />
+		<type name="numVarDataFields" primitiveType="uint16" />
+	</composite>
 
-    <composite name="optionalDecimalEncoding"
-        description="Optional decimal with constant exponent">
-        <type name="mantissa" presence="optional" primitiveType="int64"/>
-        <type name="exponent" presence="constant" primitiveType="int8">-3</type>
-    </composite>
+    <composite name="decimalEncoding">
+		<type name="mantissa" primitiveType="int64"/>
+		<type name="exponent" presence="constant" primitiveType="int8">-3</type>
+	</composite>
 
-    <composite name="qtyEncoding" description="Decimal constrained to integers">
-        <type name="mantissa" primitiveType="int32"/>
-        <type name="exponent" presence="constant" primitiveType="int8">0</type>
-    </composite>
+	<composite name="qtyEncoding">
+		<type name="mantissa" primitiveType="int32"/>
+		<type name="exponent" presence="constant" primitiveType="int8">0</type>
+	</composite>
 
     <enum name="ordTypeEnum" encodingType="enumEncoding">
         <validValue name="Market" description="Market">1</validValue>
@@ -61,29 +59,29 @@ groups or variable-length data.
         <validValue name="Sell" description="Sell">2</validValue>
    </enum>
 
+	<composite name="timestampEncoding" description="UTC timestamp with nanosecond precision">
+		<type name="time" primitiveType="uint64"/>
+		<type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond"/>
+	</composite>
+	<enum name="TimeUnit" encodingType="uint8">
+		<validValue name="second">0</validValue>
+		<validValue name="millisecond">3</validValue>
+		<validValue name="microsecond">6</validValue>
+		<validValue name="nanosecond">9</validValue>
+	</enum>
 </types>
 
-<sbe:message name="NewOrderSingle" id="99" blockLength="54"
-semanticType="D">
-    <field name="ClOrdID" id="11" type="idString" description="Customer Order ID"
-        offset="0" semanticType="String"/>
-    <field name="Account" id="1" type="idString" description="Account mnemonic"
-        offset="8" semanticType="String"/>
-    <field name="Symbol" id="55" type="idString" description="Security ID"
-        offset="16" semanticType="String"/>
-    <field name="Side" id="54" type="sideEnum" description="Side" offset="24"
-        semanticType="char"/>
-    <field name="TransactTime" id="60" type="timestampEncoding"
-        description="Order entry time" offset="25" semanticType="UTCTimestamp"/>
-    <field name="OrderQty" id="38" type="qtyEncoding" description="Order quantity"
-        offset="33" semanticType="Qty"/>
-    <field name="OrdType" id="40" type="ordTypeEnum" description="Order type"
-        offset="37" semanticType="char"/>
-    <field name="Price" id="44" type="optionalDecimalEncoding"
-        description="Limit price" offset="38" semanticType="Price"/>
-    <field name="StopPx" id="99" type="optionalDecimalEncoding"
-        description="Stop price" offset="46" semanticType="Price"/>
-</sbe:message>
+<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+		<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
+		<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
+		<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
+		<field name="Side" id="54" type="sideEnum" offset="24"/>
+		<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
+		<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
+		<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
+		<field name="Price" id="44" type="decimalEncoding" offset="38" presence="optional" semanticType="Price"/>
+		<field name="StopPx" id="99" type="decimalEncoding" offset="46" presence="optional" semanticType="Price"/>
+	</sbe:message>
 
 </sbe:messageSchema>
 ```
@@ -174,20 +172,21 @@ Add this encoding types element to those in the previous example.
 
 ```xml
 <types>
-    <type name="date" primitiveType="uint16" semanticType="LocalMktDate"/>
-    <composite name="MONTH_YEAR" semanticType="MonthYear">
+    <type name="date" primitiveType="uint16"/>
+
+    <composite name="MONTH_YEAR">
         <type name="year" primitiveType="uint16"/>
         <type name="month" primitiveType="uint8"/>
         <type name="day" primitiveType="uint8"/>
         <type name="week" primitiveType="uint8"/>
     </composite>
 
-    <composite name="groupSizeEncoding" description="Repeating group dimensions">
-        <type name="blockLength" primitiveType="uint16"
-        semanticType="Length"/>
-        <type name="numInGroup" primitiveType="uint16"
-        semanticType="NumInGroup"/>
-    </composite>
+	<composite name="groupSizeEncoding">
+		<type name="blockLength" primitiveType="uint16"/>
+		<type name="numInGroup" primitiveType="uint16"/>
+		<type name="numGroups" primitiveType="uint16" />
+		<type name="numVarDataFields" primitiveType="uint16" />
+	</composite>
 
     <enum name="execTypeEnum" encodingType="enumEncoding">
         <validValue name="New" description="New">0</validValue>
@@ -214,35 +213,21 @@ Add this encoding types element to those in the previous example.
 
 </types>
 
-<sbe:message name="ExecutionReport" id="98" blockLength="42"
-semanticType="8">
-    <field name="OrderID" id="37" type="idString" description="Order ID"
-    offset="0" semanticType="String"/>
-    <field name="ExecID" id="17" type="idString" description="Execution ID"
-    offset="8" semanticType="String"/>
-    <field name="ExecType" id="150" type="execTypeEnum"
-    description="Execution type" offset="16" semanticType="char"/>
-    <field name="OrdStatus" id="39" type="ordStatusEnum"
-    description="Order status" offset="17" semanticType="char"/>
-    <field name="Symbol" id="55" type="idString" description="Security ID"
-    offset="18" semanticType="String"/>
-    <field name="MaturityMonthYear" id="200" type="MONTH_YEAR"
-    description="Expiration" offset="26" semanticType="MonthYear"/>
-    <field name="Side" id="54" type="sideEnum" description="Side" offset="31"
-    semanticType="char"/>
-    <field name="LeavesQty" id="151" type="qtyEncoding"
-    description="Quantity open" offset="32" semanticType="Qty"/>
-    <field name="CumQty" id="14" type="qtyEncoding"
-    description="Executed quantity" offset="36" semanticType="Qty"/>
-    <field name="TradeDate" id="75" type="date"
-    description="Trade date" offset="40" semanticType="LocalMktDate"/>
-    <group name="FillsGrp" id="2112" description="Partial fills"
-    blockLength="12" dimensionType="groupSizeEncoding">
-        <field name="FillPx" id="1364" type="optionalDecimalEncoding"
-        description="Price of partial fill" offset="0" semanticType="Price"/>
-        <field name="FillQty" id="1365" type="qtyEncoding"
-        description="Executed quantity" offset="8" semanticType="Qty"/>
-    </group>
+<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+		<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
+		<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
+		<field name="ExecType" id="150" type="execTypeEnum" offset="16"/>
+		<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17"/>
+		<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
+		<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
+		<field name="Side" id="54" type="sideEnum" offset="31"/>
+		<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
+		<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
+		<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
+		<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
+			<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
+			<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
+		</group>
 </sbe:message>
 ```
 
@@ -328,14 +313,12 @@ Add this encoding types element to those in the previous example.
 
 </types>
 
-	<sbe:message name="BusinessMessageReject" id="97"
-		blockLength="9" semanticType="j">
-		<field name="BusinesRejectRefId" id="379" type="idString"
-			offset="0" semanticType="String" />
-		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
-			offset="8" semanticType="int" />
-		<data name="Text" id="58" type="DATA" semanticType="data" />
-	</sbe:message>
+<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
+	<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
+	<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8"/>
+	<data name="Text" id="58" type="DATA" semanticType="data"/>
+</sbe:message>
+
 ```
 
 ### Wire format of a business reject message
