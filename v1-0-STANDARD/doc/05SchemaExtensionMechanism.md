@@ -22,12 +22,9 @@ Compatibility is only ensured under these conditions:
 
 -   Existing fields cannot change data type or move within a message.
 
--   A repeating group may be added, but only after existing groups and
-    if there are no subsequent variable data elements at the end of the
-    message.
+-   A repeating group may be added after existing groups at the root level or nested within another repeating group.
 
--   A variable data element may be added, but only after existing groups
-    and data.
+-   A variable-length data field may be added after existing variable-length data at the root level or within a repeating group.
 
 -   Message header encoding cannot change.
 
@@ -92,14 +89,6 @@ migration to replacement message layouts.
 Wire format features for extension
 ----------------------------------
 
-### Message size
-
-It is assumed that a either message boundaries are delimited by a
-transport or session protocol header conveys the size of the whole
-message. See section 3.1 above. This enables a consumer to properly
-frame messages even when the message has been lengthened in a later
-version of the schema.
-
 ### Block size
 
 The length of the root level of the message is sent on the wire in the
@@ -112,6 +101,10 @@ does not break parsing of earlier fields.
 
 Likewise, block size of a repeating group is conveyed in the NumInGroup
 encoding.
+
+### Number of repeating groups and variable data
+
+Message headers and repeating group dimensions carry a count of the number of repeating groups and a count of variable-length data fields on the wire. This supports a walk by a decoder of all the elements of a message, even when the decoder was built with an older version of a schema. As for added fixed-length fields, new repeating groups cannot be interpreted by the decoder, but it still can process the ones it knows, and it can correctly reach the end of a message.
 
 Comaptibility strategy
 -----------------------

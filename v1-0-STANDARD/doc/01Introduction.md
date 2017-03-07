@@ -149,7 +149,7 @@ References
 
 ### Related FIX Standards 
 
-*Simple Open Framing Header*, FIX Protocol, Limited. Release Candidate 1
+*Simple Open Framing Header*, FIX Protocol, Limited. Version 1.0 Draft Standard
 specification has been published at
 <http://www.fixtradingcommunity.org/>
 

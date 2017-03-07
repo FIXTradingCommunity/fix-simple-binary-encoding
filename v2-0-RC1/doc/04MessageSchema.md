@@ -9,7 +9,7 @@ See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD
 XML namespace
 -----------------------------------------------------------------------------------------------------------
 
-The Simple Binary Encoding XML schema is identified by this URL:
+The Simple Binary Encoding XML schema is identified by this URL [*tentative*]:
 
 ```xml
 xmlns:sbe=http://fixprotocol.io/2017/sbe
