@@ -129,27 +129,26 @@ those sorts of optimizations are platform dependent.
 ### Wire format of an order message
 
 Hexadecimal and ASCII representations (little-endian byte order):
-
-> 00 00 00 44 eb 50 36 00 63 00 64 00 00 00 4f 52 : D P6 c d OR
->
-> 44 30 30 30 30 31 41 43 43 54 30 31 00 00 47 45 :D00001ACCT01 GE
->
-> 4d 34 00 00 00 00 31 00 84 68 90 fe a8 9a 13 07 :M4 1 h
->
-> 00 00 00 32 1a 85 01 00 00 00 00 00 00 00 00 00 : 2
->
-> 00 00 00 80
+```
+00 00 00 48 eb 50 36 00 63 00 5b 00 00 00 00 00 :      6 c [     
+00 00 4f 52 44 30 30 30 30 31 41 43 43 54 30 31 :  ORD00001ACCT01
+00 00 47 45 4d 34 00 00 00 00 31 c0 13 b3 b2 22 :  GEM4    1    "
+b3 a9 14 07 00 00 00 32 1a 85 01 00 00 00 00 00 :       2        
+00 00 00 00 00 00 00 80
+```
 
 **Interpretation**
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000044         |               | Simple Open Framing Header |            | 4          | Message size=68
+| 00000048         |               | Simple Open Framing Header |            | 4          | Message size=72
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 3600             |               | messageHeader blockLength  |            | 2          | Root block size=54
 | 6300             |               | messageHeader templateId   |            | 2          | Template ID=99
-| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
-| 0000             |               | messageHeader version      |            | 2          | Schema     version=0
+| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=91
+| 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0000             |               | messageHeader numGroups    |            | 2          | 0 groups
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f52443030303031 | 11           | ClOrdID                    | 0          | 8          | ORD00001                                                |
 | 4143435430310000 | 1            | Account                    | 8          | 8          | ACCT01                                                  |
 | 47454d3400000000 | 55           | Symbol                     | 16         | 8          | GEM4                                                    
@@ -244,30 +243,28 @@ are encoding as a composite type called groupSizeEncoding.
 ### Wire format of an execution message
 
 Hexadecimal and ASCII representations (little-endian byte order):
-
-> 00 00 00 54 eb 50 2a 00 62 00 64 00 00 00 4f 30 : T P* b d O0
->
-> 30 30 30 30 30 31 45 58 45 43 30 30 30 30 46 31 :000001EXEC0000F1
->
-> 47 45 4d 34 00 00 00 00 de 07 06 ff ff 31 01 00 :GEM4 1
->
-> 00 00 06 00 00 00 dd 3f 0c 00 02 00 1a 85 01 00 : ?
->
-> 00 00 00 00 02 00 00 00 24 85 01 00 00 00 00 00 : $
->
-> 04 00 00 00
+```
+00 00 00 5c eb 50 2a 00 62 00 5b 00 00 00 01 00 :                
+00 00 4f 30 30 30 30 30 30 31 45 58 45 43 30 30 :  O0000001EXEC00
+30 30 46 31 47 45 4d 34 00 00 00 00 de 07 06 00 :00F1GEM4        
+ff 31 01 00 00 00 06 00 00 00 75 3e 0c 00 02 00 : 1        u>    
+00 00 00 00 1a 85 01 00 00 00 00 00 02 00 00 00 :
+24 85 01 00 00 00 00 00 04 00 00 00 :    $   
+```        
 
 ### Interpretation
 Offset is from beginning of block.
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000054         |               | Simple Open Framing Header |            | 4          | Message size=84
+| 0000005c         |               | Simple Open Framing Header |            | 4          | Message size=92
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 2a00             |               | messageHeader blockLength  |            | 2          | Root block size=42
 | 6200             |               | messageHeader templateId   |            | 2          | Template ID=98
-| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
+| 5b00             |               | messageHeader schemaId     |            | 2          | Schema ID=91
 | 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0100             |               | messageHeader numGroups    |            | 2          | 1 group
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f30303030303031 | 37            | OrderID                    | 0          | 8          | O0000001
 | 4558454330303030 | 17            | ExecID                     | 8          | 8          | EXEC0000
 | 46               | 150           | ExecType                   | 16         | 1          | F Trade
@@ -278,8 +275,10 @@ Offset is from beginning of block.
 | 01000000         | 151           | LeavesQty                  | 32         | 4          | 1
 | 06000000         | 14            | CumQty                     | 36         | 4          | 6
 | 753e             | 75            | TradeDate                  | 40         | 2          | 2013-10-11
-| 0c00             | 2112          | groupSizeEncoding          |            |            | FillsGrp block size=12
-| 0200             | 1362          | groupSizeEncoding          |            |            | FillsGrp NumInGroup=2
+| 0c00             |            | groupSizeEncoding blockLength |            | 2          | FillsGrp block size=12
+| 0200             |            | groupSizeEncoding numInGroup  |            | 2| 2 entries
+| 0000             |            | groupSizeEncoding numGroups   |            | 2          | 0 nested groups
+| 0000             |            | groupSizeEncoding numVarDataFields|        | 2         | 0 data fields
 | 1a85010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 0 
 | 02000000         | 1365          | FillQty                    | 8          | 4          | 2
 | 2485010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 1
@@ -325,24 +324,26 @@ Add this encoding types element to those in the previous example.
 
 Hexadecimal and ASCII representations (little-endian byte order):
 
-> 00 00 00 40 eb 50 09 00 61 00 64 00 00 00 4f 52 : @ P a d OR
->
-> 44 30 30 30 30 31 06 27 00 4e 6f 74 20 61 75 74 :D00001 ' Not aut
->
-> 68 6f 72 69 7a 65 64 20 74 6f 20 74 72 61 64 65 :horized to trade
->
-> 20 74 68 61 74 20 69 6e 73 74 72 75 6d 65 6e 74 : that instrument
+```
+00 00 00 40 eb 50 09 00 61 00 5b 00 00 00 01 00 :        a [     
+00 00 4f 52 44 30 30 30 30 31 06 27 00 4e 6f 74 :  ORD00001 ' Not
+20 61 75 74 68 6f 72 69 7a 65 64 20 74 6f 20 74 : authorized to t
+72 61 64 65 20 74 68 61 74 20 69 6e 73 74 72 75 :rade that instru
+6d 65 6e 74                                     :ment 
+```    
 
 ### Interpretation
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000040         |               | Simple Open Framing Header |            | 4          | Message size=64
+| 00000044         |               | Simple Open Framing Header |            | 4          | Message size=68
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 0900             |               | messageHeader blockLength  |            | 2          | Root block size=9
 | 6100             |               | messageHeader templateId   |            | 2          | Template ID=100
 | 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=0
 | 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0000             |               | messageHeader numGroups    |            | 2          | 0 groups
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f52443030303031 |  379          | BusinessRejectRefId        | 0          | 8          | ORD00001
 | 06               |  380          | BusinessRejectReason       | 8          | 1          | 6 NotAuthorized
 | 2700             |               | DATA length                |            | 2          | length=39
