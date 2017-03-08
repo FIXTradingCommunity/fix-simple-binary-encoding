@@ -385,10 +385,10 @@ integer values by setting exponent to zero.
 </composite>
 ```
 
-Field inherits semanticType from encoding
+A field uses the encoding and adds semanticType.
 
 ```xml
-<field type="intQty32" name="OrderQty" id="38"
+<field type="intQty32" name="OrderQty" id="38" semanticType="Qty"
  description="Total number of shares" />
 ```
 
@@ -507,7 +507,7 @@ control character (code 0).
 This is the standard encoding for char type.
 
 ```xml
-<type name="char" primitiveType="char"/>
+<type name="charType" primitiveType="char"/>
 ```
 
 Wire format of char encoding of "A" (ASCII value 65, hexadecimal 41)
@@ -861,7 +861,7 @@ Enumeration of time units:
 Timestamp with variable time units:
 
 ```xml
-<composite name="UTCTimestamp" description="UTC timestamp with precision on the wire" semanticType="UTCTimestamp" >
+<composite name="UTCTimestamp" description="UTC timestamp with precision on the wire">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
 </composite>
@@ -956,7 +956,7 @@ time at the market instead of UTC time.
 The standard encoding specification for LocalMktDate
 
 ```xml
-<type name="localMktDate" primitiveType="uint16" semanticType="LocalMktDate" />
+<type name="localMktDate" primitiveType="uint16"/>
 ```
 
 Local time encoding

@@ -493,9 +493,10 @@ above.
 
 ```xml
 <composite name="groupSizeEncoding">
-    <type name="blockLength" primitiveType="uint16"/>
-    <type name="numInGroup" primitiveType="uint16"
-     semanticType="NumInGroup"/>
+	<type name="blockLength" primitiveType="uint16"/>
+	<type name="numInGroup" primitiveType="uint16"/>
+	<type name="numGroups" primitiveType="uint16" />
+	<type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 
 <group name="Parties" id="1012" >
