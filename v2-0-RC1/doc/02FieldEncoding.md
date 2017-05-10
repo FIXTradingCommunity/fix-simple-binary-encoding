@@ -1024,7 +1024,7 @@ The sign telling ahead or behind UTC is on the hour member.
 
 ### Composite encoding padding
 
-The subfields of TZTimeOnly are packed at an octet level by default.
+The members of TZTimeOnly are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
 elements within the composite encoding. See section 4.4.4.3 below.
 
