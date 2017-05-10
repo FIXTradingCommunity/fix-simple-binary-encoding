@@ -439,7 +439,7 @@ Recommended encoding of repeating group dimensions
 ```xml
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
-    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup"/>
+    <type name="numInGroup" primitiveType="uint16"/>
 	<type name="numGroups" primitiveType="uint16" />
     <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
@@ -454,7 +454,7 @@ any repeating groups or variable-length fields.
 
 The number of entries in this repeating group, called NumInGroup in FIX.
 
-##### Number of repeating groups
+#### Number of repeating groups
 
 A count nested repeating groups in this repeating group.
 
@@ -473,7 +473,7 @@ The occurrences of a repeating group may be restricted to a specific range by mo
 Example of a restricted group encoding
 
 ```xml
-<type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
+<type name="numInGroup" primitiveType="uint16" minValue="1" maxValue="10" />
 ```
 
 Sequence of message body elements

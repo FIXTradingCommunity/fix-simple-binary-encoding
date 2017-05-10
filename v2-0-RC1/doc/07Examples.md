@@ -18,36 +18,34 @@ groups or variable-length data.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<sbe:messageSchema 
-	xmlns:sbe="http://fixprotocol.io/2016/sbe"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    package="Examples" id="100"
-    description="Test dictionary"
-    byteOrder="littleEndian"
-	xsi:schemaLocation="http://fixprotocol.io/2016/sbe sbe.xsd">
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	package="Examples" id="91" version="0" byteOrder="littleEndian" 
+	description="sample SBE schema"
+	xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe.xsd">
 
 <types>
-    <type name="enumEncoding" primitiveType="char"/>
-    <type name="idString" length="8" primitiveType="char" semanticType="String"/>
-    <type name="timestampEncoding" primitiveType="uint64" semanticType="UTCTimestamp"/>
+	<type name="enumEncoding" primitiveType="char"/>
+	<type name="idString" length="8" primitiveType="char"/>
 
-    <composite name="messageHeader">
-        <type name="blockLength" primitiveType="uint16"/>
-        <type name="templateId" primitiveType="uint16"/>
-        <type name="schemaId" primitiveType="uint16"/>
-        <type name="version" primitiveType="uint16"/>
-    </composite>
+	<composite name="messageHeader" description="Template ID and length of message root">
+		<type name="blockLength" primitiveType="uint16"/>
+		<type name="templateId" primitiveType="uint16"/>
+		<type name="schemaId" primitiveType="uint16"/>
+		<type name="version" primitiveType="uint16"/>
+		<type name="numGroups" primitiveType="uint16" />
+		<type name="numVarDataFields" primitiveType="uint16" />
+	</composite>
 
-    <composite name="optionalDecimalEncoding"
-        description="Optional decimal with constant exponent">
-        <type name="mantissa" presence="optional" primitiveType="int64"/>
-        <type name="exponent" presence="constant" primitiveType="int8">-3</type>
-    </composite>
+    <composite name="decimalEncoding">
+		<type name="mantissa" primitiveType="int64"/>
+		<type name="exponent" presence="constant" primitiveType="int8">-3</type>
+	</composite>
 
-    <composite name="qtyEncoding" description="Decimal constrained to integers">
-        <type name="mantissa" primitiveType="int32"/>
-        <type name="exponent" presence="constant" primitiveType="int8">0</type>
-    </composite>
+	<composite name="qtyEncoding">
+		<type name="mantissa" primitiveType="int32"/>
+		<type name="exponent" presence="constant" primitiveType="int8">0</type>
+	</composite>
 
     <enum name="ordTypeEnum" encodingType="enumEncoding">
         <validValue name="Market" description="Market">1</validValue>
@@ -61,29 +59,29 @@ groups or variable-length data.
         <validValue name="Sell" description="Sell">2</validValue>
    </enum>
 
+	<composite name="timestampEncoding" description="UTC timestamp with nanosecond precision">
+		<type name="time" primitiveType="uint64"/>
+		<type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond"/>
+	</composite>
+	<enum name="TimeUnit" encodingType="uint8">
+		<validValue name="second">0</validValue>
+		<validValue name="millisecond">3</validValue>
+		<validValue name="microsecond">6</validValue>
+		<validValue name="nanosecond">9</validValue>
+	</enum>
 </types>
 
-<sbe:message name="NewOrderSingle" id="99" blockLength="54"
-semanticType="D">
-    <field name="ClOrdID" id="11" type="idString" description="Customer Order ID"
-        offset="0" semanticType="String"/>
-    <field name="Account" id="1" type="idString" description="Account mnemonic"
-        offset="8" semanticType="String"/>
-    <field name="Symbol" id="55" type="idString" description="Security ID"
-        offset="16" semanticType="String"/>
-    <field name="Side" id="54" type="sideEnum" description="Side" offset="24"
-        semanticType="char"/>
-    <field name="TransactTime" id="60" type="timestampEncoding"
-        description="Order entry time" offset="25" semanticType="UTCTimestamp"/>
-    <field name="OrderQty" id="38" type="qtyEncoding" description="Order quantity"
-        offset="33" semanticType="Qty"/>
-    <field name="OrdType" id="40" type="ordTypeEnum" description="Order type"
-        offset="37" semanticType="char"/>
-    <field name="Price" id="44" type="optionalDecimalEncoding"
-        description="Limit price" offset="38" semanticType="Price"/>
-    <field name="StopPx" id="99" type="optionalDecimalEncoding"
-        description="Stop price" offset="46" semanticType="Price"/>
-</sbe:message>
+<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+		<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
+		<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
+		<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
+		<field name="Side" id="54" type="sideEnum" offset="24"/>
+		<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
+		<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
+		<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
+		<field name="Price" id="44" type="decimalEncoding" offset="38" presence="optional" semanticType="Price"/>
+		<field name="StopPx" id="99" type="decimalEncoding" offset="46" presence="optional" semanticType="Price"/>
+	</sbe:message>
 
 </sbe:messageSchema>
 ```
@@ -131,27 +129,26 @@ those sorts of optimizations are platform dependent.
 ### Wire format of an order message
 
 Hexadecimal and ASCII representations (little-endian byte order):
-
-> 00 00 00 44 eb 50 36 00 63 00 64 00 00 00 4f 52 : D P6 c d OR
->
-> 44 30 30 30 30 31 41 43 43 54 30 31 00 00 47 45 :D00001ACCT01 GE
->
-> 4d 34 00 00 00 00 31 00 84 68 90 fe a8 9a 13 07 :M4 1 h
->
-> 00 00 00 32 1a 85 01 00 00 00 00 00 00 00 00 00 : 2
->
-> 00 00 00 80
+```
+00 00 00 48 eb 50 36 00 63 00 5b 00 00 00 00 00 :      6 c [     
+00 00 4f 52 44 30 30 30 30 31 41 43 43 54 30 31 :  ORD00001ACCT01
+00 00 47 45 4d 34 00 00 00 00 31 c0 13 b3 b2 22 :  GEM4    1    "
+b3 a9 14 07 00 00 00 32 1a 85 01 00 00 00 00 00 :       2        
+00 00 00 00 00 00 00 80
+```
 
 **Interpretation**
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000044         |               | Simple Open Framing Header |            | 4          | Message size=68
+| 00000048         |               | Simple Open Framing Header |            | 4          | Message size=72
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 3600             |               | messageHeader blockLength  |            | 2          | Root block size=54
 | 6300             |               | messageHeader templateId   |            | 2          | Template ID=99
-| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
-| 0000             |               | messageHeader version      |            | 2          | Schema     version=0
+| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=91
+| 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0000             |               | messageHeader numGroups    |            | 2          | 0 groups
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f52443030303031 | 11           | ClOrdID                    | 0          | 8          | ORD00001                                                |
 | 4143435430310000 | 1            | Account                    | 8          | 8          | ACCT01                                                  |
 | 47454d3400000000 | 55           | Symbol                     | 16         | 8          | GEM4                                                    
@@ -174,20 +171,21 @@ Add this encoding types element to those in the previous example.
 
 ```xml
 <types>
-    <type name="date" primitiveType="uint16" semanticType="LocalMktDate"/>
-    <composite name="MONTH_YEAR" semanticType="MonthYear">
+    <type name="date" primitiveType="uint16"/>
+
+    <composite name="MONTH_YEAR">
         <type name="year" primitiveType="uint16"/>
         <type name="month" primitiveType="uint8"/>
         <type name="day" primitiveType="uint8"/>
         <type name="week" primitiveType="uint8"/>
     </composite>
 
-    <composite name="groupSizeEncoding" description="Repeating group dimensions">
-        <type name="blockLength" primitiveType="uint16"
-        semanticType="Length"/>
-        <type name="numInGroup" primitiveType="uint16"
-        semanticType="NumInGroup"/>
-    </composite>
+	<composite name="groupSizeEncoding">
+		<type name="blockLength" primitiveType="uint16"/>
+		<type name="numInGroup" primitiveType="uint16"/>
+		<type name="numGroups" primitiveType="uint16" />
+		<type name="numVarDataFields" primitiveType="uint16" />
+	</composite>
 
     <enum name="execTypeEnum" encodingType="enumEncoding">
         <validValue name="New" description="New">0</validValue>
@@ -214,35 +212,21 @@ Add this encoding types element to those in the previous example.
 
 </types>
 
-<sbe:message name="ExecutionReport" id="98" blockLength="42"
-semanticType="8">
-    <field name="OrderID" id="37" type="idString" description="Order ID"
-    offset="0" semanticType="String"/>
-    <field name="ExecID" id="17" type="idString" description="Execution ID"
-    offset="8" semanticType="String"/>
-    <field name="ExecType" id="150" type="execTypeEnum"
-    description="Execution type" offset="16" semanticType="char"/>
-    <field name="OrdStatus" id="39" type="ordStatusEnum"
-    description="Order status" offset="17" semanticType="char"/>
-    <field name="Symbol" id="55" type="idString" description="Security ID"
-    offset="18" semanticType="String"/>
-    <field name="MaturityMonthYear" id="200" type="MONTH_YEAR"
-    description="Expiration" offset="26" semanticType="MonthYear"/>
-    <field name="Side" id="54" type="sideEnum" description="Side" offset="31"
-    semanticType="char"/>
-    <field name="LeavesQty" id="151" type="qtyEncoding"
-    description="Quantity open" offset="32" semanticType="Qty"/>
-    <field name="CumQty" id="14" type="qtyEncoding"
-    description="Executed quantity" offset="36" semanticType="Qty"/>
-    <field name="TradeDate" id="75" type="date"
-    description="Trade date" offset="40" semanticType="LocalMktDate"/>
-    <group name="FillsGrp" id="2112" description="Partial fills"
-    blockLength="12" dimensionType="groupSizeEncoding">
-        <field name="FillPx" id="1364" type="optionalDecimalEncoding"
-        description="Price of partial fill" offset="0" semanticType="Price"/>
-        <field name="FillQty" id="1365" type="qtyEncoding"
-        description="Executed quantity" offset="8" semanticType="Qty"/>
-    </group>
+<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+		<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
+		<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
+		<field name="ExecType" id="150" type="execTypeEnum" offset="16"/>
+		<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17"/>
+		<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
+		<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
+		<field name="Side" id="54" type="sideEnum" offset="31"/>
+		<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
+		<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
+		<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
+		<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
+			<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
+			<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
+		</group>
 </sbe:message>
 ```
 
@@ -259,30 +243,28 @@ are encoding as a composite type called groupSizeEncoding.
 ### Wire format of an execution message
 
 Hexadecimal and ASCII representations (little-endian byte order):
-
-> 00 00 00 54 eb 50 2a 00 62 00 64 00 00 00 4f 30 : T P* b d O0
->
-> 30 30 30 30 30 31 45 58 45 43 30 30 30 30 46 31 :000001EXEC0000F1
->
-> 47 45 4d 34 00 00 00 00 de 07 06 ff ff 31 01 00 :GEM4 1
->
-> 00 00 06 00 00 00 dd 3f 0c 00 02 00 1a 85 01 00 : ?
->
-> 00 00 00 00 02 00 00 00 24 85 01 00 00 00 00 00 : $
->
-> 04 00 00 00
+```
+00 00 00 5c eb 50 2a 00 62 00 5b 00 00 00 01 00 :                
+00 00 4f 30 30 30 30 30 30 31 45 58 45 43 30 30 :  O0000001EXEC00
+30 30 46 31 47 45 4d 34 00 00 00 00 de 07 06 00 :00F1GEM4        
+ff 31 01 00 00 00 06 00 00 00 75 3e 0c 00 02 00 : 1        u>    
+00 00 00 00 1a 85 01 00 00 00 00 00 02 00 00 00 :
+24 85 01 00 00 00 00 00 04 00 00 00 :    $   
+```        
 
 ### Interpretation
 Offset is from beginning of block.
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000054         |               | Simple Open Framing Header |            | 4          | Message size=84
+| 0000005c         |               | Simple Open Framing Header |            | 4          | Message size=92
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 2a00             |               | messageHeader blockLength  |            | 2          | Root block size=42
 | 6200             |               | messageHeader templateId   |            | 2          | Template ID=98
-| 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=100
+| 5b00             |               | messageHeader schemaId     |            | 2          | Schema ID=91
 | 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0100             |               | messageHeader numGroups    |            | 2          | 1 group
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f30303030303031 | 37            | OrderID                    | 0          | 8          | O0000001
 | 4558454330303030 | 17            | ExecID                     | 8          | 8          | EXEC0000
 | 46               | 150           | ExecType                   | 16         | 1          | F Trade
@@ -293,8 +275,10 @@ Offset is from beginning of block.
 | 01000000         | 151           | LeavesQty                  | 32         | 4          | 1
 | 06000000         | 14            | CumQty                     | 36         | 4          | 6
 | 753e             | 75            | TradeDate                  | 40         | 2          | 2013-10-11
-| 0c00             | 2112          | groupSizeEncoding          |            |            | FillsGrp block size=12
-| 0200             | 1362          | groupSizeEncoding          |            |            | FillsGrp NumInGroup=2
+| 0c00             |            | groupSizeEncoding blockLength |            | 2          | FillsGrp block size=12
+| 0200             |            | groupSizeEncoding numInGroup  |            | 2| 2 entries
+| 0000             |            | groupSizeEncoding numGroups   |            | 2          | 0 nested groups
+| 0000             |            | groupSizeEncoding numVarDataFields|        | 2         | 0 data fields
 | 1a85010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 0 
 | 02000000         | 1365          | FillQty                    | 8          | 4          | 2
 | 2485010000000000 | 1364          | FillPx                     | 0          | 8          | FillsGrp instance 1
@@ -328,38 +312,38 @@ Add this encoding types element to those in the previous example.
 
 </types>
 
-	<sbe:message name="BusinessMessageReject" id="97"
-		blockLength="9" semanticType="j">
-		<field name="BusinesRejectRefId" id="379" type="idString"
-			offset="0" semanticType="String" />
-		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
-			offset="8" semanticType="int" />
-		<data name="Text" id="58" type="DATA" semanticType="data" />
-	</sbe:message>
+<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
+	<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
+	<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8"/>
+	<data name="Text" id="58" type="DATA" semanticType="data"/>
+</sbe:message>
+
 ```
 
 ### Wire format of a business reject message
 
 Hexadecimal and ASCII representations (little-endian byte order):
 
-> 00 00 00 40 eb 50 09 00 61 00 64 00 00 00 4f 52 : @ P a d OR
->
-> 44 30 30 30 30 31 06 27 00 4e 6f 74 20 61 75 74 :D00001 ' Not aut
->
-> 68 6f 72 69 7a 65 64 20 74 6f 20 74 72 61 64 65 :horized to trade
->
-> 20 74 68 61 74 20 69 6e 73 74 72 75 6d 65 6e 74 : that instrument
+```
+00 00 00 40 eb 50 09 00 61 00 5b 00 00 00 01 00 :        a [     
+00 00 4f 52 44 30 30 30 30 31 06 27 00 4e 6f 74 :  ORD00001 ' Not
+20 61 75 74 68 6f 72 69 7a 65 64 20 74 6f 20 74 : authorized to t
+72 61 64 65 20 74 68 61 74 20 69 6e 73 74 72 75 :rade that instru
+6d 65 6e 74                                     :ment 
+```    
 
 ### Interpretation
 
 | Wire format      | Field ID      | Name                       | Offset     | Length     | Interpreted value
 |------------------| -------------:|----------------------------|-----------:|-----------:|:------------
-| 00000040         |               | Simple Open Framing Header |            | 4          | Message size=64
+| 00000044         |               | Simple Open Framing Header |            | 4          | Message size=68
 | eb50             |               | Simple Open Framing Header |            | 2          | SBE version 1.0 little-endian                                       
 | 0900             |               | messageHeader blockLength  |            | 2          | Root block size=9
 | 6100             |               | messageHeader templateId   |            | 2          | Template ID=100
 | 6400             |               | messageHeader schemaId     |            | 2          | Schema ID=0
 | 0000             |               | messageHeader version      |            | 2          | Schema version=0
+| 0000             |               | messageHeader numGroups    |            | 2          | 0 groups
+| 0000             |               | messageHeader numVarDataFields|         | 2          | 0 data fields
 | 4f52443030303031 |  379          | BusinessRejectRefId        | 0          | 8          | ORD00001
 | 06               |  380          | BusinessRejectReason       | 8          | 1          | 6 NotAuthorized
 | 2700             |               | DATA length                |            | 2          | length=39
