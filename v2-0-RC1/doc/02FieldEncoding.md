@@ -556,7 +556,22 @@ M S F T
 
 `4d5346540000`
 
-A character array constant specification
+#### Encoding specifications for constant character array
+
+If length=1, then the wire format is for type character (FIX datatype char), which is a "A single US-ASCII character" therefore the length of character is exactly 1. This could be interpreted as a single byte or a byte array of 1.
+
+If length>1, then the wire format is a fixed-length character array, which is an "Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field" therefore the length of a fixed-length character array is no more than the length attribute. This could be interpreted as a string of the specified length or byte array of the specified length and in case no length is explicitly provided then the length of the constant value could be taken. If the specified length is eater than constant value then a byte array is created for the length specified with the unused elements containing the ASCII byte value for 0, i.e. \0. If a length is provided that is smaller than the constant then an error is raised. 
+
+A character array constant specification with length=1
+
+```xml
+<type name="MarketLimit" primitiveType="char" length="1" description="MarketLimitOrderType"
+ presence="constant">K</type>
+
+<field type="MarketLimit" name="OrderType" id="40" semanticType="Char"/>
+```
+
+A character array constant specification with length>1
 
 ```xml
 <type name="EurexMarketID" primitiveType="char" length="4" description="MIC code"
