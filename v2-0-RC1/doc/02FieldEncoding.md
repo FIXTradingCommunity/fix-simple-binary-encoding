@@ -11,11 +11,12 @@ and message schema but are introduced here as an overview.
 
 ### Semantic data type
 
-The FIX semantic data type of a field tells a data domain interpreted at the application layer, for example, whether it is numeric or character data, or whether it represents a time or price. Simple Binary Encoding represents all of
+The FIX semantic data type of a field tells a data domain interpreted at the application layer, for example, whether it is numeric or character data, or whether it represents a time or price. Simple Binary Encoding represents most of
 the semantic data types that FIX protocol has defined across all
-encodings. In message specifications, FIX data type is declared with
-attribute semanticType. See the section 2.2 below for a listing of those
-FIX types.
+encodings. In field specifications, FIX data type is declared with
+attribute `semanticType`. 
+
+See the "Data type summary" below for a listing of FIX types with the usual mapping to SBE encodings. Implementations should not restrict a semantic type to a specific encoding. Message designers may wish to imply a conversion or specialized interpretation at the application layer.
 
 ### Encoding
 
@@ -74,10 +75,10 @@ value of an optional field does not necessarily imply that a default
 value should be applied. Rather, default handling is left to application
 layer specifications.
 
-FIX data type summary
+Data type summary
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-FIX semantic types are mapped to binary field encodings as follows. See
+FIX semantic types are typically mapped to binary field encodings as follows. See
 sections below for more detail about each type.
 
 Schema attributes may restrict the range of valid values for a field.
@@ -92,7 +93,7 @@ See Common field schema attributes below.
 | NumInGroup                       | Group dimension encoding                                                                  | 3.4.8   | A counter representing the number of entries in a repeating group. Value must be positive.                                                                                               |
 | DayOfMonth                       | Integer encoding                                                                          | 2.4     | A field representing a day during a particular month (values 1 to 31).                                                                                                                   |
 | Qty                              | Decimal encoding                                                                          | 2.5     | A number representing quantity of a security, such as shares. The encoding may constrain values to integers, if desired.                                                                 |
-| float                            | Float encoding                                                                            | 2.5     | A real number with binary representation of specified precision                                                                                                                          |
+| float                            | Float or Decimal                                                                          | 2.5     | A real number with binary representation of specified precision. Alternatively, Decimal encoding is preferred for exact decimal numbers.                                                                                                                        |
 | Price                            | Decimal encoding                                                                          | 2.5     | A decimal number representing a price                                                                                                                                                    |
 | PriceOffset                      | Decimal encoding                                                                          | 2.5     | A decimal number representing a price offset, which can be mathematically added to a Price.                                                                                              |
 | Amt                              | Decimal encoding                                                                          | 2.5     | A field typically representing a Price times a Qty.                                                                                                                                      |
@@ -139,12 +140,12 @@ Attributes are optional unless specified otherwise.
 | nullValue         | A special value that indicates that an optional value is not set. See encodings below for default nullValue for each type. Mutually exclusive with presence=required and constant. |
 | minValue          | The lowest valid value of a range. Applies to scalar data types, but not to String or data types.                                                                                  |
 | maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar data types, but not to String or data types.                                          |
-| semanticType      | Tells the FIX semantic type of a field or encoding. It may be specified on either a field or its encoding.                                                                         |
+| semanticType      | Tells the semantic interpretation of a field in the FIX data type taxonomy.                                            |
 
 ### Non-FIX types
 
 Encodings may be added to SBE messages that do not correspond to listed
-FIX data types. In that case, the fields that use the encoding will not have a semanticType attribute.
+FIX data types. In that case, the fields that use the encoding will not have a `semanticType` attribute.
 
 Integer encoding
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -448,6 +449,8 @@ primitive types.
 <type name="float" primitiveType="float" />
 <type name="double" primitiveType="double" />
 ```
+
+Designers should determine whether a field of FIX data type float should be represented by a binary floating point number or an exact decimal number. If it is the latter, then see "Decimal encoding" above.
 
 ### Examples of floating point fields
 
