@@ -30,7 +30,10 @@ The working group will consider issues and pull requests for the next release ca
 * Further enhancements to the schema extension mechanism
 * Improvement of the XML schema
 
+### Participation
 All users are encouraged to contribute, especially by reviewing proposed changes in the form of pull requests. Your feedback counts.
+
+Interested parties who wish to participate in the FIX High Performance Working Group should contact fix@fixtrading.org and state that your interest is in SBE, which sometimes meets as a subgroup. Membership in FIX Trading Community is not required to participate in technical working groups.
 
 ### Conformance test suite
 The [SBE Conformance project](https://github.com/FIXTradingCommunity/fix-sbe-conformance) provides a conformance test suite to verify interoperability of SBE implementations. All implementors are invited to demonstrate their conformance to the standard.
