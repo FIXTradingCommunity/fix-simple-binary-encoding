@@ -336,8 +336,8 @@ used to indicate that a field value is null.
 
 ### Encoding specifications for decimal types
 
-Decimal encodings are composite types, consisting of two subfields,
-mantissa and exponent. The exponent may either be serialized on the wire
+Decimal encodings are composite types, consisting of two members, named
+mantissa and exponent. They must be listed in that order in the composite type. The exponent may either be serialized on the wire
 or may be set to constant. A constant exponent is a way to specify an
 assumed number of decimal places.
 
@@ -569,11 +569,11 @@ A character array constant specification
 
 Variable-length string encoding is used for variable length ASCII
 strings or embedded non-ASCII character data (like EncodedText field). A
-separate length field coveys the size of the field.
+length member conveys the size of the string that follows.
 
 On the wire, length immediately precedes the data.
 
-The length subfield may not be null, but may be set to zero for an empty
+The length member may not be null, but may be set to zero for an empty
 string. In that case, no space is reserved for the data. No distinction
 is made at an encoding layer between an empty string and a null string.
 Semantics of an empty variable-length string should be specified at an
@@ -606,8 +606,8 @@ If a field is required, both the Length and data fields must be set to a
 ### Encoding specifications for variable-length string
 
 Variable length string is encoded as a composite type, consisting of a
-length sub field and data subfield. The length attribute of the varData
-element is set to zero in the XML message schema as special value to
+length member and varData member. In the composite specification, they must be listed with those names and in that order. The length attribute of the varData
+member is set to zero in the XML message schema as special value to
 indicate that the character data is of variable length.
 
 To map an SBE data field specification to traditional FIX, the field ID
@@ -619,7 +619,7 @@ Encoding specification for variable length data up to 65535 octets
 ```xml
 <composite name="varString" description="Variable-length string">
     <type name="length" primitiveType="uint16"/>
-    <type name="data" length="0" primitiveType="uint8"
+    <type name="varData" length="0" primitiveType="uint8"
     characterEncoding="UTF-16"/>
 </composite>
 
@@ -689,10 +689,10 @@ A fixed-length data encoding specification for a binary user ID
 ### Variable-length data encoding
 
 Variable-length data is used for variable length non-character data
-(such as RawData). A separate length field conveys the size of the field.
+(such as RawData). A length member conveys the size of the data that follows.
 On the wire, length immediately precedes the data.
 
-The length subfield may not be null, but it may be set to zero. In that
+The length member may not be null, but it may be set to zero. In that
 case, no space is reserved for the data. Semantics of an empty
 variable-length data element should be specified at an application
 layer.
@@ -700,7 +700,7 @@ layer.
 | FIX data type | Description                           | Backing primitives                                                                                                         | Length (octets) |
 |---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------|
 | Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"   May not hold null value.                                                                                                    | 1 or 2          |
-| data          | Raw data                              | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length. primitiveType="uint8"  | variable
+| data          | Raw data                              | Array of octet of size specified in associated Length member. The varData member should be specified as variable length. primitiveType="uint8"  | variable
 
 Optionally, implementations may support any other unsigned integer types
 for length.
@@ -723,7 +723,7 @@ If a field is required, both the Length and data fields must be set to a
 ### Encoding specifications for variable-length data
 
 Variable length data is encoded as composite type, consisting of a
-length sub field and data subfield.
+length member and varData member. They must be listed with those names and in that order in the composite specification.
 
 To map an SBE data field specification to traditional FIX, the field ID
 of a data field is used. Its associated length is implicitly contained
@@ -734,7 +734,7 @@ Encoding specification for variable length data up to 65535 octets
 ```xml
 <composite name="DATA" description="Variable-length data">
     <type name="length" primitiveType="uint16"/>
-    <type name="data" length="0" primitiveType="uint8"/>
+    <type name="varData" length="0" primitiveType="uint8"/>
 </composite>
 
 <data name="RawData" id="96" type="DATA"/>
@@ -754,7 +754,7 @@ M S F T
 MonthYear encoding
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-MonthYear encoding contains four subfields representing respectively
+MonthYear encoding contains four members representing respectively
 year, month, and optionally day or week. A field of this type is not
 constrained to one date format. One message may contain only year and
 month while another contains year, month and day in the same field, for
@@ -765,7 +765,7 @@ always be populated for a non-null field. Day and week are set to
 special value indicating null if not present. If Year is set to the null
 value, then the entire field is considered null.
 
-| Subfield                         | Primitive type | Length (octets) | Null value |
+| Member                           | Primitive type | Length (octets) | Null value |
 |----------------------------------|----------------|----------------:|-----------:|
 | Year                             | uint16         | 2               | 65535      |
 | Month (1-12)                     | uint8          | 1               | —          |
@@ -775,14 +775,14 @@ value, then the entire field is considered null.
 
 ### Composite encoding padding
 
-The four subfields of MonthYear are packed at an octet level by default.
+The four members of MonthYear are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
 elements within the composite encoding. See section 4.4.4.3 below.
 
 ### Encoding specifications for MonthYear
 
 MonthYear data type is based on a composite encoding that carries its
-required and optional elements.
+required and optional elements. The members must listed with the names and in the order shown.
 
 The standard encoding specification for MonthYear
 
@@ -857,6 +857,7 @@ Enumeration of time units:
    <validValue name="nanosecond">9</validValue>
 </enum>
 ```
+Composite type members must listed with the names and in the order shown.
 
 Timestamp with variable time units:
 
@@ -982,9 +983,11 @@ indicator as defined in ISO 8601:2004.
 
 ### Composite encoding padding
 
-The subfields of TZTimestamp are packed at an octet level by default.
+The members of TZTimestamp are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
 elements within the composite encoding. See section 4.4.4.3 below.
+
+The members must listed with the names and in the order shown.
 
 Standard TZTimestamp encoding specification
 
@@ -992,7 +995,7 @@ Standard TZTimestamp encoding specification
 <composite name="tzTimestamp">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
-    <!-- Sign of timezone offset is on hour subfield -->
+    <!-- Sign of timezone offset is on the hour member -->
     <type name="timezoneHour" primitiveType="int8" minValue="-12" maxValue="14" />
     <type name="timezoneMinute" primitiveType="uint8" maxValue="59" />
 </composite>
@@ -1010,7 +1013,7 @@ indicator as defined in ISO 8601:2004.
 
 The time zone hour offset tells the number of hours different to UTC
 time. The time zone minute tells the number of minutes different to UTC.
-The sign telling ahead or behind UTC is on the hour subfield.
+The sign telling ahead or behind UTC is on the hour member.
 
 | FIX data type | Description                                                | Backing primitives | Length (octets) | Schema attributes |
 |---------------|------------------------------------------------------------|--------------------|----------------:|-------------------|
@@ -1021,7 +1024,7 @@ The sign telling ahead or behind UTC is on the hour subfield.
 
 ### Composite encoding padding
 
-The subfields of TZTimeOnly are packed at an octet level by default.
+The members of TZTimeOnly are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
 elements within the composite encoding. See section 4.4.4.3 below.
 
@@ -1031,7 +1034,7 @@ Standard TZTimeOnly encoding specification
 <composite name="tzTimeOnly">
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
-    <!-- Sign of timezone offset is on hour subfield -->
+    <!-- Sign of timezone offset is on the hour member -->
     <type name="timezoneHour" primitiveType="int8"
     minValue="-12" maxValue="14" />
     <type name="timezoneMinute" primitiveType="uint8" minValue="0"
@@ -1294,7 +1297,7 @@ session protocol.
 | Field value greater than maxValue                           | The encoded value exceeds the specified valid range.                                                                         |
 | Null value set for required field                           | The null value of a data type is invalid for a required field.                                                               |
 | String contains invalid characters                          | A String contains non-US-ASCII printable characters or other invalid sequence if a different characterEncoding is specified. |
-| Required subfields not populated in MonthYear               | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
+| Required members not populated in MonthYear                 | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
 | UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds.                                |
-| TZTimestamp and TZTimeOnly has missing or invalid time zone | The time zone hour and minute offset subfields must correspond to an actual time zone recognized by international standards. |
+| TZTimestamp and TZTimeOnly has missing or invalid time zone | The time zone hour and minute offset members must correspond to an actual time zone recognized by international standards. |
 | Value must match valid value of an enumeration field        | A value is invalid if it does not match one of the explicitly listed valid values.                                           |
