@@ -5,10 +5,12 @@ Objective
 ---------
 
 It is not always practical to update all message publishers and
-consumers simultaneously. Within certain constraints, message schemas
-and wire formats can be extended in a controlled way. Consumers using an
+consumers simultaneously. Within certain constraints, messages
+and repeating groups can be extended in a controlled way. Consumers using an
 older version of a schema should be compatible if interpretation of
 added fields or messages is not required for business processing.
+
+Message templates and repeating groups may be extended with new fields. However, the extension mechanism does not support extension of composite types that back existing fields.
 
 This specification only details compatibility at the presentation layer. It does not relieve application developers of any responsibility for carefully planning a migration strategy and for handling exceptions at the application layer.
 
