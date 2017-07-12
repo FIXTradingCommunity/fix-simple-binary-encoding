@@ -122,6 +122,8 @@ A simple encoding is backed by either a scalar type or an array of
 scalars, such as a character array. One or more simple encodings may be
 defined, each specified by a `<type>` element.
 
+The `<type>` XML element is also used for a scalar or array member of a composite encoding; see below.
+
 #### `<type>` element content
 
 If the element has a value, it is used to indicate a special value of
@@ -130,7 +132,7 @@ the encoding.
 ##### Constant value
 
 The element value represents a constant if attribute
-`presence="constant"`. In this case, the value is conditionally required.
+`presence="constant"`. In this case, the value is required.
 
 #### `<type>` attributes
 
@@ -143,8 +145,8 @@ The element value represents a constant if attribute
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
 | offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section 4.4.4.3 below                                                              |
 | primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
-| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
+| sinceVersion       | Documents the version of a schema in which a type was added. Not valid on a member of a composite type.                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
+| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.  Not valid on a member of a composite type.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
 
 
 Simple type examples
@@ -217,8 +219,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 | name               | Usage of the type in this composite | symbolicName\_t    | required    |       |
 | type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set or composite name attribute. |
 | offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
-| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+
 
 #### Type reference examples
 
@@ -584,6 +585,7 @@ Reserved element names
 | blockLength    | messageHeader and groupSize |
 | day            | MonthYear                   |
 | exponent       | decimal                     |
+| length         | variable-length data        |
 | mantissa       | decimal                     |
 | month          | MonthYear                   |
 | numInGroup     | groupSize                   |
@@ -592,6 +594,7 @@ Reserved element names
 | timezoneHour   | TZ time                     |
 | timezoneMinute | TZ time                     |
 | unit           | timestamp, TZ time          |
+| varData        | variable-length data        |
 | version        | messageHeader               |
 | week           | MonthYear                   |
 | year           | MonthYear                   |
