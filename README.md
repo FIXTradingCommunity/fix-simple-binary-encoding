@@ -1,4 +1,7 @@
 # fix-simple-binary-encoding
+
+[![Join the chat at https://gitter.im/fix-simple-binary-encoding/Lobby](https://badges.gitter.im/fix-simple-binary-encoding/Lobby.svg)](https://gitter.im/fix-simple-binary-encoding/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This project contains specifications and resources for Simple Binary Encoding (SBE).
 SBE is a FIX standard for binary message encoding. 
 
