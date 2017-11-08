@@ -218,6 +218,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 |--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
 | name               | Usage of the type in this composite | symbolicName\_t    | required    |       |
 | type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set or composite name attribute. |
+| description        | Documentation of how the referenced type is used                                                                                      | string             | optional    |                                                                  |
 | offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
 
 
