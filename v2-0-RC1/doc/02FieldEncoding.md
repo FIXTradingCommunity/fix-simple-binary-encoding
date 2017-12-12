@@ -323,8 +323,10 @@ The default data ranges and null indicator are listed below for each
 decimal encoding.
 
 A message schema may optionally specify a more restricted range of valid
-values for a field. For optional fields, a special mantissa value is
-used to indicate that a field value is null.
+values for a field. 
+
+For all optional decimal fields, a special mantissa value is
+used to indicate that a field value is null. For floating-point decimals, the exponent should also be set to its null indicator.
 
 | Schema attribute  | decimal                                   | decimal64                                 | decimal32                                 |
 |------------------|------------------------------------------:|------------------------------------------:|------------------------------------------:|
@@ -396,6 +398,10 @@ A field uses the encoding and adds semanticType.
 Wire format of decimal 123.45 with 2 significant decimal places.
 
 `3930000000000000fe`
+
+Wire format of null floating-point decimal.
+
+`ffffffffffffffffff`
 
 Wire format of decimal64 123.45 with 2 significant decimal places.
 Schema attribute exponent = -2
