@@ -260,7 +260,7 @@
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="fieldType">
+	<xs:complexType name="fieldType" mixed="true">
 		<xs:annotation>
 			<xs:documentation>
 				A field of a message of a specified dataType

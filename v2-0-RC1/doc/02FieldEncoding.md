@@ -135,7 +135,7 @@ Attributes are optional unless specified otherwise.
 | Schema attribute  | Description                                                                                                                                                                        |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | presence=required | The field must always be set. This is the default presence. Mutually exclusive with nullValue.                                                                                     |
-| presence=constant | The field has a constant value that need not be transmitted on the wire. Mutually exclusive with value attributes.                                                                 |
+| presence=constant | The field has a constant value that need not be transmitted on the wire. Mutually exclusive with nullValue, minValue, and maxValue attributes.                                                                 |
 | presence=optional | The field need not be populated. A special null value indicates that a field is not set. The presence attribute may be specified on either on a field or its encoding.             |
 | nullValue         | A special value that indicates that an optional value is not set. See encodings below for default nullValue for each type. Mutually exclusive with presence=required and constant. |
 | minValue          | The lowest valid value of a range. Applies to scalar data types, but not to String or data types.                                                                                  |
@@ -567,10 +567,9 @@ M S F T
 A character array constant specification
 
 ```xml
-<type name="EurexMarketID" primitiveType="char" length="4" description="MIC code"
- presence="constant">XEUR</type>
+<type name="MarketID" primitiveType="char" length="4" description="MIC code"/>
 
-<field type="EurexMarketID" name="MarketID" id="1301" semanticType="Exchange"/>
+<field name="EurexMarketID" type="MarketID" id="1301" semanticType="Exchange" presence="constant">XEUR</field>
 ```
 
 ### Variable-length string encoding
