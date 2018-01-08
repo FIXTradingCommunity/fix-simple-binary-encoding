@@ -250,9 +250,11 @@ Example of fields with specified offsets
 | Symbol   | 8    | 0                       | 20     |
 
 #### Field byte alignment
-As an alternative to specifying a field's offset from the start of a block, its byte alignment may be specified. If specified, the start of the first field should reside at an offset from the start of the buffer that is the next multiple of the alignment attribute. If the offset without alignment would not be a multiple of the alignment attribute, then the buffer is padded with octets to that multiple. The padding should be set to binary zeroes.
+As an alternative to specifying a field's offset from the start of a block, its byte alignment may be specified. If specified, the start of the a field should reside at an offset from the start of the buffer that is the next multiple of the alignment attribute. If the offset without alignment would not be a multiple of the alignment attribute, then the buffer is padded with octets to that multiple. The padding should be set to binary zeroes.
 
 The alignment attribute is mutually exclusive with offset.
+
+If neither offset nor alignment attributes are set, then a field is positioned at the next available octet in a buffer without padding.
 
 Computation of padding and effective offset is as follows, where effective-offset is the resulting position in the buffer:
 
