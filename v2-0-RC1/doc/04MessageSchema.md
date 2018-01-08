@@ -5,6 +5,8 @@ XML schema for SBE message schemas
 ---------
 See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
+The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.1.
+
 
 XML namespace
 -----------------------------------------------------------------------------------------------------------
@@ -379,6 +381,10 @@ The `name` and `id` attributes are required. The first is a display name for
 a message, while the latter is a unique numeric identifier, commonly
 called template ID.
 
+### Byte alignment
+
+By default, a message starts at the first available byte of buffer. However, if desired, it may be aligned to a boundary by specifying the `alignment` attribute to improve performance on certain platforms. If specified, the start of the message should reside in the buffer at the next multiple of the alignment attribute. For example, if `alignment=4` then the message should start at the next address that is a multiple of 4.
+
 ### Reserved space
 
 By default, message size is the sum of its field lengths. However, a
@@ -415,6 +421,7 @@ that they are encoded on the wire.
 | semanticType          | Documents value of FIX MsgType for a message                                                                                               | token              | optional    | Listed in FIX specifications                                             |
 | sinceVersion          | Documents the version of a schema in which a message was added                                                                             | nonNegativeInteger | default = 0 |                                                                          |
 | deprecated            | Documents the version of a schema in which a message was deprecated. It should no longer be sent but is documented for back-compatibility. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.         |
+| alignment            | Controls byte alignment of the start of a message in its buffer| positiveInteger | optional    |          |
 
 Note that there need not be a one-to-one relationship between message
 template (identified by `id` attribute) and `semanticType` attribute. You
@@ -442,7 +449,8 @@ These are the common attributes of all field types.
 | id               | Unique field identifier (FIX tag)                                                                                                                                                         | unsignedShort       | required                           |                                                                                                       |
 | description      | Documentation                                                                                                                                                                             | string              | optional                           |                                                                                                       |
 | type             | Encoding type name, one of simple type, composite type or enumeration.                                                                                                                    | string              | required                           | Must match the name attribute of a simple `<type>`, `<composite>` encoding type, `<enum>` or `<set>`. |
-| offset           | Offset to the start of the field within a message or repeating group entry. By default, the offset is the sum of preceding field sizes, but it may be increased to effect byte alignment. | unsignedInt         | optional                           | Must be greater than or equal to the sum of preceding field sizes.                                    |
+| offset           | Offset to the start of the field within a message or repeating group entry. By default, the offset is the sum of preceding field sizes, but it may be increased to effect byte alignment. | unsignedInt         | optional                           | Must be greater than or equal to the sum of preceding field sizes. Mutually exclusive with alignment                                    |
+| alignment            | Controls byte alignment of the start of a field in its buffer| positiveInteger | optional    | Mutually exclusive with offset        |
 | presence         | Field presence                                                                                                                                                                            | enumeration         | Default = required                 | required = field value is required; not tested for null.                                                                                                                                                                                                                                                       optional = field value may be null.  constant = constant value not sent on wire.                                                                                                                         |
 | valueRef         | Constant value of a field as a valid value of an enumeration                                                                                                                              | qualifiedName\_t    | optional  Valid only if presence= ”constant”  | If provided, the qualified name must match the name attribute of a `<validValue>` within an `<enum>`  |
 | sinceVersion     | The version of a message schema in which this field was added.                                                                                                                            | InonnegativeInteger | default=0                          | Must not be greater than version attribute of `<messageSchema>` element.                              |
@@ -487,7 +495,7 @@ The number of members of each type is unbound.
 | id                  | Unique group identifier           | unsignedShort   | required                    |                                                                          |
 | description         | Documentation                     | string          | optional                    |                                                                          |
 | dimensionType       | Dimensions of the repeating group | symbolicName\_t | default = groupSizeEncoding | If specified, must be greater than or equal to the sum of field lengths. |
-
+| alignment            | Controls byte alignment of the start of each group instance in its buffer| positiveInteger | optional    |          |
 `<group>` element inherits attributes of blockType. See `<message>`
 above.
 

@@ -185,4 +185,4 @@ Representation of dates and times
 Securities and related financial instruments - Codes for exchanges and
 market identification (MIC)
 
-XML 1.1 schema standards are located here [W3C XML Schema](http://www.w3.org/XML/Schema.html#dev)
+[W3C XML Schema version 1.1](https://www.w3.org/TR/2006/REC-xml11-20060816/)

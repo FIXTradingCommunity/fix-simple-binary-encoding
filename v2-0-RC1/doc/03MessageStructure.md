@@ -78,7 +78,7 @@ The fields of the SBE message header are:
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
-padding at the end of block. See section 3.3.3.3 below.
+padding at the end of block. See [Padding](#padding-at-end-of-a-message-or-group).
 
 ### Message header schema
 
@@ -87,7 +87,7 @@ position as shown below. Each of these fields must be encoded as an
 unsigned integer type. The encoding must carry the name "messageHeader".
 
 The message header is encoded in the same byte order as the message
-body, as specified in a message schema. See section 4.3.1.
+body, as specified in a message schema. See section 4.
 
 Recommended message header encoding
 
@@ -120,9 +120,9 @@ for blockLength.
 
 The total space reserved for the root level of the message not counting
 any repeating groups or variable-length fields. (Repeating groups have
-their own block length; see section 3.4 below. Length of a
+their own block length; see [Group block length](#group-block-length) below. Length of a
 variable-length Data field is given by its corresponding Length field;
-see section 2.7.3 above.) Block length only represents message body
+see section 2.) Block length only represents message body
 fields; it does not include the length of the message header itself,
 which is a fixed size.
 
@@ -134,18 +134,18 @@ schema.
 
 ### Template ID
 
-The identifier of a message type in a message schema. See section 4.5.2
-below for schema attributes of a message.
+The identifier of a message type in a message schema. See section 4
+for schema attributes of a message.
 
 ### Schema ID
 
-The identifier of a message schema. See section 4.3.1 below for schema
+The identifier of a message schema. See section 4 for schema
 attributes.
 
 ### Schema version
 
 The version number of the message schema that was used to encode a
-message. See section 4.3.1 below for schema attributes.
+message. See section 4 for schema attributes.
 
 ### Number of repeating groups
 
@@ -227,6 +227,8 @@ would cause fields to overlap.
 Extra octets specified for padding should never be interpreted as
 business data. They should be filled with binary zeros.
 
+The offset attribute is mutually exclusive with alignment; see below.
+
 Example of fields with specified offsets
 
 ```xml
@@ -246,6 +248,27 @@ Example of fields with specified offsets
 | Side     | 1    | 0                       | 14     |
 | OrderQty | 4    | 1                       | 16     |
 | Symbol   | 8    | 0                       | 20     |
+
+#### Field byte alignment
+As an alternative to specifying a field's offset from the start of a block, its byte alignment may be specified. If specified, the start of the first field should reside at an offset from the start of the buffer that is the next multiple of the alignment attribute. If the offset without alignment would not be a multiple of the alignment attribute, then the buffer is padded with octets to that multiple. The padding should be set to binary zeroes.
+
+The alignment attribute is mutually exclusive with offset.
+
+Computation of padding and effective offset is as follows, where effective-offset is the resulting position in the buffer:
+
+```
+padding = (alignment - (unaligned-offset modulo alignment)) modulo alignment
+effective-offset = unaligned-offset + padding
+```
+
+Example of fields with alignment that is equivalent to the offset example above:
+
+```xml
+<field name="ClOrdID" id="11" type="string14" semanticType="String"/>
+<field name="Side" id="54" type="char" semanticType="char"/>
+<field name="OrderQty" id="38" type="intQty32" alignment="4" semanticType="Qty"/>
+<field name="Symbol" id="55" type="string8" alignment="4" semanticType="String"/>
+```
 
 #### Padding at end of a message or group
 
@@ -308,6 +331,12 @@ fields. (Length of a variable-length Data field is given by its corresponding
 Length field.) Block length only represents message body fields; it does not
 include the length of the group dimension itself, which is a fixed size.
 
+### Byte alignment of a group entry
+
+If byte alignment of a repeating group is specified, the start of the first field of each entry should reside at an offset from the start of the buffer that is the next multiple of the alignment attribute. If the offset without alignment would not be a multiple of the alignment attribute, then the buffer is padded with octets to that multiple. The padding should be set to binary zeroes.
+
+If byte alignment is not specified for a group, then no padding is introduced to align entries.
+
 ### Padding at end of a group entry
 
 By default, the space reserved for an entry is the sum of a group’s
@@ -322,7 +351,7 @@ each entry and should be set to zeroes by encoders. The blockLength
 value does not include the group dimensions itself.
 
 Note that padding will only result in deterministic alignment if the
-repeating group contains no variable-length fields.
+repeating group contains no variable-length fields. Therefore, the alignment attribute is a more direct solution to that need.
 
 ### Entry counter 
 
@@ -507,7 +536,7 @@ finally, variable-length data fields.
 Message structure validation
 --------------------------------------------------------------------------------------------------------------------------
 
-Aside from message schema validations (see section 4.8 below), these
+Aside from message schema validations (see section 4), these
 validations apply to message structure.
 
 If a message structure violation is detected on a received message, the
