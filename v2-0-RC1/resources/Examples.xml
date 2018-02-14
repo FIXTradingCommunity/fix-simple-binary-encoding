@@ -9,6 +9,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<type name="enumEncoding" primitiveType="char"/>
 		<type name="idString" length="8" primitiveType="char"/>
 		<type name="intEnumEncoding" primitiveType="uint8"/>
+		<type name="currency" length="3" primitiveType="char" description="ISO 4217"/>
 		<composite name="DATA">
 			<type name="length" primitiveType="uint16"/>
 			<type name="varData" length="0" primitiveType="uint8"/>
@@ -121,5 +122,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
 		<field name="Price" id="44" type="decimalEncoding" offset="38" presence="optional" semanticType="Price"/>
 		<field name="StopPx" id="99" type="decimalEncoding" offset="46" presence="optional" semanticType="Price"/>
+	</sbe:message>
+	<sbe:message name="MarketOrder" id="100" blockLength="54" semanticType="D" description="Demonstration of constants">
+		<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
+		<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
+		<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
+		<field name="Side" id="54" type="sideEnum" offset="24"/>
+		<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
+		<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
+		<field name="OrdType" id="40" type="ordTypeEnum" presence="constant" valueRef="ordTypeEnum.Market"/>
+		<field name="Currency" id="15" type="currency" presence="constant">USD</field>
 	</sbe:message>
 </sbe:messageSchema>
