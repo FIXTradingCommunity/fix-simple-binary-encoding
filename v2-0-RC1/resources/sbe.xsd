@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC1">
+<!-- edited with XMLSpy v2018 sp1 (x64) (http://www.altova.com) by Don Mendelson (FIX Protocol Ltd. (FPL)) -->
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC1" vc:minVersion="1.1">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
 			*Namespace is tentative.*
 			Version: 2.0 RC1
-			© Copyright 2014-2017 FIX Protocol Limited
+			© Copyright 2014-2018 FIX Protocol Limited
 			License: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 		</xs:documentation>
 	</xs:annotation>
@@ -52,14 +53,14 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="semanticVersion" type="xs:string" use="optional">
+			<xs:attribute name="semanticVersion" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Application layer specification version, such as
 						FIX version 'FIX.5.0SP2'
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="description" type="xs:string" use="optional"/>
+			<xs:attribute name="description" type="xs:string"/>
 			<xs:attribute name="byteOrder" default="littleEndian">
 				<xs:simpleType>
 					<xs:restriction base="xs:token">
@@ -113,13 +114,14 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="blockLength" type="xs:nonNegativeInteger" use="optional">
+		<xs:attribute name="blockLength" type="xs:nonNegativeInteger">
 			<xs:annotation>
 				<xs:documentation>Space reserved for root level of message or repeating group, not
 					including nested groups or variable-length data elements.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
 		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
 	</xs:complexType>
@@ -135,7 +137,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="simpleDataType" mixed="true">
+	<xs:complexType name="simpleDataType">
 		<xs:annotation>
 			<xs:documentation>
 				Simple wire encoding consisting of a primitive type
@@ -145,13 +147,13 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:token">
 				<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-				<xs:attribute name="description" type="xs:string" use="optional"/>
+				<xs:attribute name="description" type="xs:string"/>
 				<xs:attributeGroup ref="sbe:primitiveTypeAttributes"/>
 				<xs:attributeGroup ref="sbe:versionAttributes"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="memberDataType" mixed="true">
+	<xs:complexType name="memberDataType">
 		<xs:annotation>
 			<xs:documentation>
 				A simple type used as a member of a composite type
@@ -160,10 +162,20 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:token">
 				<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-				<xs:attribute name="description" type="xs:string" use="optional"/>
+				<xs:attribute name="description" type="xs:string"/>
 				<xs:attributeGroup ref="sbe:primitiveTypeAttributes"/>
-				<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+				<xs:attributeGroup ref="sbe:offsetAttributes"/>
 				<xs:attributeGroup ref="sbe:presenceAttributes"/>
+				<xs:assert test="not (@offset and @alignment)">
+					<xs:annotation>
+						<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+					</xs:annotation>
+				</xs:assert>
+				<xs:assert test="not (@presence='constant' and (@nullValue or @minValue or @maxValue))">
+					<xs:annotation>
+						<xs:documentation>Constant is mutually exclusive with value attributes</xs:documentation>
+					</xs:annotation>
+				</xs:assert>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -181,9 +193,14 @@
 			<xs:element name="ref" type="sbe:refType"/>
 		</xs:choice>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-		<xs:attribute name="description" type="xs:string" use="optional"/>
-		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
+		<xs:assert test="not (@offset and @alignment)">
+			<xs:annotation>
+				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="enumType" mixed="true">
 		<xs:annotation>
@@ -196,9 +213,14 @@
 		</xs:sequence>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t" use="required"/>
-		<xs:attribute name="description" type="xs:string" use="optional"/>
-		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
+		<xs:assert test="not (@offset and @alignment)">
+			<xs:annotation>
+				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="validValue">
 		<xs:annotation>
@@ -209,7 +231,7 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:token">
 				<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-				<xs:attribute name="description" type="xs:string" use="optional"/>
+				<xs:attribute name="description" type="xs:string"/>
 				<xs:attributeGroup ref="sbe:versionAttributes"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -223,12 +245,17 @@
 		</xs:annotation>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
 		<xs:attribute name="type" type="sbe:symbolicName_t" use="required"/>
-		<xs:attribute name="description" type="xs:string" use="optional">
+		<xs:attribute name="description" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>How the referenced type is used</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+		<xs:attributeGroup ref="sbe:offsetAttributes"/>
+		<xs:assert test="not (@offset and @alignment)">
+			<xs:annotation>
+				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="setType" mixed="true">
 		<xs:annotation>
@@ -241,9 +268,14 @@
 		</xs:sequence>
 		<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
 		<xs:attribute name="encodingType" type="sbe:symbolicName_t" use="required"/>
-		<xs:attribute name="description" type="xs:string" use="optional"/>
-		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
+		<xs:assert test="not (@offset and @alignment)">
+			<xs:annotation>
+				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="choice">
 		<xs:annotation>
@@ -255,7 +287,7 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:nonNegativeInteger">
 				<xs:attribute name="name" type="sbe:symbolicName_t" use="required"/>
-				<xs:attribute name="description" type="xs:string" use="optional"/>
+				<xs:attribute name="description" type="xs:string"/>
 				<xs:attributeGroup ref="sbe:versionAttributes"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -275,10 +307,20 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attributeGroup ref="sbe:alignmentAttributes"/>
+		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:presenceAttributes"/>
 		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
+		<xs:assert test="not (@offset and @alignment)">
+			<xs:annotation>
+				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
+		<xs:assert test="not (@presence='constant' and (@nullValue or @minValue or @maxValue))">
+			<xs:annotation>
+				<xs:documentation>Constant is mutually exclusive with value attributes</xs:documentation>
+			</xs:annotation>
+		</xs:assert>
 	</xs:complexType>
 	<!-- Simple types -->
 	<xs:simpleType name="qualifiedName_t">
@@ -295,10 +337,24 @@
 	</xs:simpleType>
 	<!-- Attribute groups -->
 	<xs:attributeGroup name="alignmentAttributes">
-		<xs:attribute name="offset" type="xs:unsignedInt" use="optional">
+		<xs:attribute name="alignment" type="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation>Byte alignment of the start of a block (message root or repeating group instance).
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="offsetAttributes">
+		<xs:attribute name="offset" type="xs:unsignedInt">
 			<xs:annotation>
 				<xs:documentation>Offset from start of a composite type or block
 					as a zero-based index.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="alignment" type="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation>Byte alignment of the start of a block (message root or repeating group instance).
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -329,24 +385,24 @@
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
-		<xs:attribute name="nullValue" type="xs:string" use="optional">
+		<xs:attribute name="nullValue" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>Override of default null indicator for the data
 							type in SBE specification, as a string.
 						</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="minValue" type="xs:string" use="optional">
+		<xs:attribute name="minValue" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>Lower bound of a range</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="maxValue" type="xs:string" use="optional">
+		<xs:attribute name="maxValue" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>Upper bound of a range</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="valueRef" type="sbe:qualifiedName_t" use="optional">
+		<xs:attribute name="valueRef" type="sbe:qualifiedName_t">
 			<xs:annotation>
 				<xs:documentation>A constant value as valid value of an enum
 					in the form enum-name.valid-value-name. Only valid if presence='constant'.
@@ -377,7 +433,7 @@
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="length" type="xs:nonNegativeInteger" default="1"/>
-		<xs:attribute name="characterEncoding" type="xs:string" use="optional">
+		<xs:attribute name="characterEncoding" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>Character set or Unicode encoding scheme</xs:documentation>
 			</xs:annotation>
@@ -389,8 +445,8 @@
 				Application layer class. Maps a field to a FIX data type or a template to a FIX message.
 			</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="semanticType" type="xs:token" use="optional"/>
-		<xs:attribute name="description" type="xs:string" use="optional"/>
+		<xs:attribute name="semanticType" type="xs:token"/>
+		<xs:attribute name="description" type="xs:string"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="versionAttributes">
 		<xs:annotation>
@@ -405,7 +461,7 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="deprecated" type="xs:nonNegativeInteger" use="optional">
+		<xs:attribute name="deprecated" type="xs:nonNegativeInteger">
 			<xs:annotation>
 				<xs:documentation>
 					The version of the schema in which an element was deprecated. It is retained

@@ -24,6 +24,8 @@ Compatibility is only ensured under these conditions:
 
 -   Existing fields cannot change data type or move within a message.
 
+-   Message and repeating group byte alignment may not change.
+
 -   A repeating group may be added after existing groups at the root level or nested within another repeating group.
 
 -   A variable-length data field may be added after existing variable-length data at the root level or within a repeating group.
