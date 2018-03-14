@@ -317,7 +317,7 @@ sufficient for all FIX uses.
 
 | Encoding type | Description            | Backing primitives | Length (octets) |
 |---------------|------------------------|--------------------|----------------:|
-| decimal       | Floating-point decimal | Composite: int64 mantiss, int8 exponent   | 9               |
+| decimal       | Floating-point decimal | Composite: int64 mantissa, int8 exponent   | 9               |
 | decimal64     | Fixed-point decimal    | int64 mantissa, constant exponent    | 8               |
 | decimal32     | Fixed-point decimal    | int32 mantissa, constant exponent     | 4               |
 
@@ -338,7 +338,7 @@ used to indicate that a field value is null.
 | exponent range   | –128 to 127                               | –128 to 127                               | –128 to 127                               |
 | mantissa range   | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>31</sup> + 1 to 2<sup>31</sup> – 1 |
 | minValue         | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>31</sup> + 1) \* 10<sup>127</sup> |
-| maxValue         | (2<sup>63</sup> – 1) \* 10<sup>127</sup>  | (–2<sup>63</sup> – 1) \* 10<sup>127</sup> | (2<sup>31</sup> – 1) \* 10<sup>127</sup>  |
+| maxValue         | (2<sup>63</sup> – 1) \* 10<sup>127</sup>  | (2<sup>63</sup> – 1) \* 10<sup>127</sup> | (2<sup>31</sup> – 1) \* 10<sup>127</sup>  |
 | nullValue        | mantissa=–2<sup>63</sup>, exponent=–128                              | mantissa =–2<sup>63</sup>                 | mantissa =–2<sup>31</sup>                 |
 
 
