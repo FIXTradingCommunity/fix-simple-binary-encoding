@@ -174,7 +174,7 @@ code
 Codes for the representation of names of countries and their
 subdivisions - Part 1: Country codes
 
-[ISO 4217:2008](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=46121)
+[ISO 4217:2015](https://www.iso.org/standard/64758.html)
 Codes for the representation of currencies and funds
 
 [ISO 8601:2004](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=40874)
