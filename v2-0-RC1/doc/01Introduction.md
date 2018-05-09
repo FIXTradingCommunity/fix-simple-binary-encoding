@@ -9,7 +9,7 @@ intended to represent all FIX semantics.
 This encoding specification describes the wire protocol for messages.
 Thus, it provides a standard for interoperability between communicating
 parties. Users are free to implement the standard in a way that best
-suits their needs.
+suits their needs. Implementers may use the most appropriate techniques and idioms of programming languages to access data off the wire and manipulate it in applications.
 
 The encoding standard is complimentary to other FIX standards for
 session protocol and application level behavior.

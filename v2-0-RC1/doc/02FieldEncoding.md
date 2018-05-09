@@ -513,15 +513,22 @@ control character (code 0).
 
 #### Encoding of char type
 
-This is the standard encoding for char type.
+This is the standard encoding for char type. Note that the length attribute defaults to 1, producing a single character rather than a character array.
 
 ```xml
 <type name="charType" primitiveType="char"/>
 ```
 
+A field may be specified with a constant character value.
+```xml
+<field type="charType" name="OptAttribute" id="206" presence=constant>P</field>
+```
+
 Wire format of char encoding of "A" (ASCII value 65, hexadecimal 41)
 
 `41`
+
+
 
 ### Fixed-length character array
 
@@ -532,7 +539,7 @@ attribute or a constant attribute.
 
 | FIX data type | Description     | Backing primitives                                                                                                          | Length (octets)               | Required schema attribute                                          |
 |---------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------|
-| String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length (except may be inferred from a constant value, if present). |
+| String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length  |
 
 A length attribute set to zero indicates variable length. See [Variable-length string](#variable-length-string-encoding).
 
@@ -564,7 +571,7 @@ M S F T
 
 `4d5346540000`
 
-A character array constant specification
+A character array constant specification. As for a non-constant value, if the constant is shorter than the specified length, it should be padded with NUL characters to fill the fixed-length array.
 
 ```xml
 <type name="MarketID" primitiveType="char" length="4" description="MIC code"/>
