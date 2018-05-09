@@ -1174,10 +1174,10 @@ fields
     <validValue name="true">1</validValue>
 </enum>
 
-<enum name="optionalBoolean" encodingType="uint8" presence="optional"
-    nullValue="255" semanticType="Boolean">
+<enum name="optionalBoolean" encodingType="uint8" semanticType="Boolean">
     <validValue name="false">0</validValue>
     <validValue name="true">1</validValue>
+	<validValue name="nullValue">255</validValue>
 </enum>
 ```
 
