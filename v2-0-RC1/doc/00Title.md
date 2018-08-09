@@ -3,9 +3,9 @@
 FIX Simple Binary Encoding
 ==========================
 
-Technical Specification
+## Technical Specification
 
-Working Draft for potential Version 2.0 Release Candidate 1
+Version 2.0 Release Candidate 1  August 16,2018
 
 **THIS DOCUMENT IS A RELEASE CANDIDATE FOR A PROPOSED FIX TECHNICAL
 STANDARD. A RELEASE CANDIDATE HAS BEEN APPROVED BY THE GLOBAL TECHNICAL
@@ -17,4 +17,4 @@ FEEDBACK TO THE RELEASE CANDIDATE WILL DETERMINE IF ANOTHER REVISION AND
 RELEASE CANDIDATE IS NECESSARY OR IF THE RELEASE CANDIDATE CAN BE
 PROMOTED TO BECOME A FIX TECHNICAL STANDARD DRAFT.**
 
-**©Copyright 2015-2017 FIX Protocol Limited**
+**© Copyright 2015-2018 FIX Protocol Limited**
