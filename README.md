@@ -1,11 +1,7 @@
 # fix-simple-binary-encoding
 
-[![Join the chat at https://gitter.im/fix-simple-binary-encoding/Lobby](https://badges.gitter.im/fix-simple-binary-encoding/Lobby.svg)](https://gitter.im/fix-simple-binary-encoding/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 This project contains specifications and resources for Simple Binary Encoding (SBE).
 SBE is a FIX standard for binary message encoding. 
-
-For a fuller explanation, see [FIX Simple Binary Encoding](http://fixtradingcommunity.github.io/fix-simple-binary-encoding/).
 
 ## Protocol stack
 SBE is part of a family of protocols created by the High Performance Working Group
@@ -25,11 +21,19 @@ The standard met these criteria for promotion:
 
 * At least two interopable implementations. This was demonstrated with the conformance test suite described below.
 
-SBE standards are available here in GitHub and on the [FIX Trading Community site](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding).
+SBE standards are available here in GitHub and on the [FIX Trading Community](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding) site. 
+
+*New:* SBE version 1.0 specification with errata was posted July 27, 2018.
+
+#### XML namespace
+The XML namespace for SBE version 1.0 message schemas is [http://fixprotocol.io/2016/sbe](http://fixprotocol.io/2016/sbe).
 
 ### Working version: 2.0 Release Candidate 1
 
-The working group will consider issues and pull requests for the next release candidate. The planned themes for Version 2.0 Release Candidate 1 are:
+Version 2.0 RC1 was approved by the Global Technical Committee on August 16, 2018 for 90 day public review. Features were added due to popular demand. Because it is not interoperable with version 1.0 due to minor wire format changes, it was designgted as a major version.
+
+Themes of this release:
+
 * Further enhancements to the schema extension mechanism
 * Improvement of the XML schema
 
@@ -40,9 +44,6 @@ Interested parties who wish to participate in the FIX High Performance Working G
 
 ### Conformance test suite
 The [SBE Conformance project](https://github.com/FIXTradingCommunity/fix-sbe-conformance) provides a conformance test suite to verify interoperability of SBE implementations. All implementors are invited to demonstrate their conformance to the standard.
-
-### XML namespace
-The XML namespace for SBE version 1.0 message schemas is [http://fixprotocol.io/2016/sbe](http://fixprotocol.io/2016/sbe).
 
 ## License
 FIX Simple Binary Encoding specifications are © Copyright 2014-2018 FIX Protocol Ltd.
