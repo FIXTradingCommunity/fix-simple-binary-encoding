@@ -502,7 +502,8 @@ discussion of enum fields.
 #### Range attributes for char fields
 
 Character fields are constrained to single-byte characters sets. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
-However, other 8-bit encodings may be specified in a message schema. 
+However, other 8-bit encodings may be specified in a message schema. The value of characterEncoding attribute should be a preferred
+character set name registered with Internet Assigned Numbers Authority (IANA).
 
 Latin alphabet No. 1 reserves two ranges for control codes defined by ISO/IEC 6429:1992 control character sets C0 and C1.
 
@@ -527,7 +528,7 @@ This is the standard encoding for char type. Note that the length attribute defa
 A character may be specified with a different 8-bit encoding.
 
 ```xml
-<type name="cyrillic" primitiveType="char" description="Latin/Cyrillic alphabet" characterEncoding="8859-5"/>
+<type name="cyrillic" primitiveType="char" description="Latin/Cyrillic alphabet" characterEncoding="ISO-8859-5"/>
 ```
 
 A field may be specified with a constant character value.
@@ -562,9 +563,11 @@ primitiveType="char" and a length attribute is required.
 Range attributes minValue and maxValue do not apply to fixed-length
 character arrays.
 
-US-ASCII is the default encoding of character arrays to conform to usual
-FIX values. The characterEncoding attribute may be specified to override
-encoding.
+Character arrays are constrained to single-byte characters sets with the same character ranges as a single-character field. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
+
+Other 8-bit encodings may be specified in a message schema with the characterEncoding attribute. The value of characterEncoding should be a preferred
+character set name registered with IANA.
+
 
 #### Examples of fixed-length character arrays
 
@@ -574,6 +577,12 @@ A typical string encoding specification
 <type name="string6" primitiveType="char" length="6" />
 
 <field type="string6" name="Symbol" id="55" semanticType="String"/>
+```
+
+A character array with an explicit character set, Latin alphabet No. 1.
+
+```xml
+<type name="string6" primitiveType="char" characterEncoding="ISO-8859-1"/>
 ```
 
 Wire format of a character array in character and hexadecimal formats
@@ -592,9 +601,9 @@ A character array constant specification. As for a non-constant value, if the co
 
 ### Variable-length string encoding
 
-Variable-length string encoding is used for variable length ASCII
-strings or embedded non-ASCII character data (like EncodedText field). A
-length member conveys the size of the string that follows.
+Variable-length string encoding is used for variable length 
+strings or character data with a multi-byte character set (like FIX EncodedText field). A
+length member conveys the size of the string that follows in octets, which may be different than the number of characters.
 
 On the wire, length immediately precedes the data.
 
@@ -614,10 +623,10 @@ for length.
 
 ### Range attributes for string Length
 
-| Schema attribute | length  uint8   | length  uint16  | data |
-|------------------|-------:|-------:|------|
-| minValue         | 0      | 0      | N/A  |
-| maxValue         | 254    | 65534  | N/A  |
+| Schema attribute | length  uint8   | length  uint16  |
+|------------------|----------------:|----------------:|
+| minValue         | 0               | 0               | 
+| maxValue         | 254             | 65534           |
 
 If the Length element has minValue and maxValue attributes, it specifies
 the minimum and maximum *length* of the variable-length data.
@@ -1091,7 +1100,7 @@ allow more choices.
 ### Value encoding
 
 If a field is of FIX data type char, then its valid values are
-restricted to US-ASCII printable characters. See [Character encoding](#character) above.
+restricted to single-byte printable characters. See [Character encoding](#character) above.
 
 If the field is of FIX data type int, then a primitive integer data type
 should be selected that can contain the number of choices. For most
@@ -1320,7 +1329,7 @@ session protocol.
 | Field value less than minValue                              | The encoded value falls below the specified valid range.                                                                     |
 | Field value greater than maxValue                           | The encoded value exceeds the specified valid range.                                                                         |
 | Null value set for required field                           | The null value of a data type is invalid for a required field.                                                               |
-| String contains invalid characters                          | A String contains non-US-ASCII printable characters or other invalid sequence if a different characterEncoding is specified. |
+| String contains invalid characters                          | A character or character array contains controls characters or a string contains an invalid sequence if a different characterEncoding is specified. |
 | Required members not populated in MonthYear                 | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
 | UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds.                                |
 | TZTimestamp and TZTimeOnly has missing or invalid time zone | The time zone hour and minute offset members must correspond to an actual time zone recognized by international standards. |
