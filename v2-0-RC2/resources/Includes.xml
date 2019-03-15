@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Commonly used types may be imported into multiple message schemas using XInclude">
+	<composite name="MONTH_YEAR">
+		<type name="year" primitiveType="uint16"/>
+		<type name="month" primitiveType="uint8"/>
+		<type name="day" primitiveType="uint8"/>
+		<type name="week" primitiveType="uint8"/>
+	</composite>
+</types>
