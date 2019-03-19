@@ -63,6 +63,8 @@ may be customized as needed by agreement between counterparties.
 Glossary
 ------------------------------------------------------------------------------------------------------
 
+**Character set** - A mapping between a sequence of octets and a sequence of characters.
+
 **Data type** - A field type with its associated encoding attributes,
 including backing primitive types and valid values or range. Some types
 have additional attributes, e.g. epoch of a date.
@@ -149,13 +151,11 @@ References
 
 ### Related FIX Standards 
 
-*Simple Open Framing Header*, FIX Protocol, Limited. Version 1.0 Draft Standard
-specification has been published at
-<http://www.fixtradingcommunity.org/>
+[Simple Open Framing Header](https://www.fixtrading.org/packages/fix-simple-open-framing-header-draft-standard-1-0)
+FIX Protocol, Limited. Version 1.0 Draft Standard
 
-For FIX semantics, see the current FIX message specification, which is
-currently [FIX 5.0 Service Pack 2](http://www.fixtradingcommunity.org/pg/structure/tech-specs/fix-version/50-service-pack-2)
-with Extension Packs.
+[FIX 5.0 Service Pack 2](https://www.fixtrading.org/standards/fix-5-0-sp-2/)
+FIX semantics with Extension Packs.
 
 ### Dependencies on other standards 
 
@@ -165,6 +165,9 @@ normative for SBE.
 
 [IEEE 754-2008](http://ieeexplore.ieee.org/servlet/opac?punumber=4610933) A
 Standard for Binary Floating-Point Arithmetic
+
+[IETF RFC 2978](https://tools.ietf.org/html/rfc2978)
+IANA Charset Registration Procedures
 
 [ISO 639-1:2002](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=22109)
 Codes for the representation of names of languages - Part 1: Alpha-2
@@ -180,6 +183,9 @@ Codes for the representation of currencies and funds
 [ISO 8601:2004](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=40874)
 Data elements and interchange formats - Information interchange -
 Representation of dates and times
+
+[ISO/IEC 8859-1:1998](https://www.iso.org/standard/28245.html)
+8-bit single-byte coded graphic character sets -- Part 1: Latin alphabet No. 1
 
 [ISO 10383:2012](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=61067)
 Securities and related financial instruments - Codes for exchanges and
