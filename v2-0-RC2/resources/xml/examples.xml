@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" 
-package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe.xsd">
-	<xi:include href="Includes.xml" parse="xml"/>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" package="examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe ../xsd/sbe.xsd">
+	<!-- include commonly used types -->
+	<xi:include href="types-include.xml" parse="xml"/>
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
@@ -12,7 +12,6 @@ package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocati
 			<type name="length" primitiveType="uint16"/>
 			<type name="varData" length="0" primitiveType="uint8"/>
 		</composite>
-
 		<composite name="groupSizeEncoding">
 			<type name="blockLength" primitiveType="uint16"/>
 			<type name="numInGroup" primitiveType="uint16"/>
@@ -84,36 +83,35 @@ package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocati
 			<validValue name="Sell">2</validValue>
 		</enum>
 	</types>
-	<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
-		<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
-		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
-		<data name="Text" id="58" type="DATA" semanticType="data"/>
-	</sbe:message>
-	<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
-		<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
-		<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
-		<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
-		<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17" semanticType="char"/>
-		<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
-		<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
-		<field name="Side" id="54" type="sideEnum" offset="31" semanticType="char"/>
-		<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
-		<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
-		<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
-		<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
-			<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
-			<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
-		</group>
-	</sbe:message>
-	<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
-		<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
-		<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
-		<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
-		<field name="Side" id="54" type="sideEnum" offset="24" semanticType="char"/>
-		<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
-		<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
-		<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
-		<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
-		<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
-	</sbe:message>
+	<messages>
+		<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+			<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
+			<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
+			<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
+			<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17" semanticType="char"/>
+			<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
+			<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
+			<field name="Side" id="54" type="sideEnum" offset="31" semanticType="char"/>
+			<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
+			<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
+			<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
+			<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
+				<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
+				<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
+			</group>
+		</sbe:message>
+		<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+			<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
+			<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
+			<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
+			<field name="Side" id="54" type="sideEnum" offset="24" semanticType="char"/>
+			<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
+			<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
+			<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
+			<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
+			<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
+		</sbe:message>
+	</messages>
+	<!-- include commonly used messages -->
+	<xi:include href="messages-include.xml" parse="xml"/>
 </sbe:messageSchema>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSpy v2018 sp1 (x64) (http://www.altova.com) by Don Mendelson (FIX Protocol Ltd. (FPL)) -->
-<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC2" vc:minVersion="1.1">
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC2">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
@@ -38,10 +37,29 @@
 							<xs:element name="set" type="sbe:setType"/>
 						</xs:choice>
 						<xs:attribute name="description" type="xs:string"/>
-						<xs:attribute ref="xml:base" />
+						<xs:attribute name="package" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Overrides the messageSchema package</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute ref="xml:base"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element ref="sbe:message" maxOccurs="unbounded"/>
+				<xs:element name="messages" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="sbe:message" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:attribute name="description" type="xs:string"/>
+						<xs:attribute name="package" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Overrides the messageSchema package</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<!-- required to support XIinclude -->
+						<xs:attribute ref="xml:base"/>
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 			<xs:attribute name="package" type="xs:string"/>
 			<xs:attribute name="id" type="xs:unsignedShort">
@@ -169,16 +187,6 @@
 				<xs:attributeGroup ref="sbe:primitiveTypeAttributes"/>
 				<xs:attributeGroup ref="sbe:offsetAttributes"/>
 				<xs:attributeGroup ref="sbe:presenceAttributes"/>
-				<xs:assert test="not (@offset and @alignment)">
-					<xs:annotation>
-						<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-					</xs:annotation>
-				</xs:assert>
-				<xs:assert test="not (@presence='constant' and (@nullValue or @minValue or @maxValue))">
-					<xs:annotation>
-						<xs:documentation>Constant is mutually exclusive with value attributes</xs:documentation>
-					</xs:annotation>
-				</xs:assert>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -199,11 +207,6 @@
 		<xs:attribute name="description" type="xs:string"/>
 		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
-		<xs:assert test="not (@offset and @alignment)">
-			<xs:annotation>
-				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="enumType" mixed="true">
 		<xs:annotation>
@@ -219,11 +222,6 @@
 		<xs:attribute name="description" type="xs:string"/>
 		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
-		<xs:assert test="not (@offset and @alignment)">
-			<xs:annotation>
-				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="validValue">
 		<xs:annotation>
@@ -254,11 +252,6 @@
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attributeGroup ref="sbe:offsetAttributes"/>
-		<xs:assert test="not (@offset and @alignment)">
-			<xs:annotation>
-				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="setType" mixed="true">
 		<xs:annotation>
@@ -274,11 +267,6 @@
 		<xs:attribute name="description" type="xs:string"/>
 		<xs:attributeGroup ref="sbe:offsetAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
-		<xs:assert test="not (@offset and @alignment)">
-			<xs:annotation>
-				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
 	</xs:complexType>
 	<xs:complexType name="choice">
 		<xs:annotation>
@@ -314,16 +302,6 @@
 		<xs:attributeGroup ref="sbe:presenceAttributes"/>
 		<xs:attributeGroup ref="sbe:semanticAttributes"/>
 		<xs:attributeGroup ref="sbe:versionAttributes"/>
-		<xs:assert test="not (@offset and @alignment)">
-			<xs:annotation>
-				<xs:documentation>Attributes offset and alignment are mutually exclusive</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
-		<xs:assert test="not (@presence='constant' and (@nullValue or @minValue or @maxValue))">
-			<xs:annotation>
-				<xs:documentation>Constant is mutually exclusive with value attributes</xs:documentation>
-			</xs:annotation>
-		</xs:assert>
 	</xs:complexType>
 	<!-- Simple types -->
 	<xs:simpleType name="qualifiedName_t">
