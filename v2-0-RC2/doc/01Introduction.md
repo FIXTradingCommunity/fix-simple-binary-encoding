@@ -167,7 +167,7 @@ normative for SBE.
 Standard for Binary Floating-Point Arithmetic
 
 [IETF RFC 2978](https://tools.ietf.org/html/rfc2978)
-IANA Charset Registration Procedures
+IANA Charset Registration Procedures. See [Character Sets](https://www.iana.org/assignments/character-sets/character-sets.xml)
 
 [ISO 639-1:2002](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=22109)
 Codes for the representation of names of languages - Part 1: Alpha-2
