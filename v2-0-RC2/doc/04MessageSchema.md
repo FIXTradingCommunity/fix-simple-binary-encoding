@@ -8,6 +8,10 @@ See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD
 The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.0. (XSD version 1.1 was standardized.
 However, since it is not supported by all XML processors, the SBE XSD is constrained to features of version 1.0.)
 
+### XInclude usage
+
+Certain elements of the SBE message schema support inclusion from a separate XML file. The result of the XInclude mechanism
+is a single XML infoset, so the schema description below applies whether a single file is used or multiple files are assembled.
 
 XML namespace
 -----------------------------------------------------------------------------------------------------------
