@@ -13,6 +13,7 @@ However, since it is not supported by all XML processors, the SBE XSD is constra
 Certain elements of the SBE message schema support inclusion from a separate XML file. The result of the XInclude mechanism
 is a single XML infoset, so the schema description below applies whether a single file is used or multiple files are assembled.
 
+
 XML namespace
 -----------------------------------------------------------------------------------------------------------
 
@@ -98,6 +99,7 @@ instances of `<types>`, if desired, to organize them by categories. Each `<types
 
 The `<types>` element has attribute `xml:base` to support inclusion from a separate XML file using the XInclude mechanism.
 Thus, common encoding types may be shared across multiple SBE message schemas.
+
 
 Within each set, an unbound number of encodings will be listed in any
 sequence:

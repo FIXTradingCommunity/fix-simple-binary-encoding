@@ -98,10 +98,10 @@ See Common field schema attributes below.
 | PriceOffset                      | Decimal encoding                                                                          | [Decimal encoding](#decimal-encoding)     | A decimal number representing a price offset, which can be mathematically added to a Price.                                                                                              |
 | Amt                              | Decimal encoding                                                                          | [Decimal encoding](#decimal-encoding)     | A field typically representing a Price times a Qty.                                                                                                                                      |
 | Percentage                       | Decimal encoding                                                                          | [Decimal encoding](#decimal-encoding)     | A field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%).                                                                                                |
-| char                             | Character                                                                                 | [Character encoding](#character)   | Single US-ASCII character value. Can include any alphanumeric character or punctuation. All char fields are case sensitive (i.e. m != M).                                                |
-| String                           | Fixed-length character array                                                              | [Fixed-length character](#fixed-length-character-array)   | A fixed-length character array of ASCII encoding                                                                                                                                         |
-| String                           | Variable-length data encoding                                                             | [Variable-length string](#variable-length-string-encoding)   | Alpha-numeric free format strings can include any character or punctuation. All String fields are case sensitive (i.e. morstatt != Morstatt). ASCII encoding.                            |
-| String—EncodedText               | String encoding                                                                           | [Variable-length string](#variable-length-string-encoding)   | Non-ASCII string. The character encoding may be specified by a schema attribute.                                                                                                         |
+| char                             | Character                                                                                 | [Character encoding](#character)   | Single-byte character value. Can include any alphanumeric character or punctuation. All char fields are case sensitive (i.e. m != M).                                                |
+| String                           | Fixed-length character array                                                              | [Fixed-length character](#fixed-length-character-array)   | A fixed-length character array of single-byte encoding                                                                                                                                         |
+| String                           | Variable-length data encoding                                                             | [Variable-length string](#variable-length-string-encoding)   | Alpha-numeric free format strings can include any character or punctuation. All String fields are case sensitive (i.e. morstatt != Morstatt).                         |
+| String—EncodedText               | String encoding                                                                           | [Variable-length string](#variable-length-string-encoding)   | A string. The character encoding may be specified by a schema attribute.                                                                                                         |
 | XMLData                          | String encoding                                                                           | [Variable-length string](#variable-length-string-encoding)   | Variable-length XML. Must be paired with a Length field.                                                                                                                                 |
 | data                             | Fixed-length data                                                                         | [Fixed-length data](#fixed-length-data)   | Fixed-length non-character data                                                                                                                                                          |
 | data                             | Variable-length data encoding                                                             | [Variable-length data](#variable-length-data-encoding)   | Variable-length data. Must be paired with a Length field.                                                                                                                                |
@@ -487,29 +487,35 @@ Character data may either be of fixed size or variable size. In Simple
 Binary Encoding, fixed-length fields are recommended in order to support
 direct access to data. Variable-length encoding should be reserved for
 character strings that cannot be constrained to a specific size. It may
-also be used for non-ASCII encoded strings.
+also be used for multi-byte encodings.
 
 ### Character
 
-Character fields hold a single character. They are most commonly used
-for field with character code enumerations. See [Enumeration encoding](#enumeration-encoding) below for
+Character fields hold a single character of a single-byte character set. They are most commonly used
+for fields with character code enumerations. See [Enumeration encoding](#enumeration-encoding) below for
 discussion of enum fields.
 
-| FIX data type | Description                 | Backing primitive | Length (octet) |
-|---------------|-----------------------------|-------------------|---------------:|
-| char          | A single US-ASCII character | char              | 1              |
+| FIX data type | Description        | Backing primitive | Length (octet) |
+|---------------|--------------------|-------------------|---------------:|
+| char          | A single character | char              | 1              |
 
 #### Range attributes for char fields
 
-Valid values of a char field are printable characters of the US-ASCII
-character set (codes 20 to 7E hex.) The implicit nullValue is the NUL
-control character (code 0).
+Character fields are constrained to single-byte characters sets. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
+However, other 8-bit encodings may be specified in a message schema. The value of characterEncoding attribute should be a preferred
+character set name registered with Internet Assigned Numbers Authority (IANA).
 
- Schema attribute  | char   |
+Latin alphabet No. 1 reserves two ranges for control codes defined by ISO/IEC 6429:1992 control character sets C0 and C1.
+
+The implicit nullValue is the NUL control character (code 0).
+
+| Schema attribute | char   |
 |------------------|--------|
 | minValue         | hex 20 |
-| maxValue         | hex 7e |
+| maxValue         | hex ff |
 | nullValue        | 0      |
+
+The range hexidecimal 7f-9f is a reserved for control character set C1.
 
 #### Encoding of char type
 
@@ -519,16 +525,20 @@ This is the standard encoding for char type. Note that the length attribute defa
 <type name="charType" primitiveType="char"/>
 ```
 
+A character may be specified with a different 8-bit encoding.
+
+```xml
+<type name="cyrillic" primitiveType="char" description="Latin/Cyrillic alphabet" characterEncoding="ISO-8859-5"/>
+```
+
 A field may be specified with a constant character value.
 ```xml
 <field type="charType" name="OptAttribute" id="206" presence=constant>P</field>
 ```
 
-Wire format of char encoding of "A" (ASCII value 65, hexadecimal 41)
+Wire format of char encoding of "A" (value 65, hexadecimal 41)
 
 `41`
-
-
 
 ### Fixed-length character array
 
@@ -551,9 +561,10 @@ primitiveType="char" and a length attribute is required.
 Range attributes minValue and maxValue do not apply to fixed-length
 character arrays.
 
-US-ASCII is the default encoding of character arrays to conform to usual
-FIX values. The characterEncoding attribute may be specified to override
-encoding.
+Character arrays are constrained to single-byte characters sets with the same character ranges as a single-character field. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
+
+Other 8-bit encodings may be specified in a message schema with the characterEncoding attribute. The value of characterEncoding should be a preferred
+character set name registered with IANA.
 
 #### Examples of fixed-length character arrays
 
@@ -563,6 +574,12 @@ A typical string encoding specification
 <type name="string6" primitiveType="char" length="6" />
 
 <field type="string6" name="Symbol" id="55" semanticType="String"/>
+```
+
+A character array with an explicit character set, Latin alphabet No. 1.
+
+```xml
+<type name="string6" primitiveType="char" characterEncoding="ISO-8859-1"/>
 ```
 
 Wire format of a character array in character and hexadecimal formats
@@ -581,9 +598,9 @@ A character array constant specification. As for a non-constant value, if the co
 
 ### Variable-length string encoding
 
-Variable-length string encoding is used for variable length ASCII
-strings or embedded non-ASCII character data (like EncodedText field). A
-length member conveys the size of the string that follows.
+Variable-length string encoding is used for variable length 
+strings or character data with a multi-byte character set (like FIX EncodedText field). A
+length member conveys the size of the string that follows in octets, which may be different than the number of characters.
 
 On the wire, length immediately precedes the data.
 
@@ -603,10 +620,10 @@ for length.
 
 ### Range attributes for string Length
 
-| Schema attribute | length  uint8   | length  uint16  | data |
-|------------------|-------:|-------:|------|
-| minValue         | 0      | 0      | N/A  |
-| maxValue         | 254    | 65534  | N/A  |
+| Schema attribute | length  uint8   | length  uint16  |
+|------------------|----------------:|----------------:|
+| minValue         | 0               | 0               | 
+| maxValue         | 254             | 65534           |
 
 If the Length element has minValue and maxValue attributes, it specifies
 the minimum and maximum *length* of the variable-length data.
@@ -1080,7 +1097,7 @@ allow more choices.
 ### Value encoding
 
 If a field is of FIX data type char, then its valid values are
-restricted to US-ASCII printable characters. See [Character encoding](#character) above.
+restricted to single-byte printable characters. See [Character encoding](#character) above.
 
 If the field is of FIX data type int, then a primitive integer data type
 should be selected that can contain the number of choices. For most
@@ -1309,7 +1326,7 @@ session protocol.
 | Field value less than minValue                              | The encoded value falls below the specified valid range.                                                                     |
 | Field value greater than maxValue                           | The encoded value exceeds the specified valid range.                                                                         |
 | Null value set for required field                           | The null value of a data type is invalid for a required field.                                                               |
-| String contains invalid characters                          | A String contains non-US-ASCII printable characters or other invalid sequence if a different characterEncoding is specified. |
+| String contains invalid characters                          | A character or character array contains controls characters or a string contains an invalid sequence if a different characterEncoding is specified. |
 | Required members not populated in MonthYear                 | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
 | UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds.                                |
 | TZTimestamp and TZTimeOnly has missing or invalid time zone | The time zone hour and minute offset members must correspond to an actual time zone recognized by international standards. |
