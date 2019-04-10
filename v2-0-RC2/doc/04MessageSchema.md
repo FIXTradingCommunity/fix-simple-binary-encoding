@@ -5,7 +5,13 @@ XML schema for SBE message schemas
 ---------
 See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
-The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.1.
+The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.0. (XSD version 1.1 was standardized.
+However, since it is not supported by all XML processors, the SBE XSD is constrained to features of version 1.0.)
+
+### XInclude usage
+
+Certain elements of the SBE message schema support inclusion from a separate XML file. The result of the XInclude mechanism
+is a single XML infoset, so the schema description below applies whether a single file is used or multiple files are assembled.
 
 
 XML namespace
@@ -82,8 +88,18 @@ Data encodings
 
 ### Encoding sets 
 
-The `<types>` element contains one or more sets of data encodings used
-for messages within the schema.
+A `<types>` element contains a set of data encodings used by messages within a schema. A message schema may have multiple
+instances of `<types>`, if desired, to organize them by categories. Each `<types>` element may have an associated `package` name.
+
+**`<types>` element attribute**
+
+| Schema attribute | Description                                                                                      | XML type           | Usage                  | Valid values                                                                 |
+|------------------|--------------------------------------------------------------------------------------------------|--------------------|------------------------|------------------------------------------------------------------------------|
+| package          | Overrides package of messageSchema                                                                     | string             | optional               | Should be unique between counterparties but no naming convention is imposed. |
+
+The `<types>` element has attribute `xml:base` to support inclusion from a separate XML file using the XInclude mechanism.
+Thus, common encoding types may be shared across multiple SBE message schemas.
+
 
 Within each set, an unbound number of encodings will be listed in any
 sequence:
@@ -371,13 +387,24 @@ Multi-value choice example, The choice is encoded as a bitset.
 </set>
 ```
 
-Message template
+Message templates
 --------------------------------------------------------------------------------------------------------------
 
-To define a message type, add a `<message>` element to the root element
-of the XML document, `<messageSchema>`.
+A `<messages>` element contains a set of message templates. A message schema may have multiple
+instances of `<messages>`, if desired, to organize them by categories. Each `<messages>` element may have an associated `package` name.
 
-The `name` and `id` attributes are required. The first is a display name for
+**`<messages>` element attribute**
+
+| Schema attribute | Description                                                                                      | XML type           | Usage                  | Valid values                                                                 |
+|------------------|--------------------------------------------------------------------------------------------------|--------------------|------------------------|------------------------------------------------------------------------------|
+| package          | Overrides package of messageSchema                                                                     | string             | optional               | Should be unique between counterparties but no naming convention is imposed. |
+
+The `<messages>` element has attribute `xml:base` to support inclusion from a separate XML file using the XInclude mechanism.
+Thus, common message templates may be shared across multiple SBE message schemas.
+
+To define a message type, add a `<message>` element to `<messages>`.
+
+The `name` and `id` attributes of `<message>` are required. The first is a display name for
 a message, while the latter is a unique numeric identifier, commonly
 called template ID.
 

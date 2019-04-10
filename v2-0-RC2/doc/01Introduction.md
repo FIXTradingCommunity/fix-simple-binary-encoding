@@ -63,6 +63,7 @@ may be customized as needed by agreement between counterparties.
 Glossary
 ------------------------------------------------------------------------------------------------------
 
+
 **Character set** - A mapping between a sequence of octets and a sequence of characters.
 
 **Data type** - A field type with its associated encoding attributes,
@@ -191,4 +192,7 @@ Representation of dates and times
 Securities and related financial instruments - Codes for exchanges and
 market identification (MIC)
 
-[W3C XML Schema version 1.1](https://www.w3.org/TR/2006/REC-xml11-20060816/)
+*W3C XML Schema version 1.0* [Part 1](https://www.w3.org/TR/xmlschema-1/) [Part 2](https://www.w3.org/TR/xmlschema-2/)
+
+[W3C XML Inclusions (XInclude) Version 1.0](https://www.w3.org/TR/xinclude/)
+

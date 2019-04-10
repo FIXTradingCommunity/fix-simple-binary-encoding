@@ -540,8 +540,6 @@ Wire format of char encoding of "A" (value 65, hexadecimal 41)
 
 `41`
 
-
-
 ### Fixed-length character array
 
 Character arrays are allocated a fixed space in a message, supporting
@@ -567,7 +565,6 @@ Character arrays are constrained to single-byte characters sets with the same ch
 
 Other 8-bit encodings may be specified in a message schema with the characterEncoding attribute. The value of characterEncoding should be a preferred
 character set name registered with IANA.
-
 
 #### Examples of fixed-length character arrays
 
