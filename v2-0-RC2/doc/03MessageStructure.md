@@ -149,7 +149,7 @@ message. See section 4 for schema attributes.
 
 ### Number of repeating groups
 
-A count of repeating groups at the root level of the message. The count does not include nested repeating groups.
+A count of repeating groups at the root level of the message. The count includes non-repeating components, where `numInGroup` is restricted to 1, but does not include nested groups.
 
 ### Number of variable-length fields
 
@@ -359,8 +359,7 @@ repeating group contains no variable-length fields. Therefore, the alignment att
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below
-for encoding of that counter.
+value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below for encoding of that counter.
 
 ### Empty group
 
@@ -471,7 +470,7 @@ Recommended encoding of repeating group dimensions
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
     <type name="numInGroup" primitiveType="uint16"/>
-	<type name="numGroups" primitiveType="uint16" />
+    <type name="numGroups" primitiveType="uint16" />
     <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 ```
@@ -487,7 +486,7 @@ The number of entries in this repeating group, called NumInGroup in FIX.
 
 #### Number of repeating groups
 
-A count nested repeating groups in this repeating group.
+A count nested repeating groups in this repeating group. The count includes non-repeating components, where `numInGroup` is restricted to 1.
 
 #### Number of variable-length fields
 
@@ -501,11 +500,27 @@ Wire format of NumInGroup with block length 55 octets by 3 entries, containing o
 
 The occurrences of a repeating group may be restricted to a specific range by modifying the numInGroup member of the group dimension encoding. The minValue attribute controls the minimum number of entries, overriding the default of zero, and the maxValue attribute restricts the maximum entry count to something less than the maximum corresponding to its primitiveType. Either or both attributes may be specified.
 
-Example of a restricted group encoding
+Example of a group encoding restricted to 1 to 10 entries
 
 ```xml
 <type name="numInGroup" primitiveType="uint16" minValue="1" maxValue="10" />
 ```
+
+#### Non-repeating component
+
+A block of fields and nested groups may be included in a message encoded as a repeating group but restricted to a single entry. The benefits are that the component is recognized as having its own identity, and that, like a repeating group, it may be extended in later versions of a schema. Like a repeating group, it has its own dimension on the wire, but numInGroup is restriction to a maximum of 1.
+
+Example of non-repeating component dimension encoding
+
+```xml
+<composite name="componentSizeEncoding">
+	<type name="blockLength" primitiveType="uint16"/>
+	<type name="numInGroup" primitiveType="uint16" maxValue="1"/>
+	<type name="numGroups" primitiveType="uint16"/>
+	<type name="numVarDataFields" primitiveType="uint16"/>
+</composite>
+```
+
 
 Sequence of message body elements
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -367,7 +367,7 @@ The `name` attribute of the `<choice>` uniquely identifies it.
 | sinceVersion         | Documents the version of a schema in which a choice was added                                                    | nonNegativeInteger | default = 0 |                                                                  |
 | deprecated           | Documents the version of a schema in which a choice was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
-#### `< choice >` element content
+#### `<choice>` element content
 
 The element is required to carry a value, which is an unsigned integer
 representing a zero-based index to a bit within a bitset. Zero is the
@@ -385,6 +385,19 @@ Multi-value choice example, The choice is encoded as a bitset.
     <choice name="National">1</choice>
     <choice name="Global">2</choice>
 </set>
+```
+
+## Components
+
+A component is a message fragment that may be reused in any number of message templates. A `<component>` element has exactly the same attributes as a `<group>` element contained by a `<message>`, and may have the same elements, including fields, nested repeating groups, and variable length data. The elements must follow the same order as in a repeating group. See below.
+
+Example of a component encoding
+
+```xml
+<sbe:component name="instrumentBlock" id="1003" description="Reusable message fragment">
+	<field name="SecurityID" id="48" type="idString" offset="0" semanticType="String"/>
+	<field name="SecurityIDSource" id="22" type="securityIdSourceEnum" offset="10"/>
+</sbe:component>
 ```
 
 Message templates
@@ -523,6 +536,8 @@ The number of members of each type is unbound.
 | description         | Documentation                     | string          | optional                    |                                                                          |
 | dimensionType       | Dimensions of the repeating group | symbolicName\_t | default = groupSizeEncoding | If specified, must be greater than or equal to the sum of field lengths. |
 | alignment            | Controls byte alignment of the start of each group instance in its buffer| positiveInteger | optional    |          |
+| component | Name of a component | string | optional | Must match the name attribute of a component element |
+
 `<group>` element inherits attributes of blockType. See `<message>`
 above.
 
@@ -541,6 +556,34 @@ above.
     <field type="partyRoleEnum" name="PartyRole" id="452" />
 </group>
 ```
+
+## Component usage
+
+A `<component>` is a message fragment that is defined once in a message schema but may be instantiated in any number of message templates. A component is instantiated by referencing the name of a `<component>` in a `<group>` element. The `component` attribute of `<group>` must match the `name` element of a `<component>` element if it is provided.
+
+#### Example of component usage
+
+In this example, component instrumentBlock is instantiated in the NewOrderSingle message. A component can be included in any number of message templates. Where it is used, it takes the form of a repeating `<group>`. However, in this example, componentSizeEncoding restricts `numInGroup` to a single entry, so it is actually a non-repeating component. 
+
+```xml
+<composite name="componentSizeEncoding">
+	<type name="blockLength" primitiveType="uint16"/>
+	<type name="numInGroup" primitiveType="uint16" maxValue="1"/>
+	<type name="numGroups" primitiveType="uint16"/>
+	<type name="numVarDataFields" primitiveType="uint16"/>
+</composite>
+
+<sbe:component name="instrumentBlock" id="1003" description="Reusable message fragment">
+	<field name="SecurityID" id="48" type="idString" offset="0" semanticType="String"/>
+	<field name="SecurityIDSource" id="22" type="securityIdSourceEnum" offset="10"/>
+</sbe:component>
+
+<sbe:message name="NewOrderSingle" id="99" blockLength="50" semanticType="D">
+    . . .
+    <group name="Instrument" id="1003" blockLength="11" dimensionType="componentSizeEncoding" component="instrumentBlock"/>
+</sbe:message>
+```
+
 
 Schema validation
 --------------------------------------------------------------------------------------------------------------------------------------------------------------

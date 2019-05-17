@@ -12,6 +12,8 @@ added fields or messages is not required for business processing.
 
 Message templates and repeating groups may be extended with new fields. However, the extension mechanism does not support extension of composite types that back existing fields.
 
+Extension of a non-repeating component, where `numInGroup` is restricted to 1, follows the same constraints and rules as a repeating group for extension.
+
 This specification only details compatibility at the presentation layer. It does not relieve application developers of any responsibility for carefully planning a migration strategy and for handling exceptions at the application layer.
 
 ### Constraints

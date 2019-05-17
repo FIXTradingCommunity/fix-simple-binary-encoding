@@ -5,7 +5,7 @@
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
-		<type name="idString" length="8" primitiveType="char"/>
+		<type name="idString" length="10" primitiveType="char"/>
 		<type name="intEnumEncoding" primitiveType="uint8"/>
 		<type name="currency" length="3" primitiveType="char" description="ISO 4217"/>
 		<composite name="DATA">
@@ -15,6 +15,12 @@
 		<composite name="groupSizeEncoding">
 			<type name="blockLength" primitiveType="uint16"/>
 			<type name="numInGroup" primitiveType="uint16"/>
+			<type name="numGroups" primitiveType="uint16"/>
+			<type name="numVarDataFields" primitiveType="uint16"/>
+		</composite>
+		<composite name="componentSizeEncoding">
+			<type name="blockLength" primitiveType="uint16"/>
+			<type name="numInGroup" primitiveType="uint16" maxValue="1"/>
 			<type name="numGroups" primitiveType="uint16"/>
 			<type name="numVarDataFields" primitiveType="uint16"/>
 		</composite>
@@ -82,34 +88,47 @@
 			<validValue name="Buy">1</validValue>
 			<validValue name="Sell">2</validValue>
 		</enum>
+		<enum name="securityIdSourceEnum" encodingType="enumEncoding">
+			<validValue name="CUSIP">1</validValue>
+			<validValue name="SEDOL">2</validValue>
+			<validValue name="QUIK">3</validValue>
+			<validValue name="ISIN">4</validValue>
+			<validValue name="RIC">5</validValue>
+			<validValue name="CurrencyCode">6</validValue>
+			<validValue name="CountryCode">7</validValue>
+			<validValue name="ExchangeSymbol">8</validValue>
+		</enum>
+		<sbe:component name="instrumentBlock" id="1003" description="Reusable message fragment">
+			<field name="SecurityID" id="48" type="idString" offset="0" semanticType="String"/>
+			<field name="SecurityIDSource" id="22" type="securityIdSourceEnum" offset="10"/>
+		</sbe:component>
 	</types>
 	<messages>
-		<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+		<sbe:message name="ExecutionReport" id="98" blockLength="39" semanticType="8">
 			<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
-			<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
-			<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
-			<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17" semanticType="char"/>
-			<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
-			<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
-			<field name="Side" id="54" type="sideEnum" offset="31" semanticType="char"/>
-			<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
-			<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
-			<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
+			<field name="ExecID" id="17" type="idString" offset="10" semanticType="String"/>
+			<field name="ExecType" id="150" type="execTypeEnum" offset="20" semanticType="char"/>
+			<field name="OrdStatus" id="39" type="ordStatusEnum" offset="21" semanticType="char"/>
+			<field name="Side" id="54" type="sideEnum" offset="22" semanticType="char"/>
+			<field name="LeavesQty" id="151" type="qtyEncoding" offset="23" semanticType="Qty"/>
+			<field name="CumQty" id="14" type="qtyEncoding" offset="27" semanticType="Qty"/>
+			<field name="TradeDate" id="75" type="date" offset="31" semanticType="LocalMktDate"/>
+			<group name="Instrument" id="1003" blockLength="11" dimensionType="componentSizeEncoding" component="instrumentBlock"/>
 			<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
 				<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
 				<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
 			</group>
 		</sbe:message>
-		<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+		<sbe:message name="NewOrderSingle" id="99" blockLength="50" semanticType="D">
 			<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
-			<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
-			<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
-			<field name="Side" id="54" type="sideEnum" offset="24" semanticType="char"/>
-			<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
-			<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
-			<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
-			<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
-			<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
+			<field name="Account" id="1" type="idString" offset="10" semanticType="String"/>
+			<field name="Side" id="54" type="sideEnum" offset="20" semanticType="char"/>
+			<field name="TransactTime" id="60" type="timestampEncoding" offset="21" semanticType="UTCTimestamp"/>
+			<field name="OrderQty" id="38" type="qtyEncoding" offset="29" semanticType="Qty"/>
+			<field name="OrdType" id="40" type="ordTypeEnum" offset="33" semanticType="char"/>
+			<field name="Price" id="44" type="decimalEncoding" offset="34" semanticType="Price" presence="optional"/>
+			<field name="StopPx" id="99" type="decimalEncoding" offset="42" semanticType="Price" presence="optional"/>
+			<group name="Instrument" id="1003" blockLength="11" dimensionType="componentSizeEncoding" component="instrumentBlock"/>
 		</sbe:message>
 	</messages>
 	<!-- include commonly used messages -->
