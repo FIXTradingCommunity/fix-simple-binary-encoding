@@ -3,7 +3,7 @@
 
 XML schema for SBE message schemas
 ---------
-See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
+See [SBE XSD](../resources/sbe-2.0rc2.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.0. (XSD version 1.1 was standardized.
 However, since it is not supported by all XML processors, the SBE XSD is constrained to features of version 1.0.)
