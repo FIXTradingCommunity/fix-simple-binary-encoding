@@ -9,11 +9,11 @@ Not all FIX enumeration values are listed in the samples.
 ## SBE Message Schema
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples" id="91" version="0" byteOrder="littleEndian">
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe-2.0rc2.xsd">
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
-		<type name="idString" length="8" primitiveType="char"/>
+		<type name="idString" length="8" primitiveType="char" characterEncoding="ISO_8859_1"/>
 		<type name="intEnumEncoding" primitiveType="uint8"/>
 		<type name="currency" length="3" primitiveType="char" description="ISO 4217"/>
 		<composite name="DATA">
@@ -97,38 +97,40 @@ Not all FIX enumeration values are listed in the samples.
 			<validValue name="Sell">2</validValue>
 		</enum>
 	</types>
-	<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
-		<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
-		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
-		<data name="Text" id="58" type="DATA" semanticType="data"/>
-	</sbe:message>
-	<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
-		<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
-		<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
-		<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
-		<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17" semanticType="char"/>
-		<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
-		<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
-		<field name="Side" id="54" type="sideEnum" offset="31" semanticType="char"/>
-		<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
-		<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
-		<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
-		<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
-			<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
-			<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
-		</group>
-	</sbe:message>
-	<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
-		<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
-		<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
-		<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
-		<field name="Side" id="54" type="sideEnum" offset="24" semanticType="char"/>
-		<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
-		<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
-		<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
-		<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
-		<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
-	</sbe:message>
+	<messages>
+		<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
+			<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
+			<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
+			<data name="Text" id="58" type="DATA" semanticType="data"/>
+		</sbe:message>
+		<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+			<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
+			<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
+			<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
+			<field name="OrdStatus" id="39" type="ordStatusEnum" offset="17" semanticType="char"/>
+			<field name="Symbol" id="55" type="idString" offset="18" semanticType="String"/>
+			<field name="MaturityMonthYear" id="200" type="MONTH_YEAR" offset="26" semanticType="MonthYear"/>
+			<field name="Side" id="54" type="sideEnum" offset="31" semanticType="char"/>
+			<field name="LeavesQty" id="151" type="qtyEncoding" offset="32" semanticType="Qty"/>
+			<field name="CumQty" id="14" type="qtyEncoding" offset="36" semanticType="Qty"/>
+			<field name="TradeDate" id="75" type="date" offset="40" semanticType="LocalMktDate"/>
+			<group name="FillsGrp" id="2112" blockLength="12" dimensionType="groupSizeEncoding">
+				<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
+				<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
+			</group>
+		</sbe:message>
+		<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+			<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
+			<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
+			<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
+			<field name="Side" id="54" type="sideEnum" offset="24" semanticType="char"/>
+			<field name="TransactTime" id="60" type="timestampEncoding" offset="25" semanticType="UTCTimestamp"/>
+			<field name="OrderQty" id="38" type="qtyEncoding" offset="33" semanticType="Qty"/>
+			<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
+			<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
+			<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
+		</sbe:message>
+	</messages>
 </sbe:messageSchema>
 ```
 
@@ -184,13 +186,11 @@ Hexadecimal and ASCII representations (little-endian byte order):
 ```
 00 00 00 48 eb 50 36 00 63 00 5b 00 00 00 00 00 :   H P6 c [     
 00 00 4f 52 44 30 30 30 30 31 41 43 43 54 30 31 :  ORD00001ACCT01
-00 00 47 45 4d 34 00 00 00 00 31 00 a0 37 3a ce :  GEM4    1  7: 
-10 40 15 07 00 00 00 32 1a 85 01 00 00 00 00 00 : @     2        
+00 00 47 45 4d 34 00 00 00 00 31 c0 1a 31 96 2a :  GEM4    1  1 *
+5e b0 15 07 00 00 00 32 1a 85 01 00 00 00 00 00 :^      2        
 00 00 00 00 00 00 00 80                         :        
 ```
-
-**Interpretation**
-
+### Interpretation
 |Wire format|Field ID|Name|Offset|Length|Interpreted value|
 |-----------|-------:|----|-----:|-----:|-----------------|
 | `00000048` |   | SOFH message length | 0 | 4 | 72 |
@@ -205,11 +205,12 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `4143435430310000` | 1 | Account | 8 | 8 | ACCT01 |
 | `47454d3400000000` | 55 | Symbol | 16 | 8 | GEM4 |
 | `31` | 54 | Side | 24 | 1 | Buy |
-| `00a0373ace104015` | 60 | TransactTime | 25 | 8 | 2018-07-10T17:05:51.232Z |
+| `c01a31962a5eb015` | 60 | TransactTime | 25 | 8 | 2019-07-11T13:43:27.699Z |
 | `07000000` | 38 | OrderQty | 33 | 4 | 7 |
 | `32` | 40 | OrdType | 37 | 1 | Limit |
 | `1a85010000000000` | 44 | Price | 38 | 8 | 99.610 |
-| `0000000000000080` | 99 | StopPx | 46 | 8 | null |                                                  |
+| `0000000000000080` | 99 | StopPx | 46 | 8 | null |
+
 
 Message with a repeating group
 ------------------------------
@@ -236,8 +237,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 ff 31 01 00 00 00 06 00 00 00 75 3e 0c 00 02 00 : 1        u>    
 00 00 00 00 1a 85 01 00 00 00 00 00 02 00 00 00 :                
 24 85 01 00 00 00 00 00 04 00 00 00             :$           
-```    
-
+```
 ### Interpretation
 Offset is from beginning of block.
 
@@ -266,7 +266,7 @@ Offset is from beginning of block.
 | `0000` |   | No. of var data | 6 | 2 | 0 |
 | `1a85010000000000` | 1364 | FillPx | 0 | 8 | 99.610 |
 | `02000000` | 1365 | FillQty | 8 | 4 | 2 |
-| `2485010000000000` | 1364 | FillPx | 0 | 8  | 99.620 |
+| `2485010000000000` | 1364 | FillPx | 0 | 8 | 99.620 |
 | `04000000` | 1365 | FillQty | 8 | 4 | 4 |
 
 Message with a variable-length field
@@ -274,18 +274,14 @@ Message with a variable-length field
 
 ### Wire format of a business reject message
 
-Hexadecimal and ASCII representations (little-endian byte order):
-
 ```
 00 00 00 44 eb 50 09 00 61 00 5b 00 00 00 00 00 :   D P  a [     
 01 00 4f 52 44 30 30 30 30 31 06 27 00 4e 6f 74 :  ORD00001 ' Not
 20 61 75 74 68 6f 72 69 7a 65 64 20 74 6f 20 74 : authorized to t
 72 61 64 65 20 74 68 61 74 20 69 6e 73 74 72 75 :rade that instru
 6d 65 6e 74                                     :ment
-``` 
-
+```
 ### Interpretation
-
 |Wire format|Field ID|Name|Offset|Length|Interpreted value|
 |-----------|-------:|----|-----:|-----:|-----------------|
 | `00000044` |   | SOFH message length | 0 | 4 | 68 |
