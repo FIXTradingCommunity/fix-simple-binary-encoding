@@ -1,11 +1,25 @@
-Release Notes
-=============
+# Release Notes
 
 These are the changes made since SBE version 1.0. 
 
-SBE version 2.0 Release Candidate 1
--------------------
-These issues were resolved and accepted for version 2.0 Release Candidate 1. See [issues](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/issues) and [pull requests](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/pulls) in GitHub for details and changes.
+ See [issues](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/issues) and [pull requests](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/pulls) in GitHub for details and changes.
+
+## SBE version 2.0 Release Candidate 2
+
+These issues were resolved and accepted for version 2.0 Release Candidate 2.
+
+| Issue | Description                                                    |
+|------:|----------------------------------------------------------------|
+| 94    | XInclude does not work because of missing xml:base attribute allowance |
+| 95    | Single-byte character set                                      |
+| 96    | Package override on type                                       |
+| 99    | Revert to XML Schema version 1.0                               |
+| 101   | update examples section for v2.0RC2                            |
+| 106   | Version number in SBE.XSD file name                            |
+
+## SBE version 2.0 Release Candidate 1
+
+These issues were resolved and accepted for version 2.0 Release Candidate 1.
 
 | Issue | Description                                                    |
 |------:|----------------------------------------------------------------|
