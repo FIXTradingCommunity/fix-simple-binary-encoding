@@ -14,6 +14,17 @@ suits their needs.
 The encoding standard is complimentary to other FIX standards for
 session protocol and application level behavior.
 
+The Technical Specification is split into the following sections:
+
+1. [Introduction](#introduction)
+2. [Field Encoding](#field-encoding)
+2. [Message Structure](#message-structure)
+2. [Message Schema](#message-schema)
+2. [Schema Extension Mechanism](#schema-extension-mechanism)
+2. [Usage Guidelines](#usage-guidelines)
+2. [Examples](#examples)
+
+
 Binary type system
 ----------------------------------------------------------------------------------------------------------------
 
@@ -126,7 +137,7 @@ These terms give guidance, recommendation or best practices:
 "**should**" or "**recommended**". A recommended choice among
 alternatives is described as "**preferred**".
 
-These terms give guidance that a practice is not recommended: "**should not**" 
+These terms give guidance that a practice is not recommended: "**should not**"
 or "**not recommended**".
 
 ### Document format
@@ -147,7 +158,7 @@ This is sample data as it would be transmitted on the wire
 References
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Related FIX Standards 
+### Related FIX Standards
 
 *Simple Open Framing Header*, FIX Protocol, Limited. Version 1.0 Draft Standard
 specification has been published at
@@ -157,7 +168,7 @@ For FIX semantics, see the current FIX message specification, which is
 currently [FIX 5.0 Service Pack 2](http://www.fixtradingcommunity.org/pg/structure/tech-specs/fix-version/50-service-pack-2)
 with Extension Packs.
 
-### Dependencies on other standards 
+### Dependencies on other standards
 
 SBE is dependent on several industry standards. Implementations must
 conform to these standards to interoperate. Therefore, they are
