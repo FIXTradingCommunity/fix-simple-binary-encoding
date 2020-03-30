@@ -7,7 +7,7 @@ TARGET="$PWD"
 echo Compilation started...
 LOCAL="<INSERT YOUR LOCAL PATH TO THE GITHUB CLONE DIRECTORY HERE>"
 ROOT="$LOCAL/GitHub/fix-simple-binary-encoding/v1-0-STANDARD/doc"
-# There is only one disclaimer and style docx file for all FIX Technical Standards and it is stored with teh FIX Session Layer
+# There is only one disclaimer and style docx file for all FIX Technical Standards and it is stored with the FIX Session Layer
 DISCLAIMER="$LOCAL/GitHub/fix-session-layer-standards/FIXDisclaimerTechStd.md"
 STYLE="$LOCAL/GitHub/fix-session-layer-standards/FIX_TechStd_Style_MASTER.docx"
 SOURCE="$ROOT"

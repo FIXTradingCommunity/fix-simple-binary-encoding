@@ -18,11 +18,11 @@ The Technical Specification is split into the following sections:
 
 1. [Introduction](#introduction)
 2. [Field Encoding](#field-encoding)
-2. [Message Structure](#message-structure)
-2. [Message Schema](#message-schema)
-2. [Schema Extension Mechanism](#schema-extension-mechanism)
-2. [Usage Guidelines](#usage-guidelines)
-2. [Examples](#examples)
+3. [Message Structure](#message-structure)
+4. [Message Schema](#message-schema)
+5. [Schema Extension Mechanism](#schema-extension-mechanism)
+6. [Usage Guidelines](#usage-guidelines)
+7. [Examples](#examples)
 
 
 Binary type system
