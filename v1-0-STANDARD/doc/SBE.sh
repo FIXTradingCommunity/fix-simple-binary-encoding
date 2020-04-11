@@ -13,7 +13,7 @@ STYLE="$LOCAL/GitHub/fix-session-layer-standards/FIX_TechStd_Style_MASTER.docx"
 SOURCE="$ROOT"
 YAML="$SOURCE/SBE.yaml"
 FILES="01Introduction.md 02FieldEncoding.md 03MessageStructure.md 04MessageSchema.md 05SchemaExtensionMechanism.md 06UsageGuidelines.md 07Examples.md"
-WPFOLDER="wp-content\/uploads\/2020\/03"
+WPFOLDER="/wp-content/uploads/2020/03/"
 
 cd "$SOURCE"
 
@@ -28,8 +28,8 @@ pandoc $FILES -o "$TARGET/SBEONLINE.html"
 cd "$TARGET"
 
 # Create separate online versions for production and test website by including appropriate link prefixes
-sed s/"img src=\"media\/"/"img src=\"https:\/\/www.fixtrading.org\/$WPFOLDER\/"/g SBEONLINE.html > SBEONLINE_PROD.html
-sed s/"img src=\"media\/"/"img src=\"https:\/\/www.technical-fixprotocol.org\/$WPFOLDER\/"/g SBEONLINE.html > SBEONLINE_TEST.html
+sed 's,img src="media/,img src="https://www.fixtrading.org'$WPFOLDER',g' SBEONLINE.html > SBEONLINE_PROD.html
+sed 's,img src="media/,img src="https://www.technical-fixprotocol.org'$WPFOLDER',g' SBEONLINE.html > SBEONLINE_TEST.html
 
 # Change remaining links to production website in test version to test website
 sed -i '.bak' s/www.fixtrading.org/www.technical-fixprotocol.org/ SBEONLINE_TEST.html
