@@ -3,6 +3,10 @@
 This project contains specifications and resources for Simple Binary Encoding (SBE).
 SBE is a FIX standard for binary message encoding. 
 
+## *News*
+
+[application/sbe](https://www.iana.org/assignments/media-types/application/sbe) has been registered as a media type (formerly MIME type) at Internet Assigned Numbers Authority (IANA). A media type defines the format of the contents of an Internet message.
+
 ## Protocol stack
 SBE is part of a family of protocols created by the High Performance Working Group
  of the FIX Trading Community. SBE is a presentation layer protocol (layer 6).
