@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" package="examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe ../xsd/sbe-2.0rc2.xsd">
+<messageSchema xmlns="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" package="examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe ../xsd/sbe-2.0rc3.xsd">
 	<!-- include commonly used types -->
-	<xi:include href="types-include.xml" parse="xml"/>
+	<xi:include href="types-include.xml"/>
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
@@ -84,7 +84,7 @@
 		</enum>
 	</types>
 	<messages>
-		<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+		<message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
 			<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
 			<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
 			<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
@@ -99,8 +99,8 @@
 				<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
 				<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
 			</group>
-		</sbe:message>
-		<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+		</message>
+		<message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
 			<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
 			<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
 			<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
@@ -110,8 +110,8 @@
 			<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
 			<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
 			<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
-		</sbe:message>
+		</message>
 	</messages>
 	<!-- include commonly used messages -->
-	<xi:include href="messages-include.xml" parse="xml"/>
-</sbe:messageSchema>
+	<xi:include href="messages-include.xml"/>
+</messageSchema>

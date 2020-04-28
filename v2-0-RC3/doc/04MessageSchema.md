@@ -3,7 +3,7 @@
 
 XML schema for SBE message schemas
 ---------
-See [SBE XSD](../resources/sbe-2.0rc2.xsd) for the normative XML Schema Definition (XSD) for SBE.
+See [SBE XSD](../resources/sbe-2.0rc3.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.0. (XSD version 1.1 was standardized.
 However, since it is not supported by all XML processors, the SBE XSD is constrained to features of version 1.0.)
@@ -367,7 +367,7 @@ The `name` attribute of the `<choice>` uniquely identifies it.
 | sinceVersion         | Documents the version of a schema in which a choice was added                                                    | nonNegativeInteger | default = 0 |                                                                  |
 | deprecated           | Documents the version of a schema in which a choice was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
-#### `<choice>` element content
+#### `< choice >` element content
 
 The element is required to carry a value, which is an unsigned integer
 representing a zero-based index to a bit within a bitset. Zero is the

@@ -5,7 +5,7 @@ FIX Simple Binary Encoding
 
 ## Technical Specification
 
-Version 2.0 Release Candidate 2  
+Version 2.0 Release Candidate 3  
 
 **THIS DOCUMENT IS A RELEASE CANDIDATE FOR A PROPOSED FIX TECHNICAL
 STANDARD. A RELEASE CANDIDATE HAS BEEN APPROVED BY THE GLOBAL TECHNICAL

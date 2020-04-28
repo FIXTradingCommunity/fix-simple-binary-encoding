@@ -9,7 +9,7 @@ Not all FIX enumeration values are listed in the samples.
 ## SBE Message Schema
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe-2.0rc2.xsd">
+<messageSchema xmlns="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="Examples" id="91" version="0" byteOrder="littleEndian" xsi:schemaLocation="http://fixprotocol.io/2017/sbe sbe-2.0rc3.xsd">
 	<types>
 		<type name="date" primitiveType="uint16"/>
 		<type name="enumEncoding" primitiveType="char"/>
@@ -98,12 +98,12 @@ Not all FIX enumeration values are listed in the samples.
 		</enum>
 	</types>
 	<messages>
-		<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
+		<message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
 			<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
 			<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
 			<data name="Text" id="58" type="DATA" semanticType="data"/>
-		</sbe:message>
-		<sbe:message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
+		</message>
+		<message name="ExecutionReport" id="98" blockLength="42" semanticType="8">
 			<field name="OrderID" id="37" type="idString" offset="0" semanticType="String"/>
 			<field name="ExecID" id="17" type="idString" offset="8" semanticType="String"/>
 			<field name="ExecType" id="150" type="execTypeEnum" offset="16" semanticType="char"/>
@@ -118,8 +118,8 @@ Not all FIX enumeration values are listed in the samples.
 				<field name="FillPx" id="1364" type="decimalEncoding" offset="0" semanticType="Price"/>
 				<field name="FillQty" id="1365" type="qtyEncoding" offset="8" semanticType="Qty"/>
 			</group>
-		</sbe:message>
-		<sbe:message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
+		</message>
+		<message name="NewOrderSingle" id="99" blockLength="54" semanticType="D">
 			<field name="ClOrdId" id="11" type="idString" offset="0" semanticType="String"/>
 			<field name="Account" id="1" type="idString" offset="8" semanticType="String"/>
 			<field name="Symbol" id="55" type="idString" offset="16" semanticType="String"/>
@@ -129,9 +129,9 @@ Not all FIX enumeration values are listed in the samples.
 			<field name="OrdType" id="40" type="ordTypeEnum" offset="37" semanticType="char"/>
 			<field name="Price" id="44" type="decimalEncoding" offset="38" semanticType="Price" presence="optional"/>
 			<field name="StopPx" id="99" type="decimalEncoding" offset="46" semanticType="Price" presence="optional"/>
-		</sbe:message>
+		</message>
 	</messages>
-</sbe:messageSchema>
+</messageSchema>
 ```
 
 
