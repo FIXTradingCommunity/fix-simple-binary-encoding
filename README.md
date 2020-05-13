@@ -26,7 +26,7 @@ Version 2.0 RC2 was approved by the Global Technical Committee on August 15, 201
 Themes of this release:
 
 * Clarification about single-byte character sets
-* Improvement of the XML schema, including support for XIinclude
+* Improvement of the XML schema, including support for XInclude
 
 ### Version 2.0 Release Candidate 1
 

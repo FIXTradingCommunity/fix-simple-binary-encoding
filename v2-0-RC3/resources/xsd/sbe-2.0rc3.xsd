@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="unqualified" version="2.0RC2">
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="qualified" version="2.0RC3">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
@@ -20,46 +20,8 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="types" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation>
-							More than one set of types may be provided.
-							Names must be unique across all encoding
-							types.
-							Encoding types may appear in any order.
-						</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:choice maxOccurs="unbounded">
-							<xs:element name="type" type="sbe:simpleDataType"/>
-							<xs:element name="composite" type="sbe:compositeDataType"/>
-							<xs:element name="enum" type="sbe:enumType"/>
-							<xs:element name="set" type="sbe:setType"/>
-						</xs:choice>
-						<xs:attribute name="description" type="xs:string"/>
-						<xs:attribute name="package" type="xs:string">
-							<xs:annotation>
-								<xs:documentation>Overrides the messageSchema package</xs:documentation>
-							</xs:annotation>
-						</xs:attribute>
-						<xs:attribute ref="xml:base"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="messages" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="sbe:message" maxOccurs="unbounded"/>
-						</xs:sequence>
-						<xs:attribute name="description" type="xs:string"/>
-						<xs:attribute name="package" type="xs:string">
-							<xs:annotation>
-								<xs:documentation>Overrides the messageSchema package</xs:documentation>
-							</xs:annotation>
-						</xs:attribute>
-						<!-- required to support XIinclude -->
-						<xs:attribute ref="xml:base"/>
-					</xs:complexType>
-				</xs:element>
+				<xs:element ref="sbe:types" maxOccurs="unbounded"/>
+				<xs:element ref="sbe:messages" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute name="package" type="xs:string"/>
 			<xs:attribute name="id" type="xs:unsignedShort">
@@ -102,12 +64,52 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="message" type="sbe:blockType">
+	<xs:element name="messages">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message" type="sbe:blockType" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							A message type, also known as a message template
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="package" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Overrides the messageSchema package</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<!-- required to support XInclude -->
+			<xs:attribute ref="xml:base"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="types">
 		<xs:annotation>
 			<xs:documentation>
-				A message type, also known as a message template
+				More than one set of types may be provided.
+				Names must be unique across all encoding
+				types.
+				Encoding types may appear in any order.
 			</xs:documentation>
 		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="type" type="sbe:simpleDataType"/>
+				<xs:element name="composite" type="sbe:compositeDataType"/>
+				<xs:element name="enum" type="sbe:enumType"/>
+				<xs:element name="set" type="sbe:setType"/>
+			</xs:choice>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="package" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Overrides the messageSchema package</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<!-- required to support XInclude -->
+			<xs:attribute ref="xml:base"/>
+		</xs:complexType>
 	</xs:element>
 	<!-- Complex types -->
 	<xs:complexType name="blockType">

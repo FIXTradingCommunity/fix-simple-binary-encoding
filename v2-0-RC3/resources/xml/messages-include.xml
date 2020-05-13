@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<messages xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Commonly used messsages may be imported into multiple message schemas using XInclude">
-	<sbe:message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
+<messages xmlns="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fixprotocol.io/2017/sbe ../xsd/sbe-2.0rc3.xsd"
+description="Commonly used messsages may be imported into multiple message schemas using XInclude">
+	<message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
 		<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
 		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
 		<data name="Text" id="58" type="DATA" semanticType="data"/>
-	</sbe:message>
+	</message>
 </messages>

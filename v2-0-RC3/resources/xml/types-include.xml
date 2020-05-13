@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<types xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<types xmlns="http://fixprotocol.io/2017/sbe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fixprotocol.io/2017/sbe ../xsd/sbe-2.0rc3.xsd"
 description="Commonly used types may be imported into multiple message schemas using XInclude">
 	<composite name="MONTH_YEAR">
 		<type name="year" primitiveType="uint16"/>
