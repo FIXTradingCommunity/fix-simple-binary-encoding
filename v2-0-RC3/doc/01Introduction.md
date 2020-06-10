@@ -189,8 +189,9 @@ Representation of dates and times
 8-bit single-byte coded graphic character sets -- Part 1: Latin alphabet No. 1
 
 [ISO 10383:2012](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=61067)
-Securities and related financial instruments - Codes for exchanges and
-market identification (MIC)
+Securities and related financial instruments - Codes for exchanges and market identification (MIC)
+
+[ISO 15836-1:2017](https://www.iso.org/standard/71339.html) Information and documentation — The Dublin Core metadata element set — Part 1: Core elements
 
 *W3C XML Schema version 1.0* [Part 1](https://www.w3.org/TR/xmlschema-1/) [Part 2](https://www.w3.org/TR/xmlschema-2/)
 
