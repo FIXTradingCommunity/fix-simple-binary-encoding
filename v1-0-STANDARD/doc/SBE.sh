@@ -4,7 +4,7 @@ echo Compilation started...
 # Script is expected to start running in the folder where it is located (together with the source files)
 SOURCE="$PWD"
 # There is only one disclaimer and style docx file for all FIX Technical Standards and it is stored with the FIX Session Layer
-# SBE Repository needs to have local copies that will be ignored by GitHub
+# SBE Repository has local copies with the specific names and dates of the standard
 DISCLAIMER="FIXDisclaimerTechStd.md"
 STYLE="FIX_TechStd_Style_MASTER.docx"
 TARGET="$SOURCE/target"
@@ -13,7 +13,7 @@ FILES="01Introduction.md 02FieldEncoding.md 03MessageStructure.md 04MessageSchem
 WPFOLDER="/wp-content/uploads/2020/03/"
 
 # Create document version with disclaimer
-pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple Binary Encoding V1.0.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
+pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple Binary Encoding V1.0 with 20180727 Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
 echo SBE document version created
 
 # Create base online version without disclaimer
