@@ -325,7 +325,7 @@ values for a field.
 For all optional decimal fields, a special mantissa value is
 used to indicate that a field value is null. For floating-point decimals, the exponent should also be set to its null indicator.
 
-| Schema attribute  | decimal                       | decimal64               | decimal32               |
+| Schema attribute | decimal                        | decimal64               | decimal32               |
 |------------------|-------------------------------:|------------------------:|------------------------:|
 | exponent range   | –128 to 127                    | –128 to 127             | –128 to 127             |
 | mantissa range   | –2^63^ + 1 to 2^63^ – 1        | –2^63^ + 1 to 2^63^ – 1 | –2^31^ + 1 to 2^31^ – 1 |
