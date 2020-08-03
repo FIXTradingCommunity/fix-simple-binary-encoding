@@ -11,16 +11,13 @@ and message schema but are introduced here as an overview.
 
 ### Semantic data type
 
-The FIX semantic data type of a field tells a data domain interpreted at the application layer, for example, whether it is numeric or character data, or whether it represents a time or price. Simple Binary Encoding represents most of
-the semantic data types that FIX protocol has defined across all
-encodings. In field specifications, FIX data type is declared with
-attribute `semanticType`. 
+The FIX semantic data type of a field tells a data domain interpreted at the application layer, for example, whether it is numeric or character data, or whether it represents a time or price. Simple Binary Encoding represents most of the semantic data types that FIX protocol has defined across all encodings. In field specifications, FIX data type is declared with attribute `semanticType`.
 
 See the "Data type summary" below for a listing of FIX types with the usual mapping to SBE encodings. Implementations should not restrict a semantic type to a specific encoding. Message designers may wish to imply a conversion or specialized interpretation at the application layer.
 
 ### Encoding
 
-Encoding tells how a data element is encoded on the wire. Encoding belongs strictly to the presentation layer. It is context-free and carries no business semantics. 
+Encoding tells how a data element is encoded on the wire. Encoding belongs strictly to the presentation layer. It is context-free and carries no business semantics.
 
 An encoding maps a FIX data type to either a simple, primitive
 data type, such as a 32 bit signed integer, or to a composite type. A
@@ -187,11 +184,11 @@ overridden by a message schema.
 Required and optional fields of the same primitive type have the same
 data range. The null value must not be set for a required field.
 
- Schema attribute  | int8 | uint8 | int16  | uint16 | int32               | uint32             | int64               | uint64             |
-|------------------|-----:|------:|-------:|-------:|--------------------:|-------------------:|--------------------:|-------------------:|
-| minValue         | –127 | 0     | –32767 | 0      | –2<sup>31</sup> + 1 | 0                  | –2<sup>63</sup> + 1 | 0                  |
-| maxValue         | 127  | 254   | 32767  | 65534  | 2<sup>31</sup> – 1  | 2<sup>32</sup> – 2 | 2<sup>63</sup> – 1  | 2<sup>64</sup> – 2 |
-| nullValue        | –128 | 255   | –32768 | 65535  | –2<sup>31</sup>     | 2<sup>32</sup> – 1 | –2<sup>63</sup>     | 2<sup>64</sup> – 1 |
+|Schema attribute  | int8 | uint8 | int16  | uint16 | int32      | uint32    | int64      | uint64    |
+|------------------|-----:|------:|-------:|-------:|-----------:|----------:|-----------:|----------:|
+| minValue         | –127 | 0     | –32767 | 0      | –2^31^ + 1 | 0         | –2^63^ + 1 | 0         |
+| maxValue         | 127  | 254   | 32767  | 65534  | 2^31^ – 1  | 2^32^ – 2 | 2^63^ – 1  | 2^64^ – 2 |
+| nullValue        | –128 | 255   | –32768 | 65535  | –2^31^     | 2^32^ – 1 | –2^63^     | 2^64^ – 1 |
 
 ### Byte order
 
@@ -266,7 +263,7 @@ Wire format of uint16 value decimal 10000, hexadecimal 2710.
 
 `1027`
 
-Wire format of uint32 null value 2<sup>32</sup> - 1
+Wire format of uint32 null value 2^32^ - 1
 
 `ffffffff`
 
@@ -323,18 +320,18 @@ The default data ranges and null indicator are listed below for each
 decimal encoding.
 
 A message schema may optionally specify a more restricted range of valid
-values for a field. 
+values for a field.
 
 For all optional decimal fields, a special mantissa value is
 used to indicate that a field value is null. For floating-point decimals, the exponent should also be set to its null indicator.
 
-| Schema attribute  | decimal                                   | decimal64                                 | decimal32                                 |
-|------------------|------------------------------------------:|------------------------------------------:|------------------------------------------:|
-| exponent range   | –128 to 127                               | –128 to 127                               | –128 to 127                               |
-| mantissa range   | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>31</sup> + 1 to 2<sup>31</sup> – 1 |
-| minValue         | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>31</sup> + 1) \* 10<sup>127</sup> |
-| maxValue         | (2<sup>63</sup> – 1) \* 10<sup>127</sup>  | (–2<sup>63</sup> – 1) \* 10<sup>127</sup> | (2<sup>31</sup> – 1) \* 10<sup>127</sup>  |
-| nullValue        | mantissa=–2<sup>63</sup>, exponent=–128                              | mantissa =–2<sup>63</sup>                 | mantissa =–2<sup>31</sup>                 |
+| Schema attribute  | decimal                       | decimal64               | decimal32               |
+|------------------|-------------------------------:|------------------------:|------------------------:|
+| exponent range   | –128 to 127                    | –128 to 127             | –128 to 127             |
+| mantissa range   | –2^63^ + 1 to 2^63^ – 1        | –2^63^ + 1 to 2^63^ – 1 | –2^31^ + 1 to 2^31^ – 1 |
+| minValue         | (–2^63^ + 1) \* 10^127^        | (–2^63^ + 1) \* 10^127^ | (–2^31^ + 1) \* 10^127^ |
+| maxValue         | (2^63^ – 1) \* 10^127^         | (–2^63^ – 1) \* 10^127^ | (2^31^ – 1) \* 10^127^  |
+| nullValue        | mantissa=–2^63^, exponent=–128 | mantissa =–2^63^        | mantissa =–2^31^        |
 
 
 ### Encoding specifications for decimal types
@@ -501,7 +498,7 @@ discussion of enum fields.
 
 #### Range attributes for char fields
 
-Character fields are constrained to single-byte characters sets. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
+Character fields are constrained to single-byte characters sets. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1.
 However, other 8-bit encodings may be specified in a message schema. The value of characterEncoding attribute should be a preferred
 character set name registered with Internet Assigned Numbers Authority (IANA).
 
@@ -561,7 +558,7 @@ primitiveType="char" and a length attribute is required.
 Range attributes minValue and maxValue do not apply to fixed-length
 character arrays.
 
-Character arrays are constrained to single-byte characters sets with the same character ranges as a single-character field. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1. 
+Character arrays are constrained to single-byte characters sets with the same character ranges as a single-character field. The recommended encoding is ISO/IEC 8859-1:1998 Latin alphabet No. 1.
 
 Other 8-bit encodings may be specified in a message schema with the characterEncoding attribute. The value of characterEncoding should be a preferred
 character set name registered with IANA.
@@ -598,7 +595,7 @@ A character array constant specification. As for a non-constant value, if the co
 
 ### Variable-length string encoding
 
-Variable-length string encoding is used for variable length 
+Variable-length string encoding is used for variable length
 strings or character data with a multi-byte character set (like FIX EncodedText field). A
 length member conveys the size of the string that follows in octets, which may be different than the number of characters.
 
@@ -622,7 +619,7 @@ for length.
 
 | Schema attribute | length  uint8   | length  uint16  |
 |------------------|----------------:|----------------:|
-| minValue         | 0               | 0               | 
+| minValue         | 0               | 0               |
 | maxValue         | 254             | 65534           |
 
 If the Length element has minValue and maxValue attributes, it specifies
