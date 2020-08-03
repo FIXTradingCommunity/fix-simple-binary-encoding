@@ -1,7 +1,7 @@
 # fix-simple-binary-encoding
 
 This project contains specifications and resources for Simple Binary Encoding (SBE).
-SBE is a FIX standard for binary message encoding. 
+SBE is a FIX standard for binary message encoding.
 
 ## *News*
 
@@ -17,11 +17,11 @@ SBE is part of a family of protocols created by the High Performance Working Gro
 
 The planned lifecycle of this project is to roll out new features in a series of release candidates. After each release candidate is approved, it will be exposed to public review. Issues may be entered here in GitHub or in a discussion forum on the FIX Trading Community site. When a version is considered complete, the last release candidate will be promoted to Draft Standard. Following further public review, a Draft Standard may be promoted to the final specification for that version. Only minor errata are permitted. To reach the final stage, the Draft Standard must be reviewed for no less than 6 months, and at least two interoperable implementations must be certified. That version is henceforth immutable.
 
-SBE version 1.0 has reached the final technical specification stage while release candidates have been developed for proposed version 2.0. 
+SBE version 1.0 has reached the final technical specification stage while release candidates have been developed for proposed version 2.0.
 
 ### Version 2.0 Release Candidate 2
 
-Version 2.0 RC2 was approved by the Global Technical Committee on August 15, 2019 for 90 day public review. 
+Version 2.0 RC2 was approved by the Global Technical Committee on August 15, 2019 for 90 day public review.
 
 Themes of this release:
 
@@ -43,9 +43,9 @@ Version 1.0 Draft Standard was promoted to SBE version 1.0 Technical Specificati
 The standard met these criteria for promotion:
 * More than 6 months public review. During the period, some minor errors were found, and the errata were incorporated into the final specification. Thanks to users who detected those errors.
 
-* At least two interopable implementations. This was demonstrated with the conformance test suite described below.
+* At least two interoperable implementations. This was demonstrated with the conformance test suite described below.
 
-SBE standards are available here in GitHub and on the [FIX Trading Community](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding) site. 
+SBE standards are available here in GitHub and on the [FIX Trading Community](http://www.fixtradingcommunity.org/pg/structure/tech-specs/simple-binary-encoding) site.
 
 SBE version 1.0 specification with errata was posted July 27, 2018.
 
@@ -61,10 +61,6 @@ Interested parties who wish to participate in the FIX High Performance Working G
 The [SBE Conformance project](https://github.com/FIXTradingCommunity/fix-sbe-conformance) provides a conformance test suite to verify interoperability of SBE implementations. All implementors are invited to demonstrate their conformance to the standard.
 
 ## License
-FIX Simple Binary Encoding specifications are © Copyright 2014-2019 FIX Protocol Ltd.
+FIX Simple Binary Encoding specifications are © Copyright 2014-2020 FIX Protocol Ltd.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">FIX Simple Binary Encoding</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.fixtradingcommunity.org/" property="cc:attributionName" rel="cc:attributionURL">FIX Protocol Ltd.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nd/4.0/">Creative Commons Attribution-NoDerivatives 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/FIXTradingCommunity/fix-simple-binary-encoding" rel="dct:source">https://github.com/FIXTradingCommunity/fix-simple-binary-encoding</a>
-
-
-
-
