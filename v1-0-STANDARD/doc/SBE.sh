@@ -4,7 +4,7 @@ echo Compilation started...
 # Script is expected to start running in the folder where it is located (together with the source files)
 SOURCE="$PWD"
 # There is only one disclaimer and style docx file for all FIX Technical Standards and it is stored with the FIX Session Layer
-# SBE Repository has local copies with the specific names and dates of the standard
+# Repository has local copies with the specific names and dates of the standard
 DISCLAIMER="FIXDisclaimerTechStd.md"
 STYLE="FIX_TechStd_Style_MASTER.docx"
 TARGET="$SOURCE/target"
