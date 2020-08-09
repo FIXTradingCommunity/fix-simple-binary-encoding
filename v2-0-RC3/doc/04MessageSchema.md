@@ -38,7 +38,7 @@ All symbolic names in a message schema are restricted to alphanumeric
 characters plus underscore without spaces. This is the same restriction
 applied to all names in FIX specifications.
 
-### Capitalization 
+### Capitalization
 
 The value of a field's `semanticType` attribute is a FIX data type. In
 this document, FIX types are capitalized exactly as in the FIX
@@ -68,7 +68,7 @@ their encodings.
 | semanticVersion  | Version of FIX semantics                                                                         | string             | optional               | FIX versions, such as “FIX.5.0\_SP2”                                         |
 | byteOrder        | Byte order of encoding                                                                           | token              | default = littleEndian | littleEndian  bigEndian                                                                                                             |
 | description      | Documentation of the schema                                                                      | string             | optional               |                                                                              |
-| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by '<types>`.                   |
+| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by `<types>`.                   |
 
 
 ### Schema versioning
@@ -86,7 +86,7 @@ supplied.
 Data encodings
 ------------------------------------------------------------------------------------------------------------
 
-### Encoding sets 
+### Encoding sets
 
 A `<types>` element contains a set of data encodings used by messages within a schema. A message schema may have multiple
 instances of `<types>`, if desired, to organize them by categories. Each `<types>` element may have an associated `package` name.
@@ -244,7 +244,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 
 **Reference to an enum**
 
-In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type. 
+In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type.
 
 ```xml
 <enum name="booleanEnum" encodingType="uint8">
@@ -256,7 +256,7 @@ In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit ex
     <type name="mantissa" primitiveType="int64" />
     <type name="exponent" primitiveType="int8" />
     <ref name="isSettlement" type="boolEnum" />
-</composite>	
+</composite>
 ```
 
 **Reference to a composite type**
@@ -267,12 +267,12 @@ In this example, a nested composite is formed by using a reference to another co
 <composite name="price">
     <type name="mantissa" primitiveType="int64" />
     <type name="exponent" primitiveType="int8" />
-</composite>	
+</composite>
 
 <composite name="money">
     <type name="currencyCode" primitiveType="char" length="3" semanticType="Currency" />
     <ref name="amount" type="price" offset="3" />
-</composite>	
+</composite>
 ```
 
 ### Enumeration encodings
@@ -292,7 +292,7 @@ The encoding of an enumeration may be char or any unsigned integer type.
 |--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|-----------------------------------------------------------------------------------|
 | name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                                          |
 | description        | Documentation of the type                                                                                      | string             | optional    |                                                                                   |
-| encodingType       | Name of a simple encoding type                                                                                 | symbolicName\_t    | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: char uint8 uint16 uint32 uint64 | 
+| encodingType       | Name of a simple encoding type                                                                                 | symbolicName\_t    | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: char uint8 uint16 uint32 uint64 |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.                  |
 | offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |
@@ -438,7 +438,7 @@ The order that fields are listed in the message schema governs the order
 that they are encoded on the wire.
 
 **`<message>` element attributes**
- 
+
 | `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|
 | name                  | Name of a message                                                                                                                          | symbolicName\_t    | required    | Must be unique among all messages in a schema                            |
