@@ -1,6 +1,6 @@
-# Introduction
+# Scope
 
-FIX Simple Binary Encoding (SBE) targets high performance trading
+The Financial Information eXchange Simple Binary Encoding (SBE) targets high performance trading
 systems. It is optimized for low latency of encoding and decoding while
 keeping bandwidth utilization reasonably small. For compatibility, it is
 intended to represent all FIX semantics.
@@ -56,40 +56,6 @@ such as constant values.
 Message schemas may be based on standard FIX message specifications, or
 may be customized as needed by agreement between counterparties.
 
-## Glossary
-
-**Data type** - A field type with its associated encoding attributes,
-including backing primitive types and valid values or range. Some types
-have additional attributes, e.g. epoch of a date.
-
-**Encoding** - a message format for interchange. The term is commonly used
-to mean the conversion of one data format to another, such as text to
-binary. However, Simple Binary Encoding strives to use native binary
-data types in order to make conversion unnecessary, or at least trivial.
-Encoding also refers to the act of formatting a message, as opposed to
-decoding.
-
-**Message schema** - metadata that specifies messages and their data
-types and identifiers. Message schemas may be disseminated out of band.
-For Simple Binary Encoding, message schemas are expressed as an XML
-document that conforms to an XML schema that is published as part of
-this standard.
-
-**Message template** - metadata that specifies the fields that belong to
-one particular message type. A message template is contained by a
-message schema.
-
-**Session protocol** - a protocol concerned with the reliable delivery of
-messages over a transport. FIX protocol makes a distinction between
-session protocol and the encoding of a message payload, as described by
-this document. See the specifications section of FIX protocol web site
-for supported protocols. The original FIX session protocol is known as
-FIXT.
-
-**XML schema** - defines the elements and attributes that may appear in an
-XML document. The SBE message schema is defined in W3C (XSD) schema
-language since it is the most widely adopted format for XML schemas.
-
 ## Documentation
 
 This document explains:
@@ -101,27 +67,6 @@ This document explains:
     session protocol.
 
 -   The Simple Binary Encoding message schema.
-
-### Specification terms
-
-These key words in this document are to be interpreted as described in
-[Internet Engineering Task Force RFC2119](http://www.apps.ietf.org/rfc/rfc2119.html). These terms indicate
-an absolute requirement for implementations of the standard: "**must**",
-or "**required**".
-
-This term indicates an absolute prohibition: "**must not**".
-
-These terms indicate that a feature is allowed by the standard but not
-required: "**may**", "**optional**". An implementation that does not
-provide an optional feature must be prepared to interoperate with one
-that does.
-
-These terms give guidance, recommendation or best practices:
-"**should**" or "**recommended**". A recommended choice among
-alternatives is described as "**preferred**".
-
-These terms give guidance that a practice is not recommended: "**should not**"
-or "**not recommended**".
 
 ### Document format
 
@@ -138,7 +83,11 @@ This is sample data as it would be transmitted on the wire
 
 `10270000`
 
-## References
+# Normative references
+
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+
+--- IETF RFC 2119 -- *Key words for use in RFCs to Indicate Requirement Levels* March 1997
 
 ### Related FIX Standards
 
@@ -179,3 +128,58 @@ Securities and related financial instruments - Codes for exchanges and
 market identification (MIC)
 
 XML 1.1 schema standards are located here [W3C XML Schema](http://www.w3.org/XML/Schema.html#dev)
+
+# Terms and definitions
+
+**Data type** - A field type with its associated encoding attributes,
+including backing primitive types and valid values or range. Some types
+have additional attributes, e.g. epoch of a date.
+
+**Encoding** - a message format for interchange. The term is commonly used
+to mean the conversion of one data format to another, such as text to
+binary. However, Simple Binary Encoding strives to use native binary
+data types in order to make conversion unnecessary, or at least trivial.
+Encoding also refers to the act of formatting a message, as opposed to
+decoding.
+
+**Message schema** - metadata that specifies messages and their data
+types and identifiers. Message schemas may be disseminated out of band.
+For Simple Binary Encoding, message schemas are expressed as an XML
+document that conforms to an XML schema that is published as part of
+this standard.
+
+**Message template** - metadata that specifies the fields that belong to
+one particular message type. A message template is contained by a
+message schema.
+
+**Session protocol** - a protocol concerned with the reliable delivery of
+messages over a transport. FIX protocol makes a distinction between
+session protocol and the encoding of a message payload, as described by
+this document. See the specifications section of FIX protocol web site
+for supported protocols. The original FIX session protocol is known as
+FIXT.
+
+**XML schema** - defines the elements and attributes that may appear in an
+XML document. The SBE message schema is defined in W3C (XSD) schema
+language since it is the most widely adopted format for XML schemas.
+
+## Specification terms
+
+These key words in this document are to be interpreted as described in
+[Internet Engineering Task Force RFC2119](http://www.apps.ietf.org/rfc/rfc2119.html). These terms indicate
+an absolute requirement for implementations of the standard: "**must**",
+or "**required**".
+
+This term indicates an absolute prohibition: "**must not**".
+
+These terms indicate that a feature is allowed by the standard but not
+required: "**may**", "**optional**". An implementation that does not
+provide an optional feature must be prepared to interoperate with one
+that does.
+
+These terms give guidance, recommendation or best practices:
+"**should**" or "**recommended**". A recommended choice among
+alternatives is described as "**preferred**".
+
+These terms give guidance that a practice is not recommended: "**should not**"
+or "**not recommended**".
