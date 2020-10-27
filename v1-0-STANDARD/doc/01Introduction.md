@@ -91,13 +91,9 @@ The following documents are referred to in the text in such a way that some or a
 
 ### Related FIX Standards
 
-*Simple Open Framing Header*, FIX Protocol, Limited. Version 1.0 Draft Standard
-specification has been published at
-<http://www.fixtradingcommunity.org/>
+[Simple Open Framing Header](https://www.fixtrading.org/standards/fix-sofh/), technical specification of a message framing standard for FIX messages.
 
-For FIX semantics, see the current FIX message specification, which is
-currently [FIX 5.0 Service Pack 2](http://www.fixtradingcommunity.org/pg/structure/tech-specs/fix-version/50-service-pack-2)
-with Extension Packs.
+[FIX Latest](https://www.fixtrading.org/online-specification/), normative specification of the application layer of the FIX Protocol.
 
 ### Dependencies on other standards
 

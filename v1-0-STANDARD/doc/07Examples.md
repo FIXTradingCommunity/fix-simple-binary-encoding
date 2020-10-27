@@ -6,7 +6,7 @@ the SBE message body. See that FIX standard for details.
 
 Not all FIX enumeration values are listed in the samples.
 
-# Flat, fixed-length message
+## Flat, fixed-length message
 
 This is an example of a simple, flat order message without repeating
 groups or variable-length data.
@@ -283,13 +283,13 @@ Offset is from beginning of block.
 | `01000000` | 151 | LeavesQty | 32 | 4 | 1 |
 | `06000000` | 14 | CumQty | 36 | 4 | 6 |
 | `753e` | 75 | TradeDate | 40 | 2 | 2013-10-11 |
-| `0c000200` |   | FillGrp | 0 | 4 | Block length=12 count=2 |
+| `0c000200` |   | FillsGrp | 0 | 4 | Block length=12 count=2 |
 | `1a85010000000000` | 1364 | FillPx | 0 | 8 | 99.610 |
 | `02000000` | 1365 | FillQty | 8 | 4 | 2 |
 | `2485010000000000` | 1364 | FillPx | 0 | 8 | 99.620 |
 | `04000000` | 1365 | FillQty | 8 | 4 | 4 |
-Message with a variable-length field
-------------------------------------
+
+## Message with a variable-length field
 
 ### Sample business reject message schema
 
@@ -306,18 +306,18 @@ Add this encoding types element to those in the previous example.
     </composite>
 
     <enum name="businessRejectReasonEnum" encodingType="intEnumEncoding">>
-        <validValue name="Other" 0</validValue>
-        <validValue name="UnknownID" 1</validValue>
-        <validValue name="UnknownSecurity" >2</validValue>
-        <validValue name="ApplicationNotAvailable" >4</validValue>
-        <validValue name="NotAuthorized" >6</validValue>
+        <validValue name="Other">0</validValue>
+        <validValue name="UnknownID">1</validValue>
+        <validValue name="UnknownSecurity">2</validValue>
+        <validValue name="ApplicationNotAvailable">4</validValue>
+        <validValue name="NotAuthorized">6</validValue>
     </enum>
 
 </types>
 
 	<sbe:message name="BusinessMessageReject" id="97"
 		blockLength="9" semanticType="j">
-		<field name="BusinesRejectRefId" id="379" type="idString"
+		<field name="BusinessRejectRefId" id="379" type="idString"
 			offset="0" semanticType="String" />
 		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
 			offset="8" semanticType="int" />
@@ -344,6 +344,6 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `6100` |   | SBE template ID | 2 | 2 | 97 |
 | `5b00` |   | SBE schema ID | 4 | 2 | 91 |
 | `0000` |   | SBE schema version | 6 | 2 | 0 |
-| `4f52443030303031` | 379 | BusinesRejectRefId | 0 | 8 | ORD00001 |
+| `4f52443030303031` | 379 | BusinessRejectRefId | 0 | 8 | ORD00001 |
 | `06` | 380 | BusinessRejectReason | 8 | 1 | NotAuthorized |
 | `4e6f74206175...` | 58 | Text | 0 | 39 | Not authorized to trade that instrument |

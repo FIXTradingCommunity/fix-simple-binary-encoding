@@ -129,7 +129,7 @@ These terms give guidance, recommendation or best practices:
 "**should**" or "**recommended**". A recommended choice among
 alternatives is described as "**preferred**".
 
-These terms give guidance that a practice is not recommended: "**should not**" 
+These terms give guidance that a practice is not recommended: "**should not**"
 or "**not recommended**".
 
 ### Document format
@@ -150,15 +150,15 @@ This is sample data as it would be transmitted on the wire
 References
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Related FIX Standards 
+### Related FIX Standards
 
-[Simple Open Framing Header](https://www.fixtrading.org/packages/fix-simple-open-framing-header-draft-standard-1-0)
+[Simple Open Framing Header](https://www.fixtrading.org/standards/fix-sofh/)
 FIX Protocol, Limited. Version 1.0 Draft Standard
 
-[FIX 5.0 Service Pack 2](https://www.fixtrading.org/standards/fix-5-0-sp-2/)
-FIX semantics with Extension Packs.
+[FIX Latest](https://www.fixtrading.org/online-specification/)
+Normative specification of the application layer of the FIX Protocol.
 
-### Dependencies on other standards 
+### Dependencies on other standards
 
 SBE is dependent on several industry standards. Implementations must
 conform to these standards to interoperate. Therefore, they are
@@ -195,4 +195,3 @@ market identification (MIC)
 *W3C XML Schema version 1.0* [Part 1](https://www.w3.org/TR/xmlschema-1/) [Part 2](https://www.w3.org/TR/xmlschema-2/)
 
 [W3C XML Inclusions (XInclude) Version 1.0](https://www.w3.org/TR/xinclude/)
-

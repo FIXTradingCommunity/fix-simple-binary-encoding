@@ -99,7 +99,7 @@ Not all FIX enumeration values are listed in the samples.
 	</types>
 	<messages>
 		<message name="BusinessMessageReject" id="97" blockLength="9" semanticType="j">
-			<field name="BusinesRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
+			<field name="BusinessRejectRefId" id="379" type="idString" offset="0" semanticType="String"/>
 			<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum" offset="8" semanticType="int"/>
 			<data name="Text" id="58" type="DATA" semanticType="data"/>
 		</message>
@@ -292,6 +292,6 @@ Message with a variable-length field
 | `0000` |   | SBE schema version | 6 | 2 | 0 |
 | `0000` |   | No. of groups | 8 | 2 | 0 |
 | `0100` |   | No. of var data | 10 | 2 | 1 |
-| `4f52443030303031` | 379 | BusinesRejectRefId | 0 | 8 | ORD00001 |
+| `4f52443030303031` | 379 | BusinessRejectRefId | 0 | 8 | ORD00001 |
 | `06` | 380 | BusinessRejectReason | 8 | 1 | NotAuthorized |
 | `4e6f74206175...` | 58 | Text | 0 | 39 | Not authorized to trade that instrument |
