@@ -261,7 +261,7 @@ Offset is from beginning of block.
 | `06000000` | 14 | CumQty | 36 | 4 | 6 |
 | `753e` | 75 | TradeDate | 40 | 2 | 2013-10-11 |
 | `0c00` |   | Group block length | 0 | 2 | 12 |
-| `0000` |   | NumInGroup | 4 | 2 | 2 |
+| `0200` |   | NumInGroup | 4 | 2 | 2 |
 | `0000` |   | No. of groups | 4 | 2 | 0 |
 | `0000` |   | No. of var data | 6 | 2 | 0 |
 | `1a85010000000000` | 1364 | FillPx | 0 | 8 | 99.610 |
