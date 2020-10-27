@@ -12,9 +12,19 @@ YAML="$SOURCE/SBE.yaml"
 FILES="01Introduction.md 02FieldEncoding.md 03MessageStructure.md 04MessageSchema.md 05SchemaExtensionMechanism.md 06UsageGuidelines.md 07Examples.md"
 WPFOLDER="/wp-content/uploads/2020/03/"
 
-# Create document version with disclaimer
+# Create FIX document version with disclaimer
 pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple Binary Encoding V1.0 with 20180727 Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
-echo SBE document version created
+echo SBE document version created for FIX
+
+# Create ISO document version with copyright etc.
+ISOYAML="$SOURCE/SBE_ISO.yaml"
+ISOSTYLE="ISO_TechStd_Style_MASTER.docx"
+ISOCOPYRIGHT="ISOCopyright.md"
+ISOFOREWORD="ISOForeword.md"
+ISOINTRO="ISOIntro.md"
+ISOBIBLIO="ISOBiblio.md"
+pandoc "$ISOCOPYRIGHT" "$ISOFOREWORD" "$ISOINTRO" $FILES "$ISOBIBLIO" -o "$TARGET/docx/ISOSimple_Binary_Encoding.docx" --reference-doc="$ISOSTYLE" --metadata-file="$ISOYAML" --filter pandoc-plantuml --toc --toc-depth=3
+echo SBE document version created for ISO
 
 # Create base online version without disclaimer
 pandoc $FILES -o "$TARGET/debug/SBEONLINE.html" -s --metadata-file="$YAML" --toc --toc-depth=2
