@@ -189,11 +189,11 @@ overridden by a message schema.
 Required and optional fields of the same primitive type have the same
 data range. The null value must not be set for a required field.
 
- Schema attribute  | int8 | uint8 | int16  | uint16 | int32               | uint32             | int64               | uint64             |
-|------------------|-----:|------:|-------:|-------:|--------------------:|-------------------:|--------------------:|-------------------:|
-| minValue         | –127 | 0     | –32767 | 0      | –2<sup>31</sup> + 1 | 0                  | –2<sup>63</sup> + 1 | 0                  |
-| maxValue         | 127  | 254   | 32767  | 65534  | 2<sup>31</sup> – 1  | 2<sup>32</sup> – 2 | 2<sup>63</sup> – 1  | 2<sup>64</sup> – 2 |
-| nullValue        | –128 | 255   | –32768 | 65535  | –2<sup>31</sup>     | 2<sup>32</sup> – 1 | –2<sup>63</sup>     | 2<sup>64</sup> – 1 |
+ Schema attribute  | int8 | uint8 | int16  | uint16 | int32      | uint32    | int64      | uint64    |
+|------------------|-----:|------:|-------:|-------:|-----------:|----------:|-----------:|----------:|
+| minValue         | –127 | 0     | –32767 | 0      | –2^31^ + 1 | 0         | –2^63^ + 1 | 0         |
+| maxValue         | 127  | 254   | 32767  | 65534  | 2^31^ – 1  | 2^32^ – 2 | 2^63^ – 1  | 2^64^ – 2 |
+| nullValue        | –128 | 255   | –32768 | 65535  | –2^31^     | 2^32^ – 1 | –2^63^     | 2^64^ – 1 |
 
 ### Byte order
 
@@ -268,7 +268,7 @@ Wire format of uint16 value decimal 10000, hexadecimal 2710.
 
 `1027`
 
-Wire format of uint32 null value 2<sup>32</sup> - 1
+Wire format of uint32 null value 2^32^ - 1
 
 `ffffffff`
 
@@ -327,13 +327,13 @@ A message schema may optionally specify a more restricted range of valid
 values for a field. For optional fields, a special mantissa value is
 used to indicate that a field value is null.
 
-| Schema attribute  | decimal                                   | decimal64                                 | decimal32                                 |
-|------------------|------------------------------------------:|------------------------------------------:|------------------------------------------:|
-| exponent range   | –128 to 127                               | –128 to 127                               | –128 to 127                               |
-| mantissa range   | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>63</sup> + 1 to 2<sup>63</sup> – 1 | –2<sup>31</sup> + 1 to 2<sup>31</sup> – 1 |
-| minValue         | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>63</sup> + 1) \* 10<sup>127</sup> | (–2<sup>31</sup> + 1) \* 10<sup>127</sup> |
-| maxValue         | (2<sup>63</sup> – 1) \* 10<sup>127</sup>  | (2<sup>63</sup> – 1) \* 10<sup>127</sup> | (2<sup>31</sup> – 1) \* 10<sup>127</sup>  |
-| nullValue        | mantissa=–2<sup>63</sup>, exponent=–128                              | mantissa =–2<sup>63</sup>                 | mantissa =–2<sup>31</sup>                 |
+| Schema attribute | decimal                 | decimal64               | decimal32               |
+|------------------|------------------------:|------------------------:|------------------------:|
+| exponent range   | –128 to 127             | –128 to 127             | –128 to 127             |
+| mantissa range   | –2^63^ + 1 to 2^63^ – 1 | –2^63^ + 1 to 2^63^ – 1 | –2^31^ + 1 to 2^31^ – 1 |
+| minValue         | (–2^63^ + 1) \* 10^127^ | (–2^63^ + 1) \* 10^127^ | (–2^31^ + 1) \* 10^127^ |
+| maxValue         | (2^63^ – 1) \* 10^127^  | (2^63^ – 1) \* 10^127^  | (2^31^ – 1) \* 10^127^  |
+| nullValue        | mantissa=–2^63^, exponent=–128 | mantissa =–2^63^ | mantissa =–2^31^        |
 
 
 ### Encoding specifications for decimal types
@@ -914,7 +914,7 @@ schema attributes
 Wire format of UTCTimestamp with constant time unit in little-Endian
 byte order
 
-`4047baa145fb17`
+`004047baa145fb17`
 
 **time** 10:24:39.123456000 (37,479 seconds and 123456000 nanoseconds
 since midnight UTC) with default schema attributes
@@ -928,7 +928,7 @@ since midnight UTC) with default schema attributes
 
 Wire format of UTCTimeOnly
 
-`10d74916220000`
+`0010d74916220000`
 
 **date** Friday, October 4, 2024 (20,000 days since UNIX epoch) with
 default schema attributes

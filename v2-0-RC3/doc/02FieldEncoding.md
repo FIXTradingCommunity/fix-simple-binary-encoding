@@ -947,7 +947,7 @@ schema attributes
 Wire format of UTCTimestamp with constant time unit in little-Endian
 byte order
 
-`4047baa145fb17`
+`004047baa145fb17`
 
 **time** 10:24:39.123456000 (37,479 seconds and 123456000 nanoseconds
 since midnight UTC) with default schema attributes
@@ -961,7 +961,7 @@ since midnight UTC) with default schema attributes
 
 Wire format of UTCTimeOnly
 
-`10d74916220000`
+`0010d74916220000`
 
 **date** Friday, October 4, 2024 (20,000 days since UNIX epoch) with
 default schema attributes

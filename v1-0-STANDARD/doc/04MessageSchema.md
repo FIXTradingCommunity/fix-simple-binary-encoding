@@ -56,7 +56,7 @@ their encodings.
 | semanticVersion  | Version of FIX semantics                                                                         | string             | optional               | FIX versions, such as “FIX.5.0\_SP2”                                         |
 | byteOrder        | Byte order of encoding                                                                           | token              | default = littleEndian | littleEndian  bigEndian                                                                                                             |
 | description      | Documentation of the schema                                                                      | string             | optional               |                                                                              |
-| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by '<types>`.                   |
+| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by `<types>`.                   |
 
 
 ### Schema versioning
