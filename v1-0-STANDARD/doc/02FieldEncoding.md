@@ -1,8 +1,6 @@
-Field Encoding
-===========================================================================================================================================================
+# Field Encoding
 
-Field aspects
------------------------------------------------------------------------------------------------------------
+## Field aspects
 
 A field is a unit of data contained by a FIX message. Every field has
 the following aspects: semantic data type, encoding, and metadata. They
@@ -75,8 +73,7 @@ value of an optional field does not necessarily imply that a default
 value should be applied. Rather, default handling is left to application
 layer specifications.
 
-FIX data type summary
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## FIX data type summary
 
 FIX semantic types are mapped to binary field encodings as follows. See
 sections below for more detail about each type.
@@ -125,8 +122,7 @@ The FIX semantic types listed above are spelled and capitalized exactly as
 they are in the FIX repository from which official FIX documents and
 references are derived.
 
-Common field schema attributes
-------------------------------
+## Common field schema attributes
 
 Schema attributes alter the range of valid values for a field.
 Attributes are optional unless specified otherwise.
@@ -154,8 +150,7 @@ Encodings may be added to SBE messages that do not correspond to listed
 FIX data types. In that case, the encoding and fields that use the
 encoding will not have a semanticType attribute.
 
-Integer encoding
--------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Integer encoding
 
 Integer encodings should be used for cardinal or ordinal number fields.
 Signed integers are encoded in a two's complement binary format.
@@ -277,8 +272,7 @@ Wire format of uint32 null value 2<sup>32</sup> - 1
 
 `ffffffff`
 
-Decimal encoding
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Decimal encoding
 
 Decimal encodings should be used for prices and related monetary data
 types like PriceOffset and Amt.
@@ -414,8 +408,7 @@ Schema attribute exponent = -2
 
 `39300000`
 
-Float encoding
-------------------------------------------------------------------------------------------------------------
+## Float encoding
 
 Binary floating point encodings are compatible with IEEE Standard for
 Floating-Point Arithmetic (IEEE 754-2008). They should be used for
@@ -479,8 +472,7 @@ Wire format of double 255.678
 
 `04560e2db2f56f40`
 
-String encodings
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## String encodings
 
 Character data may either be of fixed size or variable size. In Simple
 Binary Encoding, fixed-length fields are recommended in order to support
@@ -761,8 +753,7 @@ M S F T
 
 `04004d534654`
 
-MonthYear encoding
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## MonthYear encoding
 
 MonthYear encoding contains four subfields representing respectively
 year, month, and optionally day or week. A field of this type is not
@@ -816,8 +807,7 @@ Wire format of MonthYear 2014 June week 3 as hexadecimal
 
 `de0706ff03`
 
-Date and time encoding
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Date and time encoding
 
 Dates and times represent Coordinated Universal Time (UTC). This is the
 preferred date/time format, except where regulations require local time
@@ -951,8 +941,7 @@ Wire format of UTCDateOnly
 
 `204e`
 
-Local date encoding
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Local date encoding
 
 Local date is encoded the same as UTCDateOnly, but it represents local
 time at the market instead of UTC time.
@@ -967,8 +956,7 @@ The standard encoding specification for LocalMktDate
 <type name="localMktDate" primitiveType="uint16" semanticType="LocalMktDate" />
 ```
 
-Local time encoding
------------------------------------------------------------------------------------------------------------------
+## Local time encoding
 
 Time with time zone encoding should only be used when required by market
 regulations. Otherwise, use UTC time encoding (see above).
@@ -1051,8 +1039,7 @@ Wire format of TZTimeOnly 8:30 with Chicago time zone offset (-6:00)
 
 `006c5ebe76000000fa00`
 
-Enumeration encoding
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Enumeration encoding
 
 An enumeration conveys a single choice of mutually exclusive valid
 values.
@@ -1199,8 +1186,7 @@ Wire format of null Boolean (or N/A) value as hexadecimal
 
 `ff`
 
-Multi-value choice encoding
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Multi-value choice encoding
 
 A multi-value field conveys a choice of zero or more non-exclusive valid values.
 
@@ -1291,8 +1277,7 @@ second bits set)
 
 `03`
 
-Field value validation
---------------------------------------------------------------------------------------------------------------------
+## Field value validation
 
 These validations apply to message field values.
 

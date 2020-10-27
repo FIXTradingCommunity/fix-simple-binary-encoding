@@ -1,5 +1,4 @@
-Examples
-========
+# Examples
 
 The example messages are preceded by Simple Open Framing Header. Note
 that SOFH encoding is always big-endian, regardless of the byte order of
@@ -7,8 +6,7 @@ the SBE message body. See that FIX standard for details.
 
 Not all FIX enumeration values are listed in the samples.
 
-Flat, fixed-length message
---------------------------
+# Flat, fixed-length message
 
 This is an example of a simple, flat order message without repeating
 groups or variable-length data.
@@ -18,7 +16,7 @@ groups or variable-length data.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<sbe:messageSchema 
+<sbe:messageSchema
 	xmlns:sbe="http://fixprotocol.io/2016/sbe"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     package="Examples" id="100"

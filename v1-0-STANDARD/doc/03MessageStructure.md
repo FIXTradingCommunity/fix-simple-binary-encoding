@@ -1,11 +1,9 @@
-Message Structure
-===============================================================================================================
+# Message Structure
 
-Message Framing
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Message Framing
 
 SBE messages have no defined message delimiter. Version 2.0 of SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
-session protocol or when persisting messages in storage. 
+session protocol or when persisting messages in storage.
 
 ### Simple Open Framing Header
 
@@ -48,8 +46,7 @@ defined as:
 The Simple Open Framing Header specification also lists values for other
 wire formats.
 
-SBE Message Encoding Header
----------------------------
+## SBE Message Encoding Header
 
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
@@ -130,7 +127,7 @@ The block size must be at least the sum of lengths of all fields at the
 root level of the message, and that is its default value. However, it
 may be set larger to reserve more space to effect alignment of blocks.
 This is specified by setting the blockLength attribute in a message
-schema. 
+schema.
 
 ### Template ID
 
@@ -156,8 +153,7 @@ A count of repeating groups at the root level of the message. The count does not
 A count of the variable-length fields at the root level of the message. The count does not include variable-length fields within repeating groups.
 
 
-Message Body
-----------------------------------------------------------------------------------------------------------
+## Message Body
 
 The message body conveys the business information of the message.
 
@@ -268,8 +264,7 @@ Example of blockLength specification for 24 octets
 <message name="ListOrder" id="2" blockLength="24">
 ```
 
-Repeating Groups
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Repeating Groups
 
 A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
@@ -302,7 +297,7 @@ Example repeating group encoding specification
 
 ### Group block length
 
-The blockLength part of a group dimension represents total space reserved 
+The blockLength part of a group dimension represents total space reserved
 for each group entry, not counting any nested repeating groups or variable-length
 fields. (Length of a variable-length Data field is given by its corresponding
 Length field.) Block length only represents message body fields; it does not
@@ -324,7 +319,7 @@ value does not include the group dimensions itself.
 Note that padding will only result in deterministic alignment if the
 repeating group contains no variable-length fields.
 
-### Entry counter 
+### Entry counter
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
@@ -476,8 +471,7 @@ Example of a restricted group encoding
 <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup" minValue="1" maxValue="10" />
 ```
 
-Sequence of message body elements
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Sequence of message body elements
 
 ### Root level elements
 
@@ -504,8 +498,7 @@ Repeating group entries are recursively organized in the same fashion as
 the root level: fixed-length fields, then nested repeating groups, and
 finally, variable-length data fields.
 
-Message structure validation
---------------------------------------------------------------------------------------------------------------------------
+## Message structure validation
 
 Aside from message schema validations (see section 4.8 below), these
 validations apply to message structure.
