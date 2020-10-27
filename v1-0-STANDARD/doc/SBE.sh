@@ -13,7 +13,7 @@ FILES="01Introduction.md 02FieldEncoding.md 03MessageStructure.md 04MessageSchem
 WPFOLDER="/wp-content/uploads/2020/03/"
 
 # Create FIX document version with disclaimer
-pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple Binary Encoding V1.0 with 20180727 Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
+pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple Binary Encoding V1.0 with 202011XX Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
 echo SBE document version created for FIX
 
 # Create ISO document version with copyright etc.
