@@ -151,9 +151,8 @@ message schema.
 **Session protocol** - a protocol concerned with the reliable delivery of
 messages over a transport. FIX protocol makes a distinction between
 session protocol and the encoding of a message payload, as described by
-this document. See the specifications section of FIX protocol web site
-for supported protocols. The original FIX session protocol is known as
-FIXT.
+this document. See the [specifications section](https://www.fixtrading.org/standards/) of the FIX protocol web site
+for supported protocols.
 
 **XML schema** - defines the elements and attributes that may appear in an
 XML document. The SBE message schema is defined in W3C (XSD) schema

@@ -45,7 +45,7 @@ Version applies to the schema as a whole, not to individual elements.
 Version is sent in the message header so the consumer can determine
 which version of the message schema was used to encode the message.
 
-See section 4.3.1 above for schema attributes.
+See section [*`<messageSchema>` attributes*](#messageschema-attributes) above for schema attributes.
 
 ### Since version
 
@@ -65,7 +65,7 @@ appended in proper order.
 
 The length of the root level of the message may optionally be documented
 on a `<message>` element in the schema using the blockLength attribute.
-See section 4.5.3 above for message attributes. If not set in the
+See section [*`<message>` element attributes*](#message-element-attributes) above for details. If not set in the
 schema, block length of the message root is the sum of its field
 lengths. Whether it is set in the schema or not, the block length is
 sent on the wire to consumers.
@@ -73,7 +73,7 @@ sent on the wire to consumers.
 Likewise, a repeating group has a blockLength attribute to tell how much
 space is reserved for group entries, and the value is sent on the wire.
 It is encoded in the schema as part of the NumInGroup field encoding.
-See section 3.4.8.2 above.
+See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) above.
 
 ### Deprecated elements
 
@@ -88,7 +88,7 @@ migration to replacement message layouts.
 ### Block size
 
 The length of the root level of the message is sent on the wire in the
-SBE message header. See section 3.2.2 above. Therefore, if new fields
+SBE message header. See section [*Root block length*](#root-block-length) above. Therefore, if new fields
 were appended in a later version of the schema, the consumer would still
 know how many octets to consume to find the next message element, such
 as repeating group or variable-length Data field. Without the current

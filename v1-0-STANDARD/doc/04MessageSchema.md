@@ -139,7 +139,7 @@ The element value represents a constant if attribute
 | minValue           | Lowest acceptable value                                                                                                                                                                                | string             |                                   |                                                                                        |
 | maxValue           | Highest acceptable value                                                                                                                                                                               | string             |                                   |                                                                                        |
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section 4.4.4.3 below                                                              |
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below                                                              |
 | primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
 | semanticType       | Represents a FIX data type                                                                                                                                                                             | token              | optional                          | Same as field semanticType – see below.                                                |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
@@ -357,7 +357,7 @@ The `name` attribute of the `<choice>` uniquely identifies it.
 | sinceVersion         | Documents the version of a schema in which a choice was added                                                    | nonNegativeInteger | default = 0 |                                                                  |
 | deprecated           | Documents the version of a schema in which a choice was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
-#### `< choice >` element content
+#### `<choice>` element content
 
 The element is required to carry a value, which is an unsigned integer
 representing a zero-based index to a bit within a bitset. Zero is the
@@ -411,7 +411,7 @@ The number of members of each type is unbound.
 The order that fields are listed in the message schema governs the order
 that they are encoded on the wire.
 
-**`<message>` element attributes**
+#### `<message>` element attributes
 
 | `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|
@@ -436,8 +436,7 @@ Example `<message>` element
 
 ## Field attributes
 
-Fields are added to a `<message>` element as child elements. See Field
-Encoding section above for a listing of all field types.
+Fields are added to a `<message>` element as child elements. See section [*Field Encoding*](#field-encoding) above for a listing of all field types.
 
 These are the common attributes of all field types.
 

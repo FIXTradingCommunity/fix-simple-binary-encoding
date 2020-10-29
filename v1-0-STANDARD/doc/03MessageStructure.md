@@ -51,8 +51,7 @@ wire formats.
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
 the size of the message body to aid in decoding, even when a message
-template has been extended in a later version. See section 5 below for
-an explanation of the schema extension mechanism.
+template has been extended in a later version. See section [*Schema Extension Mechanism*](#schema-extension-mechanism) below for details.
 
 The fields of the SBE message header are:
 
@@ -75,7 +74,7 @@ The fields of the SBE message header are:
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
-padding at the end of block. See section 3.3.3.3 below.
+padding at the end of block. See section [*Padding at end of a message or group*](#padding-at-end-of-a-message-or-group) below.
 
 ### Message header schema
 
@@ -84,7 +83,7 @@ position as shown below. Each of these fields must be encoded as an
 unsigned integer type. The encoding must carry the name "messageHeader".
 
 The message header is encoded in the same byte order as the message
-body, as specified in a message schema. See section 4.3.1.
+body, as specified in a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) for details.
 
 Recommended message header encoding
 
@@ -117,9 +116,9 @@ for blockLength.
 
 The total space reserved for the root level of the message not counting
 any repeating groups or variable-length fields. (Repeating groups have
-their own block length; see section 3.4 below. Length of a
+their own block length; see section [*Repeating Groups*](#repeating-groups) below. Length of a
 variable-length Data field is given by its corresponding Length field;
-see section 2.7.3 above.) Block length only represents message body
+see section [*Variable-length string encoding*](#variable-length-string-encoding) above.) Block length only represents message body
 fields; it does not include the length of the message header itself,
 which is a fixed size.
 
@@ -131,18 +130,18 @@ schema.
 
 ### Template ID
 
-The identifier of a message type in a message schema. See section 4.5.2
-below for schema attributes of a message.
+The identifier of a message type in a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes)
+below for schema attributes.
 
 ### Schema ID
 
-The identifier of a message schema. See section 4.3.1 below for schema
+The identifier of a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) below for schema
 attributes.
 
 ### Schema version
 
 The version number of the message schema that was used to encode a
-message. See section 4.3.1 below for schema attributes.
+message. See section [*`<messageSchema>` attributes*](#messageschema-attributes) below for schema attributes.
 
 ### Number of repeating groups
 
@@ -323,7 +322,7 @@ repeating group contains no variable-length fields.
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below
+value of the counter is a non-negative integer. See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) below
 for encoding of that counter.
 
 ### Empty group
@@ -500,7 +499,7 @@ finally, variable-length data fields.
 
 ## Message structure validation
 
-Aside from message schema validations (see section 4.8 below), these
+Aside from message schema validations (see section [*Schema validation*](#schema-validation) below), these
 validations apply to message structure.
 
 If a message structure violation is detected on a received message, the

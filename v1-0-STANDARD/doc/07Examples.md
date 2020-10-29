@@ -118,7 +118,7 @@ message is conditionally required. If OrdType=Limit, then Price field
 required. If OrdType=Stop then StopPx is required. Otherwise, if
 OrdType=Market, then neither price is required. Therefore, the price
 takes an optional encoding. To indicate that it is null, a special value
-is sent on the wire. See the table in section 2.4.2 above for the null
+is sent on the wire. See the table in section [*Range attributes for integer fields*](#range-attributes-for-integer-fields) above for the null
 value of the int64 mantissa.
 
 In this example, all fields are packed without special byte alignment.

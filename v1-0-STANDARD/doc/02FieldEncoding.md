@@ -14,7 +14,7 @@ sense, for example, whether it is numeric or character data, or whether
 it represents a time or price. Simple Binary Encoding represents all of
 the semantic data types that FIX protocol has defined across all
 encodings. In message specifications, FIX data type is declared with
-attribute semanticType. See the section 2.2 below for a listing of those
+attribute semanticType. See the section [*FIX data type summary*](#fix-data-type-summary) below for a listing of those
 FIX types.
 
 ### Encoding
@@ -51,7 +51,7 @@ encode a message in order to decode it. In other words, Simple Binary
 Encoding messages are not self-describing. Rather, message schemas are
 typically exchanged out-of-band between counterparties.
 
-See section 4 below for a detailed message schema specification.
+See section [*Message Schema*](#message-schema-1) below for a detailed message schema specification.
 
 ### Field presence
 
@@ -202,7 +202,7 @@ components, is specified globally in a message schema. Little-Endian
 order is the default encoding, meaning that the least significant byte
 is serialized first on the wire.
 
-See section 4.3.1 for specification of message schema attributes,
+See section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes,
 including byteOrder. Message schema designers should specify the byte
 order most appropriate to their system architecture and that of their
 counterparties.
@@ -369,7 +369,7 @@ Decimal encoding specifications that an implementation must support
 When both mantissa and exponent are sent on the wire for a decimal, the
 elements are packed by default. However, byte alignment may be
 controlled by specifying offset of the exponent within the composite
-encoding. See section 4.4.4.3 below.
+encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
 
 ### Examples of decimal fields
 
@@ -415,7 +415,7 @@ Floating-Point Arithmetic (IEEE 754-2008). They should be used for
 floating point numeric fields that do not represent prices or monetary
 amounts. Examples include interest rates, volatility and dimensionless
 quantities such as ratios. On the other hand, decimal prices should be
-encoded as decimals; see section 2.5 above.
+encoded as decimals; see section [*Decimal encoding*](#decimal-encoding) above.
 
 ### Primitive types
 
@@ -436,9 +436,7 @@ encoding. Technically, it indicated by the so-called quiet NaN.
 
 ### Byte order
 
-Like integer encodings, floating point encodings follow the byte order
-specified by message schema. See section 4.3.1 for specification of
-message schema attributes, including byteOrder.
+Like integer encodings, floating point encodings follow the byte order specified by message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes, including byteOrder.
 
 ### Float encoding specifications
 
@@ -483,7 +481,7 @@ also be used for non-ASCII encoded strings.
 ### Character
 
 Character fields hold a single character. They are most commonly used
-for field with character code enumerations. See section 2.12 below for
+for field with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) below for
 discussion of enum fields.
 
 | FIX data type | Description                 | Backing primitive | Length (octet) |
@@ -526,7 +524,7 @@ attribute or a constant attribute.
 | String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length (except may be inferred from a constant value, if present). |
 
 A length attribute set to zero indicates variable length. See section
-2.7.3 below for variable-length data encoding.
+[*Variable-length string encoding*](#variable-length-string-encoding) below for details.
 
 #### Encoding specifications for fixed-length character array
 
@@ -778,7 +776,7 @@ value, then the entire field is considered null.
 
 The four subfields of MonthYear are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section 4.4.4.3 below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
 
 ### Encoding specifications for MonthYear
 
@@ -842,7 +840,7 @@ sent on the wire.
 
 ### Encoding specifications for date and time
 
-Time specifications use an enumeration of time units. See section 2.13
+Time specifications use an enumeration of time units. See section [*Enumeration encoding*](#enumeration-encoding)
 below for a fuller explanation of enumerations.
 
 Enumeration of time units:
@@ -980,7 +978,7 @@ indicator as defined in ISO 8601:2004.
 
 The subfields of TZTimestamp are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section 4.4.4.3 below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
 
 Standard TZTimestamp encoding specification
 
@@ -1019,7 +1017,7 @@ The sign telling ahead or behind UTC is on the hour subfield.
 
 The subfields of TZTimeOnly are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section 4.4.4.3 below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
 
 Standard TZTimeOnly encoding specification
 
@@ -1059,7 +1057,7 @@ allow more choices.
 ### Value encoding
 
 If a field is of FIX data type char, then its valid values are
-restricted to US-ASCII printable characters. See section 2.7.1 above.
+restricted to US-ASCII printable characters. See section [*Character*](#character) above.
 
 If the field is of FIX data type int, then a primitive integer data type
 should be selected that can contain the number of choices. For most
@@ -1207,7 +1205,7 @@ of valid choices.
 
 Like other integer-backed encodings, multi-value encodings follow the
 byte order specified by message schema when serializing to the wire. See
-section 4.3.1 for specification of message schema attributes, including
+section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes, including
 byteOrder.
 
 ### Value encoding
