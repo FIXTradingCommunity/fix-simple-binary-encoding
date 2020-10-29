@@ -57,7 +57,7 @@ their location within a message. Additionally, the metadata describes
 valid value ranges and information that need not be sent on the wire,
 such as constant values.
 
-Message schemas may be based on standard FIX message specifications, or
+Message schemas may be based on standard FIX message specifications or
 may be customized as needed by agreement between counterparties.
 
 Glossary

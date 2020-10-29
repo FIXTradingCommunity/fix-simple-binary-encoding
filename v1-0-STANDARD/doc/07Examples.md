@@ -276,7 +276,7 @@ Offset is from beginning of block.
 | `0000` |   | SBE schema version | 6 | 2 | 0 |
 | `4558454330303030` | 37 | OrderID | 8 | 8 | O0000001 |
 | `4558454330303030` | 17 | ExecID | 8 | 8 | EXEC0000 |
-| `30` | 39 | OrdStatus | 1 | 1 | PartialFilled |
+| `30` | 39 | OrdStatus | 1 | 1 | PartiallyFilled |
 | `47454d3400000000` | 55 | Symbol | 18 | 8 | GEM4 |
 | `de0706ffff` | 200 | MaturityMonthYear | 26 | 5 | year=2014 month=6 |
 | `30` | 54 | Side | 1 | 1 | Buy |
@@ -317,7 +317,7 @@ Add this encoding types element to those in the previous example.
 
 	<sbe:message name="BusinessMessageReject" id="97"
 		blockLength="9" semanticType="j">
-		<field name="BusinessRejectRefId" id="379" type="idString"
+		<field name="BusinessRejectRefID" id="379" type="idString"
 			offset="0" semanticType="String" />
 		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
 			offset="8" semanticType="int" />
@@ -344,6 +344,6 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `6100` |   | SBE template ID | 2 | 2 | 97 |
 | `5b00` |   | SBE schema ID | 4 | 2 | 91 |
 | `0000` |   | SBE schema version | 6 | 2 | 0 |
-| `4f52443030303031` | 379 | BusinessRejectRefId | 0 | 8 | ORD00001 |
+| `4f52443030303031` | 379 | BusinessRejectRefID | 0 | 8 | ORD00001 |
 | `06` | 380 | BusinessRejectReason | 8 | 1 | NotAuthorized |
 | `4e6f74206175...` | 58 | Text | 0 | 39 | Not authorized to trade that instrument |
