@@ -310,7 +310,7 @@ sufficient for all FIX uses.
 
 | Encoding type | Description            | Backing primitives | Length (octets) |
 |---------------|------------------------|--------------------|----------------:|
-| decimal       | Floating-point decimal | Composite: int64 mantiss, int8 exponent   | 9               |
+| decimal       | Floating-point decimal | Composite: int64 mantissa, int8 exponent   | 9               |
 | decimal64     | Fixed-point decimal    | int64 mantissa, constant exponent    | 8               |
 | decimal32     | Fixed-point decimal    | int32 mantissa, constant exponent     | 4               |
 
@@ -333,7 +333,7 @@ used to indicate that a field value is null. For floating-point decimals, the ex
 | exponent range   | –128 to 127                    | –128 to 127             | –128 to 127             |
 | mantissa range   | –2^63^ + 1 to 2^63^ – 1        | –2^63^ + 1 to 2^63^ – 1 | –2^31^ + 1 to 2^31^ – 1 |
 | minValue         | (–2^63^ + 1) \* 10^127^        | (–2^63^ + 1) \* 10^127^ | (–2^31^ + 1) \* 10^127^ |
-| maxValue         | (2^63^ – 1) \* 10^127^         | (–2^63^ – 1) \* 10^127^ | (2^31^ – 1) \* 10^127^  |
+| maxValue         | (2^63^ – 1) \* 10^127^         | (2^63^ – 1) \* 10^127^ | (2^31^ – 1) \* 10^127^  |
 | nullValue        | mantissa=–2^63^, exponent=–128 | mantissa =–2^63^        | mantissa =–2^31^        |
 
 
