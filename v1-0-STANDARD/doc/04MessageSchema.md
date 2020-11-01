@@ -411,7 +411,7 @@ The number of members of each type is unbound.
 The order that fields are listed in the message schema governs the order
 that they are encoded on the wire.
 
-#### `<message>` element attributes
+### `<message>` element attributes
 
 | `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|

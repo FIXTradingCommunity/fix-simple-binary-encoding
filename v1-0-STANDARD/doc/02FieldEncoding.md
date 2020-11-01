@@ -79,7 +79,7 @@ FIX semantic types are mapped to binary field encodings as follows. See
 sections below for more detail about each type.
 
 Schema attributes may restrict the range of valid values for a field.
-See section [Common field schema attributes](#common-field-schema-attributes) below.
+See section [*Common field schema attributes*](#common-field-schema-attributes) below.
 
 | FIX semantic type  | Binary type                           | Description       |
 |--------------------|---------------------------------------|-------------------|
