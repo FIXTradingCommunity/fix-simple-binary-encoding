@@ -1,11 +1,9 @@
-Message Structure
-===============================================================================================================
+# Message Structure
 
-Message Framing
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Message Framing
 
 SBE messages have no defined message delimiter. SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
-session protocol or when persisting messages in storage. 
+session protocol or when persisting messages in storage.
 
 ### Simple Open Framing Header
 
@@ -48,14 +46,13 @@ defined as:
 The Simple Open Framing Header specification also lists values for other
 wire formats.
 
-SBE Message Encoding Header
----------------------------
+## SBE Message Encoding Header
 
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
 the size of the message body to aid in decoding, even when a message
-template has been extended in a later version. See section 5 below for
-an explanation of the schema extension mechanism.
+template has been extended in a later version. See section [*Schema Extension Mechanism*](#schema-extension-mechanism) below for
+details.
 
 The fields of the SBE message header are:
 
@@ -78,7 +75,7 @@ The fields of the SBE message header are:
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
-padding at the end of block. See [Padding](#padding-at-end-of-a-message-or-group).
+padding at the end of block. See section [*Padding*](#padding-at-end-of-a-message-or-group).
 
 ### Message header schema
 
@@ -87,7 +84,7 @@ position as shown below. Each of these fields must be encoded as an
 unsigned integer type. The encoding must carry the name "messageHeader".
 
 The message header is encoded in the same byte order as the message
-body, as specified in a message schema. See section 4.
+body, as specified in a message schema. See section [*Message Schema*](#message-schema).
 
 Recommended message header encoding
 
@@ -120,9 +117,9 @@ for blockLength.
 
 The total space reserved for the root level of the message not counting
 any repeating groups or variable-length fields. (Repeating groups have
-their own block length; see [Group block length](#group-block-length) below. Length of a
+their own block length; see section [*Group block length*](#group-block-length) below. Length of a
 variable-length Data field is given by its corresponding Length field;
-see section 2.) Block length only represents message body
+see section [*Variable-length string*](#variable-length-string-encoding).) Block length only represents message body
 fields; it does not include the length of the message header itself,
 which is a fixed size.
 
@@ -130,22 +127,22 @@ The block size must be at least the sum of lengths of all fields at the
 root level of the message, and that is its default value. However, it
 may be set larger to reserve more space to effect alignment of blocks.
 This is specified by setting the blockLength attribute in a message
-schema. 
+schema.
 
 ### Template ID
 
-The identifier of a message type in a message schema. See section 4
+The identifier of a message type in a message schema. See section [*Message Schema*](#message-schema)
 for schema attributes of a message.
 
 ### Schema ID
 
-The identifier of a message schema. See section 4 for schema
+The identifier of a message schema. See section [*Message Schema*](#message-schema) for schema
 attributes.
 
 ### Schema version
 
 The version number of the message schema that was used to encode a
-message. See section 4 for schema attributes.
+message. See section [*Message Schema*](#message-schema) for schema attributes.
 
 ### Number of repeating groups
 
@@ -156,8 +153,7 @@ A count of repeating groups at the root level of the message. The count does not
 A count of the variable-length fields at the root level of the message. The count does not include variable-length fields within repeating groups.
 
 
-Message Body
-----------------------------------------------------------------------------------------------------------
+## Message Body
 
 The message body conveys the business information of the message.
 
@@ -293,8 +289,7 @@ Example of blockLength specification for 24 octets
 <message name="ListOrder" id="2" blockLength="24">
 ```
 
-Repeating Groups
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Repeating Groups
 
 A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
@@ -327,7 +322,7 @@ Example repeating group encoding specification
 
 ### Group block length
 
-The blockLength part of a group dimension represents total space reserved 
+The blockLength part of a group dimension represents total space reserved
 for each group entry, not counting any nested repeating groups or variable-length
 fields. (Length of a variable-length Data field is given by its corresponding
 Length field.) Block length only represents message body fields; it does not
@@ -355,11 +350,11 @@ value does not include the group dimensions itself.
 Note that padding will only result in deterministic alignment if the
 repeating group contains no variable-length fields. Therefore, the alignment attribute is a more direct solution to that need.
 
-### Entry counter 
+### Entry counter
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See "Encoding of repeating group dimensions" section below
+value of the counter is a non-negative integer. See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) below
 for encoding of that counter.
 
 ### Empty group
@@ -507,8 +502,7 @@ Example of a restricted group encoding
 <type name="numInGroup" primitiveType="uint16" minValue="1" maxValue="10" />
 ```
 
-Sequence of message body elements
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Sequence of message body elements
 
 ### Root level elements
 
@@ -535,10 +529,9 @@ Repeating group entries are recursively organized in the same fashion as
 the root level: fixed-length fields, then nested repeating groups, and
 finally, variable-length data fields.
 
-Message structure validation
---------------------------------------------------------------------------------------------------------------------------
+## Message structure validation
 
-Aside from message schema validations (see section 4), these
+Aside from message schema validations (see section [*Schema validation*](#schema-validation)), these
 validations apply to message structure.
 
 If a message structure violation is detected on a received message, the

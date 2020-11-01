@@ -1,8 +1,6 @@
-Usage Guidelines
-================
+# Usage Guidelines
 
-Identifier encodings
--------------------------------------------------------------------------------------------------------------------
+## Identifier encodings
 
 FIX specifies request and entity identifiers as String type. Common
 practice is to specify an identifier field as fixed-length character of

@@ -1,5 +1,4 @@
-Introduction
-=========================================================================================================================================================
+# Introduction
 
 FIX Simple Binary Encoding (SBE) targets high performance trading
 systems. It is optimized for low latency of encoding and decoding while
@@ -14,8 +13,7 @@ suits their needs. Implementers may use the most appropriate techniques and idio
 The encoding standard is complimentary to other FIX standards for
 session protocol and application level behavior.
 
-Binary type system
-----------------------------------------------------------------------------------------------------------------
+## Binary type system
 
 In order to support traditional FIX semantics, all the documented field
 types are supported. However, instead of printable character
@@ -34,8 +32,7 @@ The binary type system has been enhanced in these ways:
 -   Provides a consistent system of enumerations, Boolean switches and
     multiple-choice fields.
 
-Design principles
----------------------------------------------------------------------------------------------------------------
+## Design principles
 
 The message design strives for direct data access without complex
 transformations or conditional logic. This is achieved by:
@@ -47,8 +44,7 @@ transformations or conditional logic. This is achieved by:
     direct access to data and avoiding the need for management of heaps
     of variable-length elements which must be sequentially processed.
 
-Message schema
-------------------------------------------------------------------------------------------------------------
+## Message schema
 
 This standard describes how fields are encoded and the general structure
 of messages. The content of a message type is specified by a message
@@ -60,9 +56,7 @@ such as constant values.
 Message schemas may be based on standard FIX message specifications or
 may be customized as needed by agreement between counterparties.
 
-Glossary
-------------------------------------------------------------------------------------------------------
-
+## Glossary
 
 **Character set** - A mapping between a sequence of octets and a sequence of characters.
 
@@ -90,7 +84,7 @@ message schema.
 **Session protocol** - a protocol concerned with the reliable delivery of
 messages over a transport. FIX protocol makes a distinction between
 session protocol and the encoding of a message payload, as described by
-this document. See the specifications section of FIX protocol web site
+this document. See the [specifications section](https://www.fixtrading.org/standards/) of the FIX protocol web site
 for supported protocols. The original FIX session protocol is known as
 FIXT.
 
@@ -98,8 +92,7 @@ FIXT.
 XML document. The SBE message schema is defined in W3C (XSD) schema
 language since it is the most widely adopted format for XML schemas.
 
-Documentation
------------------------------------------------------------------------------------------------------------
+## Documentation
 
 This document explains:
 
@@ -147,8 +140,7 @@ This is sample data as it would be transmitted on the wire
 
 `10270000`
 
-References
--------------------------------------------------------------------------------------------------------------------------------------------------------
+## References
 
 ### Related FIX Standards
 

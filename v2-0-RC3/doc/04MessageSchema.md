@@ -1,8 +1,7 @@
- Message Schema
-==========================================================================================================================================================================================================
+# Message Schema
 
-XML schema for SBE message schemas
----------
+## XML schema for SBE message schemas
+
 See [SBE XSD](../resources/sbe-2.0rc3.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 The SBE schema is defined with W3C XML Schema Definition Language (XSD) version 1.0. (XSD version 1.1 was standardized.
@@ -14,8 +13,7 @@ Certain elements of the SBE message schema support inclusion from a separate XML
 is a single XML infoset, so the schema description below applies whether a single file is used or multiple files are assembled.
 
 
-XML namespace
------------------------------------------------------------------------------------------------------------
+## XML namespace
 
 The Simple Binary Encoding XML schema is identified by this URL [*tentative*]:
 
@@ -31,8 +29,7 @@ not as a URL (physical resource locator). Firms should not depend on
 access to the FIX Trading Community web site to validate XML schemas at
 run-time
 
-Name convention
--------------------------------------------------------------------------------------------------------------
+## Name convention
 
 All symbolic names in a message schema are restricted to alphanumeric
 characters plus underscore without spaces. This is the same restriction
@@ -47,8 +44,7 @@ derived. Since the capitalization is somewhat inconsistent, however, it
 is recommended that matching of type names should be case insensitive in
 schema parsers.
 
-Root element
-------------
+## Root element
 
 The root element of the XML document is `<messageSchema>`.
 
@@ -83,8 +79,7 @@ the version number.
 The `package` attribute should remain constant between versions, if it is
 supplied.
 
-Data encodings
-------------------------------------------------------------------------------------------------------------
+## Data encodings
 
 ### Encoding sets
 
@@ -161,7 +156,7 @@ The element value represents a constant if attribute
 | description        | Documentation of the type                                                                                                                                                                              | string             | optional                          |                                                                                        |
 | presence           | Presence of this element within a composite type                                                                                                                                                           | token              |  | required optional  constant                                                                                |
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section 4.4.4.3 below                                                              |
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below                                                              |
 | primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
 | sinceVersion       | Documents the version of a schema in which a type was added. Not valid on a member of a composite type.                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.  Not valid on a member of a composite type.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
@@ -387,8 +382,7 @@ Multi-value choice example, The choice is encoded as a bitset.
 </set>
 ```
 
-Message templates
---------------------------------------------------------------------------------------------------------------
+## Message templates
 
 A `<messages>` element contains a set of message templates. A message schema may have multiple
 instances of `<messages>`, if desired, to organize them by categories. Each `<messages>` element may have an associated `package` name.
@@ -437,7 +431,7 @@ The number of members of each type is unbound.
 The order that fields are listed in the message schema governs the order
 that they are encoded on the wire.
 
-**`<message>` element attributes**
+### `<message>` element attributes
 
 | `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|
@@ -464,8 +458,7 @@ Example `<message>` element
 Field attributes
 --------------------------------------------------------------------------------------------------------------
 
-Fields are added to a `<message>` element as child elements. See Field
-Encoding section above for a listing of all field types.
+Fields are added to a `<message>` element as child elements. See section [*Field Encoding*](#field-encoding) above for a listing of all field types.
 
 These are the common attributes of all field types.
 
@@ -499,8 +492,7 @@ Field that uses a composite encoding
   description="Shares: Total number of shares" />
 ```
 
-Repeating group schema
---------------------------------------------------------------------------------------------------------------------
+## Repeating group schema
 
 A `<group>` has the same attributes as a `<message>` element since they
 both inherit attributes from the blockType XML type. A group has the
@@ -542,8 +534,7 @@ above.
 </group>
 ```
 
-Schema validation
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Schema validation
 
 The first level of schema validation is enforced by XML schema
 validation tools to make sure that a schema is well-formed according to
@@ -604,8 +595,7 @@ following.
 </message>
 ```
 
-Reserved element names
-----------------------
+## Reserved element names
 
 ### Composite types
 

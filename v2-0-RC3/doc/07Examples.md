@@ -134,7 +134,6 @@ Not all FIX enumeration values are listed in the samples.
 </messageSchema>
 ```
 
-
 ## Flat, fixed-length message
 
 This is an example of a simple, flat order message without repeating
@@ -172,7 +171,7 @@ message is conditionally required. If OrdType=Limit, then Price field
 required. If OrdType=Stop then StopPx is required. Otherwise, if
 OrdType=Market, then neither price is required. Therefore, the price
 takes an optional encoding. To indicate that it is null, a special value
-is sent on the wire. See the table in section 2.4.2 above for the null
+is sent on the wire. See the table in section [*Range attributes for integer fields*](#range-attributes-for-integer-fields) above for the null
 value of the int64 mantissa.
 
 In this example, all fields are packed without special byte alignment.
@@ -211,9 +210,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `1a85010000000000` | 44 | Price | 38 | 8 | 99.610 |
 | `0000000000000080` | 99 | StopPx | 46 | 8 | null |
 
-
-Message with a repeating group
-------------------------------
+## Message with a repeating group
 
 This is an example of a message with a repeating group.
 
@@ -269,8 +266,7 @@ Offset is from beginning of block.
 | `2485010000000000` | 1364 | FillPx | 0 | 8 | 99.620 |
 | `04000000` | 1365 | FillQty | 8 | 4 | 4 |
 
-Message with a variable-length field
-------------------------------------
+## Message with a variable-length field
 
 ### Wire format of a business reject message
 
