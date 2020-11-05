@@ -44,7 +44,7 @@ The root element of the XML document is `<messageSchema>`.
 
 The root element provides basic identification of a schema.
 
-The `byteOrder` attribute controls the byte order of integer encodings
+The `byteOrder` attribute controls the byte order of integer and float encodings
 within the schema. It is a global setting for all specified messages and
 their encodings.
 
