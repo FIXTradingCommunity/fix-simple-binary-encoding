@@ -45,7 +45,7 @@ Version applies to the schema as a whole, not to individual elements.
 Version is sent in the message header so the consumer can determine
 which version of the message schema was used to encode the message.
 
-See section [*`<messageSchema>` attributes*](#messageschema-attributes) above for schema attributes.
+See section [*Message schema attributes*](#messageschema-attributes) for the specification.
 
 ### Since version
 
@@ -65,7 +65,7 @@ appended in proper order.
 
 The length of the root level of the message may optionally be documented
 on a `<message>` element in the schema using the blockLength attribute.
-See section [*`<message>` element attributes*](#message-element-attributes) above for details. If not set in the
+See section [*Message element attributes*](#message-element-attributes) for details. If not set in the
 schema, block length of the message root is the sum of its field
 lengths. Whether it is set in the schema or not, the block length is
 sent on the wire to consumers.
@@ -73,7 +73,7 @@ sent on the wire to consumers.
 Likewise, a repeating group has a blockLength attribute to tell how much
 space is reserved for group entries, and the value is sent on the wire.
 It is encoded in the schema as part of the NumInGroup field encoding.
-See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) above.
+See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) for details.
 
 ### Deprecated elements
 
@@ -88,7 +88,7 @@ migration to replacement message layouts.
 ### Block size
 
 The length of the root level of the message is sent on the wire in the
-SBE message header. See section [*Root block length*](#root-block-length) above. Therefore, if new fields
+SBE message header. See section [*Root block length*](#root-block-length) for details. Therefore, if new fields
 were appended in a later version of the schema, the consumer would still
 know how many octets to consume to find the next message element, such
 as repeating group or variable-length Data field. Without the current
@@ -112,7 +112,7 @@ If the *received version is equal to the decoder's version*, then all fields kno
 
 If the *received version is greater than the decoder's version* (that is, the producer's encoder is newer than the consumer's decoder), then all fields known to the decoder may be parsed but it will be unable to parse added fields.
 
-Also, an old decoder may encounter unexpected enumeration values. The application layer determines whether an unexpected value is a fatal error. Probably so for a required field since the business meaning is unknown, but it may choose to allow an unknown value of an optional field to pass through. For example, if OrdType value J="Market If Touched" is added to a schema, and the consumer does not recognize it, then the application returns an order rejection with reason "order type not supported", even if it does not know what "J" represents. Note that this is not strictly a versioning problem, however. This exception handling is indistinguishable from the case where "J" was never added to the enum but was simply sent in error.
+Also, an old decoder may encounter unexpected enumeration values. The application layer determines whether an unexpected value is a fatal error. Probably so for a required field since the business meaning is unknown, but it may choose to allow an unknown value of an optional field to pass through. For example, if OrdType(40)=J (Market If Touched (MIT)) is added to a schema, and the consumer does not recognize it, then the application returns an order rejection with reason "order type not supported", even if it does not know what "J" represents. Note that this is not strictly a versioning problem, however. This exception handling is indistinguishable from the case where "J" was never added to the enum but was simply sent in error.
 
 If the *received version is less than the decoder's version* (that is, the producer's encoder is older than the consumer's decoder), then only the fields of the older version may be parsed. This information is available through metadata as "sinceVersion" attribute of a field. If sinceVersion is greater than received schema version, then the field is not available. How a decoder signals an application that a field is unavailable is an implementation detail. One strategy is for an application to provide a default value for unavailable fields.
 

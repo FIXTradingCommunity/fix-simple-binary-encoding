@@ -139,7 +139,7 @@ The element value represents a constant if attribute
 | minValue           | Lowest acceptable value                                                                                                                                                                                | string             |                                   |                                                                                        |
 | maxValue           | Highest acceptable value                                                                                                                                                                               | string             |                                   |                                                                                        |
 | length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below                                                              |
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type)                                                                      |
 | primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
 | semanticType       | Represents a FIX data type                                                                                                                                                                             | token              | optional                          | Same as field semanticType – see below.                                                |
 | sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
@@ -188,7 +188,7 @@ stand-alone types.
 
 Composite type example
 
-In this example, a Price is encoded as 32 bit integer mantissa and a
+In this example, a Price is encoded as 32-bit integer mantissa and a
 constant exponent, which is not sent on the wire.
 
 ```xml
@@ -234,7 +234,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 
 **Reference to an enum**
 
-In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type.
+In this example, a futuresPrice is encoded as 64-bit integer mantissa,  8-bit exponent, and a reused enum type.
 
 ```xml
 <enum name="booleanEnum" encodingType="uint8" semanticType="Boolean">
@@ -308,7 +308,7 @@ the encoding, such as an integer.
 
 Enumeration example (not all valid values listed)
 
-This enumeration is encoded as an 8 bit unsigned integer value. Others
+This enumeration is encoded as an 8-bit unsigned integer value. Others
 are encoded as char codes.
 
 ```xml
@@ -365,7 +365,7 @@ least significant bit.
 
 `<set>` and `<choice>` XML elements
 
-Multi-value choice example, The choice is encoded as a bitset.
+Multi-value choice example, the choice is encoded as a bitset.
 
 ```xml
 <type name="bitset" primitiveType="uint8" />
@@ -436,7 +436,7 @@ Example `<message>` element
 
 ## Field attributes
 
-Fields are added to a `<message>` element as child elements. See section [*Field Encoding*](#field-encoding) above for a listing of all field types.
+Fields are added to a `<message>` element as child elements. See section [*Field Encoding*](#field-encoding) for a listing of all field types.
 
 These are the common attributes of all field types.
 
@@ -492,8 +492,7 @@ The number of members of each type is unbound.
 | description         | Documentation                     | string          | optional                    |                                                                          |
 | dimensionType       | Dimensions of the repeating group | symbolicName\_t | default = groupSizeEncoding | If specified, must be greater than or equal to the sum of field lengths. |
 
-`<group>` element inherits attributes of blockType. See `<message>`
-above.
+`<group>` element inherits attributes of blockType. See `<message>` element above.
 
 *Example group schema with default dimension encoding*
 

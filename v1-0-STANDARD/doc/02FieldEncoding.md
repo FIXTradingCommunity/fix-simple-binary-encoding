@@ -14,14 +14,13 @@ sense, for example, whether it is numeric or character data, or whether
 it represents a time or price. Simple Binary Encoding represents all of
 the semantic data types that FIX protocol has defined across all
 encodings. In message specifications, FIX data type is declared with
-attribute semanticType. See the section [*FIX data type summary*](#fix-data-type-summary) below for a listing of those
-FIX types.
+attribute semanticType. See the section [*FIX data type summary*](#fix-data-type-summary) for details.
 
 ### Encoding
 
 Encoding tells how a field of a specific data type is encoded on the
 wire. An encoding maps a FIX data type to either a simple, primitive
-data type, such as a 32 bit signed integer, or to a composite type. A
+data type, such as a 32-bit signed integer, or to a composite type. A
 composite type is composed of two or more simple primitive types. For
 example, the FIX data type Price is encoded as a decimal, a composite
 type containing a mantissa and an exponent. Note that many fields may
@@ -51,7 +50,7 @@ encode a message in order to decode it. In other words, Simple Binary
 Encoding messages are not self-describing. Rather, message schemas are
 typically exchanged out-of-band between counterparties.
 
-See section [*Message Schema*](#message-schema-1) below for a detailed message schema specification.
+See section [*Message Schema*](#message-schema-1) for details.
 
 ### Field presence
 
@@ -79,7 +78,7 @@ FIX semantic types are mapped to binary field encodings as follows. See
 sections below for more detail about each type.
 
 Schema attributes may restrict the range of valid values for a field.
-See section [*Common field schema attributes*](#common-field-schema-attributes) below.
+See section [*Common field schema attributes*](#common-field-schema-attributes) for details.
 
 | FIX semantic type  | Binary type                           | Description       |
 |--------------------|---------------------------------------|-------------------|
@@ -110,7 +109,7 @@ See section [*Common field schema attributes*](#common-field-schema-attributes) 
 | Boolean            | [Boolean encoding](#boolean-encoding) | Values true or false |
 | MultipleCharValue  | [Multi-value choice encoding](#multi-value-choice-encoding)  | Multiple choice of a set of values |
 | MultipleStringValue| [Multi-value choice encoding](#multi-value-choice-encoding). String choices must be mapped to int values. | Multiple choice of a set of values |
-| MonthYear          | [MonthYear encoding](#monthyear-encoding)         | A flexible date format that must include month and year at least, but may also include day or week. |
+| MonthYear          | [MonthYear encoding](#monthyear-encoding)         | A flexible date format that must include month and year at least but may also include day or week. |
 | UTCTimestamp       | [Date and time encoding](#date-and-time-encoding) | Time/date combination represented in UTC (Universal Time Coordinated, also known as "GMT") |
 | UTCTimeOnly        | [Date and time encoding](#date-and-time-encoding) | Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") |
 | UTCDateOnly        | [Date and time encoding](#date-and-time-encoding) | Date represented in UTC (Universal Time Coordinated, also known as "GMT") |
@@ -176,7 +175,7 @@ hold.
 
 ### Range attributes for integer fields
 
-The default data ranges and null indicator are listed below for each
+The default data range and null indicator are listed below for each
 integer encoding.
 
 A message schema may optionally specify a more restricted range of valid
@@ -202,7 +201,7 @@ components, is specified globally in a message schema. Little-Endian
 order is the default encoding, meaning that the least significant byte
 is serialized first on the wire.
 
-See section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes,
+See section [*Message schema attributes*](#messageschema-attributes) for the specification,
 including byteOrder. Message schema designers should specify the byte
 order most appropriate to their system architecture and that of their
 counterparties.
@@ -304,9 +303,9 @@ fixed-point decimal specifies a fixed exponent in a message schema. A
 constant negative exponent specifies a number of assumed decimal places
 to the right of the decimal point.
 
-Implementations should support both 32 bit and 64 bit mantissa. The
+Implementations should support both 32-bit and 64-bit mantissa. The
 usage depends on the data range that must be represented for a
-particular application. It is expected that an 8 bit exponent should be
+particular application. It is expected that an 8-bit exponent should be
 sufficient for all FIX uses.
 
 | Encoding type | Description            | Backing primitives | Length (octets) |
@@ -369,7 +368,7 @@ Decimal encoding specifications that an implementation must support
 When both mantissa and exponent are sent on the wire for a decimal, the
 elements are packed by default. However, byte alignment may be
 controlled by specifying offset of the exponent within the composite
-encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
+encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) for details.
 
 ### Examples of decimal fields
 
@@ -415,7 +414,7 @@ Floating-Point Arithmetic (IEEE 754-2008). They should be used for
 floating point numeric fields that do not represent prices or monetary
 amounts. Examples include interest rates, volatility and dimensionless
 quantities such as ratios. On the other hand, decimal prices should be
-encoded as decimals; see section [*Decimal encoding*](#decimal-encoding) above.
+encoded as decimals; see section [*Decimal encoding*](#decimal-encoding) for details.
 
 ### Primitive types
 
@@ -436,7 +435,7 @@ encoding. Technically, it indicated by the so-called quiet NaN.
 
 ### Byte order
 
-Like integer encodings, floating point encodings follow the byte order specified by message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes, including byteOrder.
+Like integer encodings, floating point encodings follow the byte order specified by message schema. See section [*Message schema attributes*](#messageschema-attributes) for the specification, including byteOrder.
 
 ### Float encoding specifications
 
@@ -481,8 +480,7 @@ also be used for non-ASCII encoded strings.
 ### Character
 
 Character fields hold a single character. They are most commonly used
-for field with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) below for
-discussion of enum fields.
+for field with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) for details.
 
 | FIX data type | Description                 | Backing primitive | Length (octet) |
 |---------------|-----------------------------|-------------------|---------------:|
@@ -524,7 +522,7 @@ attribute or a constant attribute.
 | String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length (except may be inferred from a constant value, if present). |
 
 A length attribute set to zero indicates variable length. See section
-[*Variable-length string encoding*](#variable-length-string-encoding) below for details.
+[*Variable-length string encoding*](#variable-length-string-encoding) for details.
 
 #### Encoding specifications for fixed-length character array
 
@@ -776,7 +774,7 @@ value, then the entire field is considered null.
 
 The four subfields of MonthYear are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) for details.
 
 ### Encoding specifications for MonthYear
 
@@ -841,7 +839,7 @@ sent on the wire.
 ### Encoding specifications for date and time
 
 Time specifications use an enumeration of time units. See section [*Enumeration encoding*](#enumeration-encoding)
-below for a fuller explanation of enumerations.
+for details.
 
 Enumeration of time units:
 
@@ -978,7 +976,7 @@ indicator as defined in ISO 8601:2004.
 
 The subfields of TZTimestamp are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) for details.
 
 Standard TZTimestamp encoding specification
 
@@ -1017,7 +1015,7 @@ The sign telling ahead or behind UTC is on the hour subfield.
 
 The subfields of TZTimeOnly are packed at an octet level by default.
 However, byte alignment may be controlled by specifying offset of the
-elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) below.
+elements within the composite encoding. See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) for details.
 
 Standard TZTimeOnly encoding specification
 
@@ -1057,11 +1055,11 @@ allow more choices.
 ### Value encoding
 
 If a field is of FIX data type char, then its valid values are
-restricted to US-ASCII printable characters. See section [*Character*](#character) above.
+restricted to US-ASCII printable characters. See section [*Character*](#character) for details.
 
 If the field is of FIX data type int, then a primitive integer data type
 should be selected that can contain the number of choices. For most
-cases, an 8 bit integer will be sufficient, allowing 255 possible
+cases, an 8-bit integer will be sufficient, allowing 255 possible
 values.
 
 Enumerations of other data types, such as String valid values specified
@@ -1203,10 +1201,7 @@ of valid choices.
 | uint32         | 32-bit unsigned integer | 4               | 32                        |
 | uint64         | 64-bit unsigned integer | 8               | 64                        |
 
-Like other integer-backed encodings, multi-value encodings follow the
-byte order specified by message schema when serializing to the wire. See
-section [*`<messageSchema>` attributes*](#messageschema-attributes) for specification of message schema attributes, including
-byteOrder.
+Like other integer-backed encodings, multi-value encodings follow the byte order specified by message schema when serializing to the wire. See section [*Message schema attributes*](#messageschema-attributes) for the specification, including byteOrder.
 
 ### Value encoding
 

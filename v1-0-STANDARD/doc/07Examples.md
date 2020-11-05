@@ -114,11 +114,11 @@ fractional shares.
 The other decimal encoding is used for prices. The exponent is
 constant -3. In essence, each price is transmitted as an integer on the
 wire with assumed three decimal places. Each of the prices in the
-message is conditionally required. If OrdType=Limit, then Price field
-required. If OrdType=Stop then StopPx is required. Otherwise, if
-OrdType=Market, then neither price is required. Therefore, the price
-takes an optional encoding. To indicate that it is null, a special value
-is sent on the wire. See the table in section [*Range attributes for integer fields*](#range-attributes-for-integer-fields) above for the null
+message is conditionally required. If OrdType(40)=2 (Limit), then the field Price(44)
+is required. If OrdType(40)=3 (Stop/Stop Loss) then StopPx(99) is required. Otherwise, if
+OrdType(40)=1 (Market), then neither price is required. Therefore, the price fields
+take an optional encoding. To indicate that it is null, a special value
+is sent on the wire. See the table in section [*Range attributes for integer fields*](#range-attributes-for-integer-fields) for the null
 value of the int64 mantissa.
 
 In this example, all fields are packed without special byte alignment.
@@ -148,7 +148,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `6300` |   | SBE template ID | 2 | 2 | 99 |
 | `5b00` |   | SBE schema ID | 4 | 2 | 91 |
 | `0000` |   | SBE schema version | 6 | 2 | 0 |
-| `4f52443030303031` | 11 | ClOrdId | 0 | 8 | ORD00001 |
+| `4f52443030303031` | 11 | ClOrdID | 0 | 8 | ORD00001 |
 | `4143435430310000` | 1 | Account | 8 | 8 | ACCT01 |
 | `47454d3400000000` | 55 | Symbol | 16 | 8 | GEM4 |
 | `31` | 54 | Side | 24 | 1 | Buy |

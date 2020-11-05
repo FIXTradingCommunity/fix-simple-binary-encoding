@@ -51,7 +51,7 @@ wire formats.
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
 the size of the message body to aid in decoding, even when a message
-template has been extended in a later version. See section [*Schema Extension Mechanism*](#schema-extension-mechanism) below for details.
+template has been extended in a later version. See section [*Schema Extension Mechanism*](#schema-extension-mechanism) for details.
 
 The fields of the SBE message header are:
 
@@ -74,7 +74,7 @@ The fields of the SBE message header are:
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
-padding at the end of block. See section [*Padding at end of a message or group*](#padding-at-end-of-a-message-or-group) below.
+padding at the end of block. See section [*Padding at end of a message or group*](#padding-at-end-of-a-message-or-group) for details.
 
 ### Message header schema
 
@@ -83,7 +83,7 @@ position as shown below. Each of these fields must be encoded as an
 unsigned integer type. The encoding must carry the name "messageHeader".
 
 The message header is encoded in the same byte order as the message
-body, as specified in a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) for details.
+body, as specified in a message schema. See section [*Message schema attributes*](#messageschema-attributes) for the specification.
 
 Recommended message header encoding
 
@@ -116,9 +116,9 @@ for blockLength.
 
 The total space reserved for the root level of the message not counting
 any repeating groups or variable-length fields. (Repeating groups have
-their own block length; see section [*Repeating Groups*](#repeating-groups) below. Length of a
+their own block length; see section [*Repeating groups*](#repeating-groups) for details. Length of a
 variable-length Data field is given by its corresponding Length field;
-see section [*Variable-length string encoding*](#variable-length-string-encoding) above.) Block length only represents message body
+see section [*Variable-length string encoding*](#variable-length-string-encoding) for details.) Block length only represents message body
 fields; it does not include the length of the message header itself,
 which is a fixed size.
 
@@ -130,18 +130,16 @@ schema.
 
 ### Template ID
 
-The identifier of a message type in a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes)
-below for schema attributes.
+The identifier of a message type in a message schema. See section [*Message schema attributes*](#messageschema-attributes) for the specification.
 
 ### Schema ID
 
-The identifier of a message schema. See section [*`<messageSchema>` attributes*](#messageschema-attributes) below for schema
-attributes.
+The identifier of a message schema. See section [*Message schema attributes*](#messageschema-attributes) for the specification.
 
 ### Schema version
 
 The version number of the message schema that was used to encode a
-message. See section [*`<messageSchema>` attributes*](#messageschema-attributes) below for schema attributes.
+message. See section [*Message schema attributes*](#messageschema-attributes) for the specification.
 
 ### Number of repeating groups
 
@@ -322,8 +320,7 @@ repeating group contains no variable-length fields.
 
 Each group is associated with a required counter field of semantic data
 type NumInGroup to tell how many entries are contained by a message. The
-value of the counter is a non-negative integer. See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) below
-for encoding of that counter.
+value of the counter is a non-negative integer. See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) for details.
 
 ### Empty group
 
@@ -413,7 +410,7 @@ By default, the minimum number of entries is zero, and the maximum number is the
 | uint8          | 8-bit unsigned integer  | 1               | 255                       |
 | uint16         | 16-bit unsigned integer | 2               | 65535                     |
 
-The number of entries may be restricted to a specific range; see "Restricting repeating group entries" below.
+The number of entries may be restricted to a specific range; see section [*Restricting repeating group entries*](#restricting-repeating-group-entries) for details.
 
 #### Encoding of repeating group dimensions
 
@@ -499,7 +496,7 @@ finally, variable-length data fields.
 
 ## Message structure validation
 
-Aside from message schema validations (see section [*Schema validation*](#schema-validation) below), these
+Aside from message schema validations (see section [*Schema validation*](#schema-validation)), these
 validations apply to message structure.
 
 If a message structure violation is detected on a received message, the
