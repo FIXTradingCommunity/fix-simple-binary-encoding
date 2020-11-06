@@ -321,7 +321,7 @@ Add this encoding types element to those in the previous example.
 			offset="0" semanticType="String" />
 		<field name="BusinessRejectReason" id="380" type="businessRejectReasonEnum"
 			offset="8" semanticType="int" />
-		<data name="Text" id="58" type="DATA" semanticType="data" />
+		<data name="Text" id="58" type="DATA" semanticType="String" />
 	</sbe:message>
 ```
 
