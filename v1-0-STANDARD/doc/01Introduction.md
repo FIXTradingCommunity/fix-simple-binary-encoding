@@ -18,7 +18,7 @@ session protocol and application level behavior.
 In order to support traditional FIX semantics, all the documented field
 types are supported. However, instead of printable character
 representations of tag-value encoding, the type system binds to native
-binary data types, and defines derived types as needed.
+binary datatypes, and defines derived types as needed.
 
 The binary type system has been enhanced in these ways:
 
@@ -37,7 +37,7 @@ The binary type system has been enhanced in these ways:
 The message design strives for direct data access without complex
 transformations or conditional logic. This is achieved by:
 
--   Usage of native binary data types and simple types derived from
+-   Usage of native binary datatypes and simple types derived from
     native binaries, such as prices and timestamps.
 
 -   Preference for fixed positions and fixed length fields, supporting
@@ -123,18 +123,20 @@ Representation of dates and times
 Securities and related financial instruments - Codes for exchanges and
 market identification (MIC)
 
+[ISO/IEC 11404:2007](https://www.iso.org/standard/39479.html) Information technology -- General-Purpose Datatypes (GPD)
+
 XML 1.1 schema standards are located here [W3C XML Schema](http://www.w3.org/XML/Schema.html#dev)
 
 # Terms and definitions
 
-**Data type** - A field type with its associated encoding attributes,
+**datatype** - A field type with its associated encoding attributes,
 including backing primitive types and valid values or range. Some types
 have additional attributes, e.g. epoch of a date.
 
 **Encoding** - a message format for interchange. The term is commonly used
 to mean the conversion of one data format to another, such as text to
 binary. However, Simple Binary Encoding strives to use native binary
-data types in order to make conversion unnecessary, or at least trivial.
+datatypes in order to make conversion unnecessary, or at least trivial.
 Encoding also refers to the act of formatting a message, as opposed to
 decoding.
 

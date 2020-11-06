@@ -3,29 +3,38 @@
 ## Field aspects
 
 A field is a unit of data contained by a FIX message. Every field has
-the following aspects: semantic data type, encoding, and metadata. They
-will be specified in more detail in the sections on data type encoding
+the following aspects: semantic datatype, encoding, and metadata. They
+will be specified in more detail in the sections on datatype encoding
 and message schema but are introduced here as an overview.
 
-### Semantic data type
+### Semantic datatype
 
-The FIX semantic data type of a field tells a data domain in a broad
+#### FIX datatype
+
+The FIX semantic datatype of a field tells a data domain in a broad
 sense, for example, whether it is numeric or character data, or whether
 it represents a time or price. Simple Binary Encoding represents all of
-the semantic data types that FIX protocol has defined across all
-encodings. In message specifications, FIX data type is declared with
-attribute semanticType. See the section [*FIX data type summary*](#fix-data-type-summary) for details.
+the semantic datatypes that FIX protocol has defined across all
+encodings. In message specifications, FIX datatype is declared with
+attribute semanticType. See the section [*FIX datatype summary*](#fix-data-type-summary) for details.
+
+#### Generic datatype
+
+A datatype is defined as a combination of a value space and a lexical space. Value
+space is the range of its possible values while lexical space is how those values are represented in a message encoding, in this case SBE.
+Value space of datatypes is defined using the vocabulary in ISO/IEC 11404:2007 *Information technology – General-Purpose Datatypes (GPD)*.
+That standard defines types independently of platform and programming language.
 
 ### Encoding
 
-Encoding tells how a field of a specific data type is encoded on the
-wire. An encoding maps a FIX data type to either a simple, primitive
-data type, such as a 32-bit signed integer, or to a composite type. A
+Encoding tells how a field of a specific datatype is encoded on the
+wire. An encoding maps a FIX datatype to either a simple, primitive
+datatype, such as a 32-bit signed integer, or to a composite type. A
 composite type is composed of two or more simple primitive types. For
-example, the FIX data type Price is encoded as a decimal, a composite
+example, the FIX datatype Price is encoded as a decimal, a composite
 type containing a mantissa and an exponent. Note that many fields may
-share a data type and an encoding. The sections that follow explain the
-valid encodings for each data type.
+share a datatype and an encoding. The sections that follow explain the
+valid encodings for each datatype.
 
 ### Metadata
 
@@ -38,7 +47,7 @@ application developers. Elements of field metadata are:
 
 -   Field name, as it is known in FIX specifications
 
--   The FIX semantic data type and encoding type that it maps to
+-   The FIX semantic datatype and encoding type that it maps to
 
 -   Valid values or data range accepted
 
@@ -57,7 +66,7 @@ See section [*Message Schema*](#message-schema-1) for details.
 By default, fields are assumed to be required in a message. However,
 fields may be specified as optional. To indicate that a value is not
 set, a special null indicator value is sent on the wire. The null value
-varies according to data type and encoding. Global defaults for null
+varies according to datatype and encoding. Global defaults for null
 value may be overridden in a message schema by explicitly specifying the
 value that indicates nullness.
 
@@ -72,7 +81,7 @@ value of an optional field does not necessarily imply that a default
 value should be applied. Rather, default handling is left to application
 layer specifications.
 
-## FIX data type summary
+## FIX datatype summary
 
 FIX semantic types are mapped to binary field encodings as follows. See
 sections below for more detail about each type.
@@ -80,42 +89,42 @@ sections below for more detail about each type.
 Schema attributes may restrict the range of valid values for a field.
 See section [*Common field schema attributes*](#common-field-schema-attributes) for details.
 
-| FIX semantic type  | Binary type                           | Description       |
-|--------------------|---------------------------------------|-------------------|
-| int                | [Integer encoding](#integer-encoding) | An integer number |
-| Length             | [Integer encoding](#integer-encoding) | Field length in octets. Value must be non-negative. |
-| TagNum             | [Integer encoding](#integer-encoding) | A field's tag number. Value must be positive. |
-| SeqNum             | [Integer encoding](#integer-encoding) | A field representing a message sequence number. Value must be positive |
-| NumInGroup         | [Group dimension encoding](#group-dimension-encoding) | A counter representing the number of entries in a repeating group. Value must be positive. |
-| DayOfMonth         | [Integer encoding](#integer-encoding) | A field representing a day during a particular month (values 1 to 31). |
-| Qty                | [Decimal encoding](#decimal-encoding) | A number representing quantity of a security, such as shares. The encoding may constrain values to integers, if desired. |
-| float              | [Float encoding](#float-encoding)     | A real number with binary representation of specified precision |
-| Price              | [Decimal encoding](#decimal-encoding) | A decimal number representing a price |
-| PriceOffset        | [Decimal encoding](#decimal-encoding) | A decimal number representing a price offset, which can be mathematically added to a Price. |
-| Amt                | [Decimal encoding](#decimal-encoding) | A field typically representing a Price times a Qty. |
-| Percentage         | [Decimal encoding](#decimal-encoding) | A field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%). |
-| char               | [Character](#character)               | Single US-ASCII character value. Can include any alphanumeric character or punctuation. All char fields are case sensitive (i.e. m != M). |
-| String             | [Fixed-length character array](#fixed-length-character-array) | A fixed-length character array of ASCII encoding |
-| String             | [Variable-length data encoding](#variable-length-string-encoding) | Alpha-numeric free format strings can include any character or punctuation. All String fields are case sensitive (i.e. morstatt != Morstatt). ASCII encoding. |
-| String—EncodedText | [String encoding](#variable-length-string-encoding) | Non-ASCII string. The character encoding may be specified by a schema attribute. |
-| XMLData            | [String encoding](#variable-length-string-encoding) | Variable-length XML. Must be paired with a Length field. |
-| data               | [Fixed-length data](#fixed-length-data) | Fixed-length non-character data |
-| data               | [Variable-length data encoding](#variable-length-data-encoding) | Variable-length data. Must be paired with a Length field. |
-| Country            | [Fixed-length character array](#fixed-length-character-array); size = 2 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | ISO 3166-1:2013 Country code |
-| Currency           | [Fixed-length character array](#fixed-length-character-array); size = 3 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | ISO 4217:2015 Currency code (3 character) |
-| Exchange           | [Fixed-length character array](#fixed-length-character-array); size = 4 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | ISO 10383:2012 Market Identifier Code (MIC) |
-| Language           | [Fixed-length character array](#fixed-length-character-array); size = 2 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | National language - uses ISO 639-1:2002 standard |
-| Implicit enumeration—char or int | [Enumeration encoding](#enumeration-encoding) | A single choice of alternative values |
-| Boolean            | [Boolean encoding](#boolean-encoding) | Values true or false |
-| MultipleCharValue  | [Multi-value choice encoding](#multi-value-choice-encoding)  | Multiple choice of a set of values |
-| MultipleStringValue| [Multi-value choice encoding](#multi-value-choice-encoding). String choices must be mapped to int values. | Multiple choice of a set of values |
-| MonthYear          | [MonthYear encoding](#monthyear-encoding)         | A flexible date format that must include month and year at least but may also include day or week. |
-| UTCTimestamp       | [Date and time encoding](#date-and-time-encoding) | Time/date combination represented in UTC (Universal Time Coordinated, also known as "GMT") |
-| UTCTimeOnly        | [Date and time encoding](#date-and-time-encoding) | Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") |
-| UTCDateOnly        | [Date and time encoding](#date-and-time-encoding) | Date represented in UTC (Universal Time Coordinated, also known as "GMT") |
-| LocalMktDate       | [Local date encoding](#local-date-encoding)       | Local date (as opposed to UTC) |
-| TZTimeOnly         | [TZTimeOnly encoding](#tztimeonly-encoding)       | Time of day |
-| TZTimestamp        | [TZTimestamp encoding](#tztimestamp-encoding)     | Time/date combination representing local time with an offset to UTC to allow identification of local time and timezone offset of that time. The representation is based on ISO 8601:2004 |
+| FIX semantic type  | Binary type                           | Value space (ISO/IEC 11404:2007) | Description       |
+|--------------------|---------------------------------------|-|-------------------|
+| int                | [Integer encoding](#integer-encoding) | integer range | An integer number |
+| Length             | [Integer encoding](#integer-encoding) | size | Field length in octets. Value must be non-negative. |
+| TagNum             | [Integer encoding](#integer-encoding) | ordinal | A field's tag number. Value must be positive. |
+| SeqNum             | [Integer encoding](#integer-encoding) | ordinal | A field representing a message sequence number. Value must be positive |
+| NumInGroup         | [Group dimension encoding](#group-dimension-encoding) | size | A counter representing the number of entries in a repeating group. Value must be positive. |
+| DayOfMonth         | [Integer encoding](#integer-encoding) | integer range 1..31  | A field representing a day during a particular month (values 1 to 31). |
+| Qty                | [Decimal encoding](#decimal-encoding) | Scaled | A number representing quantity of a security, such as shares. The encoding may constrain values to integers, if desired. |
+| float              | [Float encoding](#float-encoding)     | real | A real number with binary representation of specified precision |
+| Price              | [Decimal encoding](#decimal-encoding) | Scaled | A decimal number representing a price |
+| PriceOffset        | [Decimal encoding](#decimal-encoding) | Scaled | A decimal number representing a price offset, which can be mathematically added to a Price. |
+| Amt                | [Decimal encoding](#decimal-encoding) | Scaled | A field typically representing a Price times a Qty. |
+| Percentage         | [Decimal encoding](#decimal-encoding) | Scaled | A field representing a percentage (e.g. 0.05 represents 5% and 0.9525 represents 95.25%). |
+| char               | [Character](#character)               | character | Single US-ASCII character value. Can include any alphanumeric character or punctuation. All char fields are case sensitive (i.e. m != M). |
+| String             | [Fixed-length character array](#fixed-length-character-array) | array element = character | A fixed-length character array of ASCII encoding |
+| String             | [Variable-length data encoding](#variable-length-string-encoding) | characterstring | Alpha-numeric free format strings can include any character or punctuation. All String fields are case sensitive (i.e. morstatt != Morstatt). ASCII encoding. |
+| String—EncodedText | [String encoding](#variable-length-string-encoding) | characterstring | Non-ASCII string. The character encoding may be specified by a schema attribute. |
+| XMLData            | [String encoding](#variable-length-string-encoding) | characterstring |Variable-length XML. Must be paired with a Length field. |
+| data               | [Fixed-length data](#fixed-length-data) | array element=octet | Fixed-length non-character data |
+| data               | [Variable-length data encoding](#variable-length-data-encoding) | octetstring | Variable-length data. Must be paired with a Length field. |
+| Country            | [Fixed-length character array](#fixed-length-character-array); size = 2 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | array (1..2) of character | ISO 3166-1:2013 Country code |
+| Currency           | [Fixed-length character array](#fixed-length-character-array); size = 3 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | array (1..3) of character | ISO 4217:2015 Currency code (3 character) |
+| Exchange           | [Fixed-length character array](#fixed-length-character-array); size = 4 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | array (1..4) of character | ISO 10383:2012 Market Identifier Code (MIC) |
+| Language           | [Fixed-length character array](#fixed-length-character-array); size = 2 or a subset of values may use [Enumeration encoding](#enumeration-encoding) | array (1..2) of character | National language - uses ISO 639-1:2002 standard |
+| Implicit enumeration—char or int | [Enumeration encoding](#enumeration-encoding) | state | A single choice of alternative values |
+| Boolean            | [Boolean encoding](#boolean-encoding) | boolean | Values true or false |
+| MultipleCharValue  | [Multi-value choice encoding](#multi-value-choice-encoding)  | set element = character  | Multiple choice of a set of values |
+| MultipleStringValue| [Multi-value choice encoding](#multi-value-choice-encoding). String choices must be mapped to int values. | set element = characterstring | Multiple choice of a set of values |
+| MonthYear          | [MonthYear encoding](#monthyear-encoding)         | record | A flexible date format that must include month and year at least but may also include day or week. |
+| UTCTimestamp       | [Date and time encoding](#date-and-time-encoding) | time | Time/date combination represented in UTC (Universal Time Coordinated, also known as "GMT") |
+| UTCTimeOnly        | [Date and time encoding](#date-and-time-encoding) | time | Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") |
+| UTCDateOnly        | [Date and time encoding](#date-and-time-encoding) | time | Date represented in UTC (Universal Time Coordinated, also known as "GMT") |
+| LocalMktDate       | [Local date encoding](#local-date-encoding)       | time | Local date (as opposed to UTC) |
+| TZTimeOnly         | [TZTimeOnly encoding](#tztimeonly-encoding)       | time | Time of day |
+| TZTimestamp        | [TZTimestamp encoding](#tztimestamp-encoding)     | time | Time/date combination representing local time with an offset to UTC to allow identification of local time and timezone offset of that time. The representation is based on ISO 8601:2004 |
 
 The FIX semantic types listed above are spelled and capitalized exactly as
 they are in the FIX repository from which official FIX documents and
@@ -133,8 +142,8 @@ Attributes are optional unless specified otherwise.
 | presence=constant | The field has a constant value that need not be transmitted on the wire. Mutually exclusive with value attributes.                                                                 |
 | presence=optional | The field need not be populated. A special null value indicates that a field is not set. The presence attribute may be specified on either on a field or its encoding.             |
 | nullValue         | A special value that indicates that an optional value is not set. See encodings below for default nullValue for each type. Mutually exclusive with presence=required and constant. |
-| minValue          | The lowest valid value of a range. Applies to scalar data types, but not to String or data types.                                                                                  |
-| maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar data types, but not to String or data types.                                          |
+| minValue          | The lowest valid value of a range. Applies to scalar datatypes, but not to String or datatypes.                                                                                  |
+| maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar datatypes, but not to String or datatypes.                                          |
 | semanticType      | Specifies the FIX semantic type of a field or encoding. It may be specified on either a field or its encoding.                                                                         |
 
 ### Inherited attributes
@@ -146,7 +155,7 @@ fields that use that encoding.
 ### Non-FIX types
 
 Encodings may be added to SBE messages that do not correspond to listed
-FIX data types. In that case, the encoding and fields that use the
+FIX datatypes. In that case, the encoding and fields that use the
 encoding will not have a semanticType attribute.
 
 ## Integer encoding
@@ -156,9 +165,9 @@ Signed integers are encoded in a two's complement binary format.
 
 ### Primitive type encodings
 
-Numeric data types may be specified by range and signed or unsigned
+Numeric datatypes may be specified by range and signed or unsigned
 attribute. Integer types are intended to convey common platform
-primitive data types as they reside in memory. An integer type should be
+primitive datatypes as they reside in memory. An integer type should be
 selected to hold the maximum range of values that a field is expected to
 hold.
 
@@ -375,7 +384,7 @@ encoding. See section [*Element offset within a composite type*](#element-offset
 Examples show encoded bytes on the wire as hexadecimal digits,
 little-endian.
 
-FIX Qty data type is a float type, but a decimal may be constrained to
+FIX Qty datatype is a float type, but a decimal may be constrained to
 integer values by setting exponent to zero.
 
 ```xml
@@ -419,7 +428,7 @@ encoded as decimals; see section [*Decimal encoding*](#decimal-encoding) for det
 ### Primitive types
 
 Both single and double precision encodings are supported as primitive
-data types. See the IEEE 754-2008 standard for ranges and details of the
+datatypes. See the IEEE 754-2008 standard for ranges and details of the
 encodings.
 
 | Primitive type | Description                     | IEEE 754-2008 format | Length (octets) |
@@ -482,7 +491,7 @@ also be used for non-ASCII encoded strings.
 Character fields hold a single character. They are most commonly used
 for field with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) for details.
 
-| FIX data type | Description                 | Backing primitive | Length (octet) |
+| FIX datatype | Description                 | Backing primitive | Length (octet) |
 |---------------|-----------------------------|-------------------|---------------:|
 | char          | A single US-ASCII character | char              | 1              |
 
@@ -517,7 +526,7 @@ direct access to fields. A fixed size character array is distinguished
 from a variable length string by the presence of a length schema
 attribute or a constant attribute.
 
-| FIX data type | Description     | Backing primitives                                                                                                          | Length (octets)               | Required schema attribute                                          |
+| FIX datatype | Description     | Backing primitives                                                                                                          | Length (octets)               | Required schema attribute                                          |
 |---------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------|
 | String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length (except may be inferred from a constant value, if present). |
 
@@ -577,7 +586,7 @@ is made at an encoding layer between an empty string and a null string.
 Semantics of an empty variable-length string should be specified at an
 application layer.
 
-| FIX data type | Description                           | Backing primitives                                                                                                         | Length (octets) |
+| FIX datatype | Description                           | Backing primitives                                                                                                         | Length (octets) |
 |---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------|
 | Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"  May not hold null value.                                                                                        | 1 or 2          |
 | data          | Raw data                              | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length.   primitiveType="uint8"   length="0" indicates variable length                                                                                        | variable        |
@@ -649,7 +658,7 @@ Data fields simply convey arrays of octets.
 
 Data may either be of fixed-length or variable-length. In Simple Binary
 Encoding, fixed-length data encoding may be used for data of
-predetermined length, even though it does not represent a FIX data type.
+predetermined length, even though it does not represent a FIX datatype.
 Variable-length encoding should be reserved for raw data when its length
 is not known until run-time.
 
@@ -660,7 +669,7 @@ direct access to fields. A fixed size array is distinguished from a
 variable length data by the presence of a length schema attribute rather
 than sending length on the wire.
 
-| FIX data type | Description | Backing primitives                  | Length (octets)               | Required schema attribute |
+| FIX datatype | Description | Backing primitives                  | Length (octets)               | Required schema attribute |
 |---------------|-------------|-------------------------------------|-------------------------------|---------------------------|
 | data          | octet array | Array of uint8 of specified length. | Specified by length attribute | length                    |
 
@@ -695,7 +704,7 @@ case, no space is reserved for the data. Semantics of an empty
 variable-length data element should be specified at an application
 layer.
 
-| FIX data type | Description                           | Backing primitives                                                                                                         | Length (octets) |
+| FIX datatype | Description                           | Backing primitives                                                                                                         | Length (octets) |
 |---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------|
 | Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"   May not hold null value.                                                                                                    | 1 or 2          |
 | data          | Raw data                              | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length. primitiveType="uint8"  | variable
@@ -778,7 +787,7 @@ elements within the composite encoding. See section [*Element offset within a co
 
 ### Encoding specifications for MonthYear
 
-MonthYear data type is based on a composite encoding that carries its
+MonthYear datatype is based on a composite encoding that carries its
 required and optional elements.
 
 The standard encoding specification for MonthYear
@@ -827,7 +836,7 @@ the other hand, if all timestamps have the same precision, then time
 unit may be set to a constant in the message schema. Then it need not be
 sent on the wire.
 
-| FIX data type | Description                                                              | Backing primitives | Length (octets) | Schema attributes      |
+| FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes      |
 |---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------|
 | UTCTimestamp  | UTC date/time   Default: nanoseconds since Unix epoch Range Jan. 1, 1970 - July 21, 2554  | uint64 time        | 8               | epoch=”unix” (default)                                                                        |                    |                 |                        |
 |               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                                           | uint8 unit         | 1               |                        |
@@ -942,7 +951,7 @@ Wire format of UTCDateOnly
 Local date is encoded the same as UTCDateOnly, but it represents local
 time at the market instead of UTC time.
 
-| FIX data type | Description                                                                   | Backing primitives | Length (octets) | Schema attributes                  |
+| FIX datatype | Description                                                                   | Backing primitives | Length (octets) | Schema attributes                  |
 |---------------|-------------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
 | LocalMktDate  | Local calendar date  Default: days since Unix epoch. Range: Jan. 1, 1970 - June 7, 2149 local time  | uint16             | 2               | epoch=”unix” (default)  
 
@@ -965,7 +974,7 @@ format ±hhmm.
 A binary UTCTimestamp followed by a number representing the time zone
 indicator as defined in ISO 8601:2004.
 
-| FIX data type | Description                                                              | Backing primitives | Length (octets) | Schema attributes                  |
+| FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes                  |
 |---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
 | TZTimestamp   | date/time with timezone   Default: nanoseconds since Unix epoch Range Jan. 1, 1970 - July 21, 2554  | uint64             | 8               | epoch=”unix” (default) Represents Jan. 1, 1970 local time  |
 |               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                                           | uint8              | 1               |                                    |
@@ -1004,7 +1013,7 @@ The time zone hour offset tells the number of hours different to UTC
 time. The time zone minute tells the number of minutes different to UTC.
 The sign telling ahead or behind UTC is on the hour subfield.
 
-| FIX data type | Description                                                | Backing primitives | Length (octets) | Schema attributes |
+| FIX datatype | Description                                                | Backing primitives | Length (octets) | Schema attributes |
 |---------------|------------------------------------------------------------|--------------------|----------------:|-------------------|
 | TZTimeOnly    | Time of day only with time zone  Default: nanoseconds since midnight today, local time       | uint64             | 8               | None              |
 |               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                             | uint8              | 1               | None              |
@@ -1054,15 +1063,15 @@ allow more choices.
 
 ### Value encoding
 
-If a field is of FIX data type char, then its valid values are
+If a field is of FIX datatype char, then its valid values are
 restricted to US-ASCII printable characters. See section [*Character*](#character) for details.
 
-If the field is of FIX data type int, then a primitive integer data type
+If the field is of FIX datatype int, then a primitive integer datatype
 should be selected that can contain the number of choices. For most
 cases, an 8-bit integer will be sufficient, allowing 255 possible
 values.
 
-Enumerations of other data types, such as String valid values specified
+Enumerations of other datatypes, such as String valid values specified
 in FIX, should be mapped to an integer wire format in SBE.
 
 ### Encoding specification of enumeration
@@ -1077,7 +1086,7 @@ enumeration.
 An `<enum>` element must have an encodingType attribute to specify the
 type of its values. Two formats of encodingType are acceptable:
 
--   In-line style: the value of encodingType is its primitive data type.
+-   In-line style: the value of encodingType is its primitive datatype.
 
 -   Reference style: the value of encodingType is the name of a `<type>`
     element that specifies the wire format.
@@ -1227,7 +1236,7 @@ The name and value (bit position) must be unique for element of a set.
 A `<set>` element must have an encodingType attribute to specify the
 wire format of its values. Two formats of encodingType are recognized :
 
--   In-line style: the value of encodingType is its primitive data type.
+-   In-line style: the value of encodingType is its primitive datatype.
 
 -   Reference style: the value of encodingType is the name of a `<type>`
     element that specifies the wire format.
@@ -1282,7 +1291,7 @@ session protocol.
 |-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | Field value less than minValue                              | The encoded value falls below the specified valid range.                                                                     |
 | Field value greater than maxValue                           | The encoded value exceeds the specified valid range.                                                                         |
-| Null value set for required field                           | The null value of a data type is invalid for a required field.                                                               |
+| Null value set for required field                           | The null value of a datatype is invalid for a required field.                                                               |
 | String contains invalid characters                          | A String contains non-US-ASCII printable characters or other invalid sequence if a different characterEncoding is specified. |
 | Required subfields not populated in MonthYear               | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
 | UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds.                                |
