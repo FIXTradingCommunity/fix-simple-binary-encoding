@@ -261,7 +261,7 @@ Wire format of uint16 value decimal 10000, hexadecimal 2710.
 
 `1027`
 
-Wire format of uint32 null value 2<sup>32</sup> - 1
+Wire format of uint32 null value 2^32^ - 1
 
 `ffffffff`
 
