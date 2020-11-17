@@ -541,7 +541,7 @@ attribute or a constant attribute.
 
 | FIX data type | Description     | Backing primitives                                                                                                          | Length (octets)               | Required schema attribute                                          |
 |---------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------|
-| String        | character array | Array of char of specified length, delimited by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length  |
+| String        | character array | Array of char of specified length, padded by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length  |
 
 A length attribute set to zero indicates variable length. See section [*Variable-length string*](#variable-length-string-encoding).
 
