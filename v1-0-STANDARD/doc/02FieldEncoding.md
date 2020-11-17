@@ -1000,9 +1000,9 @@ Standard TZTimestamp encoding specification
 ```
 
 Wire format of TZTimestamp 8:30 17 September 2013 with Chicago time zone
-offset (-6:00)
+offset (-6:00) and nanosecond timeunit
 
-`0050d489fea22413fa00`
+`0050d489fea2241309fa00`
 
 ### TZTimeOnly encoding
 
