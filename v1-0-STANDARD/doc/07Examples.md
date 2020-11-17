@@ -152,7 +152,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 | `4143435430310000` | 1 | Account | 8 | 8 | ACCT01 |
 | `47454d3400000000` | 55 | Symbol | 16 | 8 | GEM4 |
 | `31` | 54 | Side | 24 | 1 | Buy |
-| `8016b33b13652915` | 60 | TransactTime | 25 | 8 | 2018-04-27T20:31:22.122Z |
+| `00b863e7343d2a15` | 60 | TransactTime | 25 | 8 | 2018-04-30T14:32:01.248Z |
 | `07000000` | 38 | OrderQty | 33 | 4 | 7 |
 | `32` | 40 | OrdType | 37 | 1 | Limit |
 | `1a85010000000000` | 44 | Price | 38 | 8 | 99.610 |
