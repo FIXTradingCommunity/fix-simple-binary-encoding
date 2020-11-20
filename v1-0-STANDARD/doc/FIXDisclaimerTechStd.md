@@ -15,7 +15,7 @@ AND RATIFICATION, AN OFFICIAL STATUS ("APPROVED") OF/FOR THE PROPOSAL AND A RELE
 
 No proprietary or ownership interest of any kind is granted with respect to the FIX Protocol (or any rights therein), except as expressly set out in FIX Protocol Limited's Copyright and Acceptable Use Policy.
 
-© Copyright 2013-2018 FIX Protocol Limited, all rights reserved
+© Copyright 2013-2020 FIX Protocol Limited, all rights reserved
 
 \
 
