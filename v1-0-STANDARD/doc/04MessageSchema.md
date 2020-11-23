@@ -7,10 +7,10 @@ See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD
 
 ## XML namespace
 
-The Simple Binary Encoding XML schema is identified by this URL [*tentative*]:
+The Simple Binary Encoding XML schema is identified by this URL:
 
 ```xml
-xmlns:sbe=http://fixprotocol.io/2017/sbe
+xmlns:sbe=http://fixprotocol.io/2016/sbe
 ```
 
 Conventionally, the URI of the XML schema is aliased by the prefix
