@@ -76,7 +76,7 @@ and data examples.
 This is a sample encoding specification
 
 ```xml
-<type name="short" primitiveType="int16" semanticType="int" />
+<type name="short" primitiveType="int16" semanticType="int"/>
 ```    
 
 This is sample data as it would be transmitted on the wire

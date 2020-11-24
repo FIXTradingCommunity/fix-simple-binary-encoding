@@ -29,7 +29,7 @@ be encoded in big-endian byte order, also known as network byte order.
 Simple Open Framing Header as an SBE composite encoding (big-endian)
 
 ```xml
-<composite name="framingHeader"/>
+<composite name="framingHeader">
     <type name="messageLength" primitiveType="uint32" />
     <type name="encodingType" primitiveType="uint16" />
 </composite>
