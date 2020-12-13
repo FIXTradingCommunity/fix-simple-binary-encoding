@@ -102,7 +102,7 @@ encoding.
 
 Message headers and repeating group dimensions carry a count of the number of repeating groups and a count of variable-length data fields on the wire. This supports a walk by a decoder of all the elements of a message, even when the decoder was built with an older version of a schema. As for added fixed-length fields, new repeating groups cannot be interpreted by the decoder, but it still can process the ones it knows, and it can correctly reach the end of a message.
 
-## Comaptibility strategy
+## Compatibility strategy
 
 *This suggested strategy is non-normative.*
 
@@ -149,7 +149,7 @@ Second version - a new message is added
     <field name="Field1" id="1" type="int8" semanticType="int"/>
 </message>
 
-<!-- New message added in this version-->
+<!-- New message added in this version -->
 <message name="FIX Binary Message2" id="2" blockLength="4"
     sinceVersion="1">
     <field name="Field2" id="2" type="int16" semanticType="int"/>
