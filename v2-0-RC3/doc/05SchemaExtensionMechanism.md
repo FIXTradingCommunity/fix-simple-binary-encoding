@@ -201,9 +201,5 @@ This update changes a message from the initial schema and adds a type.
 </messageSchema>
 ```
 
-Notice field addition effects only the version of the field: We don't update
-`sinceVersion` on a message when we add a field to it.
-
-*Note:* `sinceVersion` is not required, and has no default interpretation. In
-other words, "FIX Binary Message1" cannot be assumed as since version zero. To
-clarify this, consider adding `sinceVersion` on initial schema elements.
+Notice adding fields does not effect `sinceVersion` on the message that
+contains them.
