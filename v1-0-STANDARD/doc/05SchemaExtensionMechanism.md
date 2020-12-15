@@ -118,13 +118,13 @@ If the *received version is less than the decoder's version* (that is, the produ
 
 ## Message schema extension example
 
-Initial version of a message schema
+### Initial version of a message schema
 
 ```xml
 <messageSchema package="FIXBinaryTest" byteOrder="littleEndian">
-    <types>
-        <type name="int8" primitiveType="int8"/>
-    </types>
+<types>
+    <type name="int8" primitiveType="int8"/>
+</types>
 
 <message name="FIX Binary Message1" id="1" blockLength="4">
     <field name="Field1" id="1" type="int8" semanticType="int"/>
@@ -133,16 +133,14 @@ Initial version of a message schema
 </messageSchema>
 ```
 
-Second version - a new message is added
+### Second version - a new message is added
 
 ```xml
-<messageSchema package="FIXBinaryTest" byteOrder="littleEndian"
- version="1">
+<messageSchema package="FIXBinaryTest" byteOrder="littleEndian" version="1">
 
 <types>
     <type name="int8" primitiveType="int8"/>
-    <type name="int16" primitiveType="int16"
-    sinceVersion="1"/>
+    <type name="int16" primitiveType="int16" sinceVersion="1"/>
 </types>
 
 <message name="FIX Binary Message1" id="1" blockLength="4">
@@ -150,35 +148,29 @@ Second version - a new message is added
 </message>
 
 <!-- New message added in this version -->
-<message name="FIX Binary Message2" id="2" blockLength="4"
-    sinceVersion="1">
+<message name="FIX Binary Message2" id="2" blockLength="4" sinceVersion="1">
     <field name="Field2" id="2" type="int16" semanticType="int"/>
 </message>
 </messageSchema>
 ```
 
-Third version - a field is added
+### Third version - a field is added
 
 ```xml
-<messageSchema package="FIXBinaryTest" byteOrder="littleEndian"
- version="2">
+<messageSchema package="FIXBinaryTest" byteOrder="littleEndian" version="2">
 
 <types>
     <type name="int8" primitiveType="int8"/>
-    <type name="int16" primitiveType="int16"
-     sinceVersion="1"/>
-    <type name="int32" primitiveType="int32"
-     sinceVersion="2"/>
+    <type name="int16" primitiveType="int16" sinceVersion="1"/>
+    <type name="int32" primitiveType="int32" sinceVersion="2"/>
 </types>
 
 <message name="FIX Binary Message1" id="1" blockLength="8">
     <field name="Field1" id="1" type="int8" semanticType="int"/>
-    <field name="Field11" id="11" type="int32" semanticType="int"
-     sinceVersion="2"/>
+    <field name="Field11" id="11" type="int32" semanticType="int" sinceVersion="2"/>
 </message>
 
-<message name="FIX Binary Message2" id="2" blockLength="4"
-     sinceVersion="1">
+<message name="FIX Binary Message2" id="2" blockLength="4" sinceVersion="1">
     <field name="Field2" id="2" type="int16" semanticType="int"/>
 </message>
 </messageSchema>
