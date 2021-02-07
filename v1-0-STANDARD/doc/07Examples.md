@@ -1,6 +1,6 @@
 # Examples
 
-The example messages are preceded by Simple Open Framing Header. Note
+The example messages are preceded by Simple Open Framing Header (SOFH). Note
 that SOFH encoding is always big-endian, regardless of the byte order of
 the SBE message body. See that FIX standard for details.
 

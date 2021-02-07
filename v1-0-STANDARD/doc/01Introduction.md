@@ -91,7 +91,7 @@ The following documents are referred to in the text in such a way that some or a
 
 ### Related FIX Standards
 
-[Simple Open Framing Header](https://www.fixtrading.org/standards/fix-sofh/), technical specification of a message framing standard for FIX messages.
+[Simple Open Framing Header (SOFH)](https://www.fixtrading.org/standards/fix-sofh/), technical specification of a message framing standard for FIX messages.
 
 [FIX Latest](https://www.fixtrading.org/online-specification/), normative specification of the application layer of the FIX Protocol.
 
