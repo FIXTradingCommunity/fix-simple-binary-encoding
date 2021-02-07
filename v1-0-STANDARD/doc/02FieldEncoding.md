@@ -41,7 +41,7 @@ valid encodings for each datatype.
 Field metadata, part of a message schema, describes a field to
 application developers. Elements of field metadata are:
 
--   Field ID, also known as FIX tag, is a unique identifier of a field
+-   Field ID, also known as FIX tag number, is a unique identifier of a field
     for semantic purposes. For example, tag 55 identifies the Symbol
     field of an instrument.
 
@@ -239,8 +239,7 @@ hexadecimal digits in Little-Endian byte order.
 Example integer field specification
 
 ```xml
-<field type="uint32" name="ListSeqNo" id="67" semanticType="int"
- description="Order number within the list" />
+<field type="uint32" name="ListSeqNo" id="67" semanticType="int" description="Order number within the list" />
 ```
 
 Value on the wire - uint32 value decimal 10,000, hexadecimal 2710.
@@ -250,10 +249,8 @@ Value on the wire - uint32 value decimal 10,000, hexadecimal 2710.
 Optional field with a valid range 0-6
 
 ```xml
-<type name="range06" primitiveType="uint8" maxValue="6"
- presence="optional" nullValue="255" />
-<field type="range06" name="MaxPriceLevels" id="1090"
- semanticType="int"/>
+<type name="range06" primitiveType="uint8" maxValue="6" presence="optional" nullValue="255" />
+<field type="range06" name="MaxPriceLevels" id="1090" semanticType="int"/>
 ```
 
 Wire format of uint8 value decimal 3.
@@ -263,8 +260,7 @@ Wire format of uint8 value decimal 3.
 Sequence number field with integer encoding
 
 ```xml
-<field type="uint64" name="MsgSeqNum" id="34"
- semanticType="SeqNum" />
+<field type="uint64" name="MsgSeqNum" id="34" semanticType="SeqNum" />
 ```
 
 Wire format of uint64 value decimal 100,000,000,000, hexadecimal
@@ -318,7 +314,7 @@ particular application. It is expected that an 8-bit exponent should be
 sufficient for all FIX uses.
 
 | Encoding type | Description            | Backing primitives | Length (octets) |
-|---------------|------------------------|--------------------|----------------:|
+|---------------|------------------------|--------------------|:---------------:|
 | decimal       | Floating-point decimal | Composite: int64 mantissa, int8 exponent   | 9               |
 | decimal64     | Fixed-point decimal    | int64 mantissa, constant exponent    | 8               |
 | decimal32     | Fixed-point decimal    | int32 mantissa, constant exponent     | 4               |
@@ -361,14 +357,12 @@ Decimal encoding specifications that an implementation must support
 
 <composite name="decimal32" >
     <type name="mantissa" primitiveType="int32" />
-    <type name="exponent" primitiveType="int8"
-        presence="constant">-2</type>
+    <type name="exponent" primitiveType="int8" presence="constant">-2</type>
 </composite>
 
 <composite name="decimal64">
     <type name="mantissa" primitiveType="int64" />
-    <type name="exponent" primitiveType="int8"
-         presence="constant">-2</type>
+    <type name="exponent" primitiveType="int8" presence="constant">-2</type>
 </composite>
 ```
 
@@ -390,16 +384,14 @@ integer values by setting exponent to zero.
 ```xml
 <composite name="intQty32" semanticType="Qty">
     <type name="mantissa" primitiveType="int32" />
-    <type name="exponent" primitiveType="int8"
-        presence="constant">0</type>
+    <type name="exponent" primitiveType="int8" presence="constant">0</type>
 </composite>
 ```
 
 Field inherits semanticType from encoding
 
 ```xml
-<field type="intQty32" name="OrderQty" id="38"
- description="Total number of shares" />
+<field type="intQty32" name="OrderQty" id="38" description="Total number of shares" />
 ```
 
 Wire format of decimal 123.45 with 2 significant decimal places.
@@ -466,8 +458,7 @@ A single precision ratio
 ```xml
 <type name="ratio" primitiveType="float" />
 
-<field type="ratio" name="CurrencyRatio" id="1382"
- semanticType="float"/>
+<field type="ratio" name="CurrencyRatio" id="1382" semanticType="float"/>
 ```
 
 Wire format of float 255.678
@@ -550,8 +541,7 @@ encoding.
 A typical string encoding specification
 
 ```xml
-<type name="string6" primitiveType="char" semanticType="String"
- length="6" />
+<type name="string6" primitiveType="char" semanticType="String" length="6" />
 
 <field type="string6" name="Symbol" id="55" />
 ```
@@ -565,9 +555,7 @@ M S F T
 A character array constant specification
 
 ```xml
-<type name="EurexMarketID" semanticType="Exchange"
- primitiveType="char" length="4" description="MIC code"
- presence="constant">XEUR</type>
+<type name="EurexMarketID" semanticType="Exchange" primitiveType="char" length="4" description="MIC code" presence="constant">XEUR</type>
 
 <field type="EurexMarketID" name="MarketID" id="1301" />
 ```
@@ -626,8 +614,7 @@ Encoding specification for variable length data up to 65535 octets
 ```xml
 <composite name="varString" description="Variable-length string">
     <type name="length" primitiveType="uint16" semanticType="Length"/>
-    <type name="data" length="0" primitiveType="uint8"
-    semanticType="data" characterEncoding="UTF-16"/>
+    <type name="data" length="0" primitiveType="uint8" semanticType="data" characterEncoding="UTF-16"/>
 </composite>
 
 <data name="SecurityDesc" id="107" type="varString"/>
@@ -794,13 +781,10 @@ The standard encoding specification for MonthYear
 
 ```xml
 <composite name="monthYear" semanticType="MonthYear">
-    <type name="year" primitiveType="uint16" presence="optional"
-    nullValue="65536" />
+    <type name="year" primitiveType="uint16" presence="optional" nullValue="65536" />
     <type name="month" primitiveType="uint8" minValue="1" maxValue="12" />
-    <type name="day" primitiveType="uint8" minValue="1" maxValue="31"
-    presence="optional" nullValue="255" />
-    <type name="week" description="week of month" primitiveType="uint8"
-    minValue="1" maxValue="5" presence="optional" nullValue="255" />
+    <type name="day" primitiveType="uint8" minValue="1" maxValue="31" presence="optional" nullValue="255" />
+    <type name="week" description="week of month" primitiveType="uint8" minValue="1" maxValue="5" presence="optional" nullValue="255" />
 </composite>
 ```
 
@@ -911,8 +895,8 @@ schema attributes
 
 ```xml
 <composite name="UTCTimestampNanos" description="UTC timestamp with nanosecond precision" semanticType="UTCTimestamp" >
-<type name="time" primitiveType="uint64" />
-<type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
+    <type name="time" primitiveType="uint64" />
+    <type name="unit" primitiveType="uint8" presence="constant" valueRef="TimeUnit.nanosecond" />
 </composite>
 ```
 
@@ -1033,10 +1017,8 @@ Standard TZTimeOnly encoding specification
     <type name="time" primitiveType="uint64" />
     <type name="unit" primitiveType="uint8" />
     <!-- Sign of timezone offset is on hour subfield -->
-    <type name="timezoneHour" primitiveType="int8"
-    minValue="-12" maxValue="14" />
-    <type name="timezoneMinute" primitiveType="uint8" minValue="0"
-    maxValue="59" />
+    <type name="timezoneHour" primitiveType="int8" minValue="-12" maxValue="14" />
+    <type name="timezoneMinute" primitiveType="uint8" minValue="0" maxValue="59" />
 </composite>
 ```
 
@@ -1145,9 +1127,7 @@ Example of a char field using a constant enum value
     <validValue name="Proprietary">D</validValue>
 </enum>
 
-<field type="PartyIDSourceEnum" name="PartyIDSource" id="447"
- description="Party ID source is fixed" presence="constant"
- valueRef="PartyIDSourceEnum.GeneralIdentifier" />
+<field type="PartyIDSourceEnum" name="PartyIDSource" id="447" description="Party ID source is fixed" presence="constant" valueRef="PartyIDSourceEnum.GeneralIdentifier" />
 ```
 
 ### Boolean encoding
@@ -1270,8 +1250,7 @@ Reference to type. This is equivalent to the example above.
 A field using the multi-choice encoding
 
 ```xml
-<field type="FinancialStatus" name="FinancialStatusEnum"
- id="291" semanticType="MultipleCharValue"/>
+<field type="FinancialStatus" name="FinancialStatusEnum" id="291" semanticType="MultipleCharValue"/>
 ```
 
 Wire format of choices "Bankrupt" + "Pending delisting" (first and
