@@ -2,7 +2,7 @@
 
 ## Message Framing
 
-SBE messages have no defined message delimiter. Version 2.0 of SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
+SBE messages have no defined message delimiter. SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
 session protocol or when persisting messages in storage.
 
 ### Simple Open Framing Header

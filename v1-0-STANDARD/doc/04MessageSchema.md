@@ -2,7 +2,7 @@
 
 ## XML schema for SBE message schemas
 
-See [sbe.xsd](../resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
+See [sbe.xsd](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-STANDARD/resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
 
 ## XML namespace
