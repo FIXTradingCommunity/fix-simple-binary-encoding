@@ -93,7 +93,7 @@ Recommended message header encoding
     <type name="templateId" primitiveType="uint16"/>
     <type name="schemaId" primitiveType="uint16"/>
     <type name="version" primitiveType="uint16"/>
-	<type name="numGroups" primitiveType="uint16" />
+	  <type name="numGroups" primitiveType="uint16" />
     <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 ```
@@ -190,11 +190,9 @@ sum of the sizes of prior fields, as they are defined by the message
 schema.
 
 ```xml
-<field name="ClOrdID" id="11" type="string14"
- semanticType="String"/>
+<field name="ClOrdID" id="11" type="string14" semanticType="String"/>
 <field name="Side" id="54" type="char" semanticType="char"/>
-<field name="OrderQty" id="38" type="intQty32"
- semanticType="Qty"/>
+<field name="OrderQty" id="38" type="intQty32" semanticType="Qty"/>
 <field name="Symbol" id="55" type="string8" semanticType="String"/>
 ```
 
@@ -223,18 +221,14 @@ business data. They should be filled with binary zeros.
 Example of fields with specified offsets
 
 ```xml
-<field name="ClOrdID" id="11" type="string14" offset="0"
- semanticType="String"/>
-<field name="Side" id="54" type="char" offset="14"
- semanticType="char"/>
-<field name="OrderQty" id="38" type="intQty32" offset="16"
- semanticType="Qty"/>
-<field name="Symbol" id="55" type="string8" offset="20"
- semanticType="String"/>
+<field name="ClOrdID" id="11" type="string14" offset="0" semanticType="String"/>
+<field name="Side" id="54" type="char" offset="14" semanticType="char"/>
+<field name="OrderQty" id="38" type="intQty32" offset="16" semanticType="Qty"/>
+<field name="Symbol" id="55" type="string8" offset="20" semanticType="String"/>
 ```
 
 | Field    | Size | Padding preceding field | Offset |
-|----------|------|------------------------:|-------:|
+|----------|:-----|:-----------------------:|:------:|
 | ClOrdID  | 14   | 0                       | 0      |
 | Side     | 1    | 0                       | 14     |
 | OrderQty | 4    | 1                       | 16     |
@@ -258,7 +252,7 @@ Extra octets specified for padding should be filled with binary zeros.
 Example of blockLength specification for 24 octets
 
 ```xml
-<message name="ListOrder" id="2" blockLength="24">
+<message name="ListOrder" id="2" blockLength="24"/>
 ```
 
 ## Repeating Groups
@@ -271,7 +265,7 @@ group. That is, the entries are homogeneous. Position of a given
 field within any entry is fixed, with the exception of variable-length
 fields.
 
-A message may have no groups or an unlimited number of repeating groups
+A message may have no groups, or an unlimited number of repeating groups
 specified in its schema.
 
 ### Schema specification of a group
@@ -284,10 +278,8 @@ Example repeating group encoding specification
 
 ```xml
 <group name="Parties" id="1012" blockLength="16">
-    <field name="PartyID" id="448" type="string14"
-    semanticType="String"/>
-    <field name="PartyIDSource" id="447" type="char"
-    semanticType="char"/>
+    <field name="PartyID" id="448" type="string14" semanticType="String"/>
+    <field name="PartyIDSource" id="447" type="char" semanticType="char"/>
     <field name="PartyRole" id="452" type="uint8" semanticType="int"/>
 </group>
 ```
@@ -406,7 +398,7 @@ unsigned integer types.
 By default, the minimum number of entries is zero, and the maximum number is the largest value of the primitiveType of the counter.
 
 | Primitive type | Description             | Length (octets) | Maximum number of entries |
-|----------------|-------------------------|----------------:|--------------------------:|
+|----------------|-------------------------|:---------------:|--------------------------:|
 | uint8          | 8-bit unsigned integer  | 1               | 255                       |
 | uint16         | 16-bit unsigned integer | 2               | 65535                     |
 
@@ -476,7 +468,7 @@ specified with this sequence of message body elements:
 
 1.  Fixed-length fields that reside at the root level of the message
     (that is, not members of repeating groups), including any of the
-    following, in the order specified by the message schema::
+    following, in the order specified by the message schema:
 
     a.  Fixed-length scalar fields, such as integers
 

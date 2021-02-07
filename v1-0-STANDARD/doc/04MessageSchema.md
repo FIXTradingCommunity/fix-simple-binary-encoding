@@ -19,7 +19,7 @@ Conventionally, the URI of the XML schema is aliased by the prefix
 *Caution:* Users should treat the SBE XML namespace as a URI (unique identifier),
 not as a URL (physical resource locator). Firms should not depend on
 access to the FIX Trading Community web site to validate XML schemas at
-run-time
+run-time.
 
 ## Name convention
 
@@ -154,13 +154,9 @@ but if it is, the two values must match.
 Simple type examples
 
 ```xml
-<type name="FLOAT" primitiveType="double"
- semanticType="float"/>
-<type name="TIMESTAMP" primitiveType="uint64"
- semanticType="UTCTimestamp"/>
-<type name="GeneralIdentifier" primitiveType="char"
- description="Identifies class or source
- of the PartyID" presence="constant">C</type>
+<type name="FLOAT" primitiveType="double" semanticType="float"/>
+<type name="TIMESTAMP" primitiveType="uint64" semanticType="UTCTimestamp"/>
+<type name="GeneralIdentifier" primitiveType="char" description="Identifies class or source of the PartyID" presence="constant">C</type>
 ```
 
 ### Composite encodings
@@ -194,8 +190,7 @@ constant exponent, which is not sent on the wire.
 ```xml
 <composite name="decimal32" semanticType="Price">
     <type name="mantissa" primitiveType="int32" />
-    <type name="exponent" primitiveType="int8"
-      presence="constant">-4</type>
+    <type name="exponent" primitiveType="int8" presence="constant">-4</type>
 </composite>
 ```
 
@@ -251,7 +246,7 @@ In this example, a futuresPrice is encoded as 64-bit integer mantissa,  8-bit ex
 
 **Reference to a composite type**
 
-In this example, a nested composite is formed by using a reference to another composite type. It supports the expresson of a monetary amount with its currency, such as USD150.45. Note that a reference may carry an offset within the composite encoding that contains it.
+In this example, a nested composite is formed by using a reference to another composite type. It supports the expression of a monetary amount with its currency, such as USD 150.45. Note that a reference may carry an offset within the composite encoding that contains it.
 
 ```xml
 <composite name="price">
@@ -419,13 +414,13 @@ that they are encoded on the wire.
 | id                    | Unique message template identifier                                                                                                         | unsignedInt        | required    | Must be unique within a schema                                           |
 | description           | Documentation                                                                                                                              | string             | optional    |                                                                          |
 | blockLength           | Reserved size in number of octets for root level of message body                                                                           | unsignedInt        | optional    | If specified, must be greater than or equal to the sum of field lengths. |
-| semanticType          | Documents value of FIX MsgType for a message                                                                                               | token              | optional    | Listed in FIX specifications                                             |
+| semanticType          | Documents value of FIX MsgType(35) field for a message                                                                                      | token              | optional    | Listed in FIX specifications                                             |
 | sinceVersion          | Documents the version of a schema in which a message was added                                                                             | nonNegativeInteger | default = 0 |                                                                          |
 | deprecated            | Documents the version of a schema in which a message was deprecated. It should no longer be sent but is documented for back-compatibility. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.         |
 
 Note that there need not be a one-to-one relationship between message
 template (identified by `id` attribute) and `semanticType` attribute. You
-might design multiple templates for the same FIX MsgType to optimize
+might design multiple templates for the same FIX MsgType(35) value to optimize
 different scenarios.
 
 Example `<message>` element
@@ -444,7 +439,7 @@ These are the common attributes of all field types.
 | Schema attribute | Description                                                                                                                                                                               | XML type            | Usage                              | Valid values                                                                                          |
 |------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|------------------------------------|-------------------------------------------------------------------------------------------------------|
 | name             | Name of a field                                                                                                                                                                           | symbolicName\_t     | required                           | Name and id must uniquely identify a field type within a message schema.                              |
-| id               | Unique field identifier (FIX tag)                                                                                                                                                         | unsignedShort       | required                           |                                                                                                       |
+| id               | Unique field identifier (FIX tag number)                                                                                                                                                  | unsignedShort       | required                           |                                                                                                       |
 | description      | Documentation                                                                                                                                                                             | string              | optional                           |                                                                                                       |
 | type             | Encoding type name, one of simple type, composite type or enumeration.                                                                                                                    | string              | required                           | Must match the name attribute of a simple `<type>`, `<composite>` encoding type, `<enum>` or `<set>`. |
 | offset           | Offset to the start of the field within a message or repeating group entry. By default, the offset is the sum of preceding field sizes, but it may be increased to effect byte alignment. | unsignedInt         | optional                           | Must be greater than or equal to the sum of preceding field sizes.                                    |
@@ -461,12 +456,10 @@ Field that uses a composite encoding
 ```xml
 <composite name="intQty32" semanticType="Qty">
     <type name="mantissa" primitiveType="int32" />
-   <type name="exponent" primitiveType="int8"
-    presence="constant">0\</type>
+   <type name="exponent" primitiveType="int8" presence="constant">0\</type>
 </composite>
 
-<field type="intQty32" name="OrderQty" id="38" offset="16"
-  description="Shares: Total number of shares" />
+<field type="intQty32" name="OrderQty" id="38" offset="16" description="Shares: Total number of shares" />
 ```
 
 ## Repeating group schema
@@ -499,8 +492,7 @@ The number of members of each type is unbound.
 ```xml
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
-    <type name="numInGroup" primitiveType="uint16"
-     semanticType="NumInGroup"/>
+    <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup"/>
 </composite>
 
 <group name="Parties" id="1012" >
@@ -536,8 +528,7 @@ following.
 ### Message with a repeating group
 
 ```xml
-<message name="ListOrder" id="2" description="Simplified
- NewOrderList. Demonstrates repeating group">
+<message name="ListOrder" id="2" description="Simplified NewOrderList. Demonstrates repeating group">
     <field name="ListID" id="66" type="string14" semanticType="String"/>
     <field name="BidType" id="394" type="uint8" semanticType="int"/>
     <group name="ListOrdGrp" id="2030" >
@@ -559,8 +550,7 @@ following.
     <field name="UserName" id="553" type="string14" semanticType="String"/>
     <field name="Password" id="554" type="string14" semanticType="String"/>
     <field name="NewPassword" id="925" type="string14" semanticType="String"/>
-    <field name="EncryptedPasswordMethod" id="1400" type="uint8" description="This should be an enum but values undefined."
-     semanticType="int"/>
+    <field name="EncryptedPasswordMethod" id="1400" type="uint8" description="This should be an enum but values undefined." semanticType="int"/>
     <field name="EncryptedPasswordLen" id="1401" type="uint8" semanticType="Length"/>
     <field name="EncryptedNewPasswordLen" id="1403" type="uint8" semanticType="Length"/>
     <field name="RawDataLength" id="95" type="uint8" semanticType="Length"/>

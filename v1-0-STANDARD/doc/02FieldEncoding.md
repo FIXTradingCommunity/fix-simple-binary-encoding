@@ -775,7 +775,7 @@ value, then the entire field is considered null.
 |----------------------------------|----------------|----------------:|-----------:|
 | Year                             | uint16         | 2               | 65535      |
 | Month (1-12)                     | uint8          | 1               | —          |
-| Day of the month(1-31) optional  | uint8          | 1               | 255        |
+| Day of the month (1-31) optional | uint8          | 1               | 255        |
 | Week of the month (1-5) optional | uint8          | 1               | 255        |
 
 
@@ -820,7 +820,7 @@ with time zone to be reported (see time zone encoding below).
 
 ### Epoch
 
-Each time type has an epoch, or start of a time period to count values.
+Each time type has an epoch or start of a time period to count values.
 For timestamp and date, the standard epoch is the UNIX epoch, midnight
 January 1, 1970 UTC.
 
@@ -1080,7 +1080,7 @@ In a message schema, the choices are specified a `<validValue>` members
 of an `<enum>`. An `<enum>` specification must contain at least one
 `<validValue>`.
 
-The name and value of a validValue element must be unique within an
+The name and value of a `<validValue>` element must be unique within an
 enumeration.
 
 An `<enum>` element must have an encodingType attribute to specify the
@@ -1204,7 +1204,7 @@ unsigned primitive type should be selected that can contain the number
 of valid choices.
 
 | Primitive type | Description             | Length (octets) | Maximum number of choices |
-|----------------|-------------------------|----------------:|--------------------------:|
+|----------------|-------------------------|:---------------:|:-------------------------:|
 | uint8          | 8-bit unsigned integer  | 1               | 8                         |
 | uint16         | 16-bit unsigned integer | 2               | 16                        |
 | uint32         | 32-bit unsigned integer | 4               | 32                        |
@@ -1227,21 +1227,21 @@ than to set all bits off when no choices are selected.
 ### Encoding specification of multi-value choice
 
 In a message schema, the choices are specified as `<choice>` members of
-an `<set>` element. Choices are assigned values as an ordinal of bits in
+a `<set>` element. Choices are assigned values as an ordinal of bits in
 the bit set. The first Choice "0" is assigned the least significant bit;
 choice "1" is the second bit, and so forth.
 
 The name and value (bit position) must be unique for element of a set.
 
 A `<set>` element must have an encodingType attribute to specify the
-wire format of its values. Two formats of encodingType are recognized :
+wire format of its values. Two formats of encodingType are recognized:
 
 -   In-line style: the value of encodingType is its primitive datatype.
 
 -   Reference style: the value of encodingType is the name of a `<type>`
     element that specifies the wire format.
 
-The length of a `<type>` associated to an bitset must be 1. That is,
+The length of a `<type>` associated to a bitset must be 1. That is,
 bitsets should not be specified as arrays.
 
 ### Multi-value example
