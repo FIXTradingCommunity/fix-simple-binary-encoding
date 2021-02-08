@@ -106,7 +106,7 @@ The recommended header encoding is 12 octets.
 | templateId  | Template ID       | uint16         | 2               | 2      |
 | schemaId    | Schema ID         | uint16         | 2               | 4      |
 | version     | Schema Version    | uint16         | 2               | 6      |
-| numGroups   |Number of repeating groups | uint16 | 2               | 8      |
+| numGroups   | Number of repeating groups | uint16 | 2               | 8     |
 | numVarDataFields | Number of variable-length fields | uint16 | 2   | 10     |
 
 Optionally, implementations may support any other unsigned integer types
@@ -423,7 +423,7 @@ Recommended encoding of repeating group dimensions
 <composite name="groupSizeEncoding">
     <type name="blockLength" primitiveType="uint16"/>
     <type name="numInGroup" primitiveType="uint16" semanticType="NumInGroup"/>
-	<type name="numGroups" primitiveType="uint16" />
+	  <type name="numGroups" primitiveType="uint16" />
     <type name="numVarDataFields" primitiveType="uint16" />
 </composite>
 ```
@@ -437,9 +437,9 @@ any repeating groups or variable-length fields.
 
 The number of entries in this repeating group, called NumInGroup in FIX.
 
-##### Number of repeating groups
+#### Number of repeating groups
 
-A count nested repeating groups in this repeating group.
+A count of the nested repeating groups in this repeating group.
 
 #### Number of variable-length fields
 

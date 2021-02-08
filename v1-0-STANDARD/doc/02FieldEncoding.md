@@ -388,7 +388,7 @@ integer values by setting exponent to zero.
 </composite>
 ```
 
-Field inherits semanticType from encoding
+Field inherits attribute semanticType from encoding
 
 ```xml
 <field type="intQty32" name="OrderQty" id="38" description="Total number of shares" />

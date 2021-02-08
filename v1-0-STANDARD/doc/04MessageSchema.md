@@ -122,7 +122,7 @@ defined, each specified by a `<type>` element.
 If the element has a value, it is used to indicate a special value of
 the encoding.
 
-##### Constant value
+#### Constant value
 
 The element value represents a constant if attribute
 `presence="constant"`. In this case, the value is conditionally required.
