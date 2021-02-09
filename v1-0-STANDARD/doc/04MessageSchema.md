@@ -465,7 +465,8 @@ Field that uses a composite encoding
 ## Repeating group schema
 
 A `<group>` has the same attributes as a `<message>` element since they
-both inherit attributes from the blockType XML type. A group has the
+both inherit attributes from the blockType XML type. See section
+[*Message element attributes*](#message-element-attributes) for details. A group has the
 same child members as a message, and they must appear in the same order:
 
 1.  Element `<field>` defines a fixed-length field
@@ -484,8 +485,6 @@ The number of members of each type is unbound.
 | id                  | Unique group identifier           | unsignedShort   | required                    |                                                                          |
 | description         | Documentation                     | string          | optional                    |                                                                          |
 | dimensionType       | Dimensions of the repeating group | symbolicName\_t | default = groupSizeEncoding | If specified, must be greater than or equal to the sum of field lengths. |
-
-`<group>` element inherits attributes of blockType. See `<message>` element above.
 
 *Example group schema with default dimension encoding*
 
