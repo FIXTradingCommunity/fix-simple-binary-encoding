@@ -10,8 +10,8 @@ Thus, it provides a standard for interoperability between communicating
 parties. Users are free to implement the standard in a way that best
 suits their needs.
 
-The encoding standard is complimentary to other FIX standards for
-session protocol and application level behavior.
+The encoding standard is complementary to other FIX standards for
+session protocol and application level behaviour.
 
 ## Binary type system
 
@@ -101,31 +101,21 @@ SBE is dependent on several industry standards. Implementations must
 conform to these standards to interoperate. Therefore, they are
 normative for SBE.
 
-[IEEE 754-2008](http://ieeexplore.ieee.org/servlet/opac?punumber=4610933) A
-Standard for Binary Floating-Point Arithmetic
+[IEEE 754-2019](https://ieeexplore.ieee.org/document/8766229) *IEEE Standard for Binary Floating-Point Arithmetic*
 
-[ISO 639-1:2002](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=22109)
-Codes for the representation of names of languages - Part 1: Alpha-2
-code
+[ISO 639-1:2002](https://www.iso.org/standard/22109.html) *Codes for the representation of names of languages — Part 1: Alpha-2 code*
 
-[ISO 3166-1:2013](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=63545)
-Codes for the representation of names of countries and their
-subdivisions - Part 1: Country codes
+[ISO 3166-1:2013](https://www.iso.org/standard/63545.html) *Codes for the representation of names of countries and their subdivisions — Part 1: Country codes*
 
-[ISO 4217:2015](https://www.iso.org/standard/64758.html)
-Codes for the representation of currencies and funds
+[ISO 4217:2015](https://www.iso.org/standard/64758.html) *Codes for the representation of currencies and funds*
 
-[ISO 8601:2004](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=40874)
-Data elements and interchange formats - Information interchange -
-Representation of dates and times
+[ISO 8601:2004](https://www.iso.org/standard/40874.html) *Data elements and interchange formats - Information interchange — Representation of dates and times*
 
-[ISO 10383:2012](http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=61067)
-Securities and related financial instruments - Codes for exchanges and
-market identification (MIC)
+[ISO 10383:2012](https://www.iso.org/standard/61067.html) *Securities and related financial instruments — Codes for exchanges and market identification (MIC)*
 
-[ISO/IEC 11404:2007](https://www.iso.org/standard/39479.html) Information technology -- General-Purpose Datatypes (GPD)
+[ISO/IEC 11404:2007](https://www.iso.org/standard/39479.html) *Information technology — General-Purpose Datatypes (GPD)*
 
-XML 1.1 schema standards are located here [W3C XML Schema](http://www.w3.org/XML/Schema.html#dev)
+XML 1.1 schema standards are located here: [W3C XML Schema](http://www.w3.org/XML/Schema.html#dev)
 
 # Terms and definitions
 
