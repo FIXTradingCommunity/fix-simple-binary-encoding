@@ -411,7 +411,7 @@ Schema attribute exponent = -2
 ## Float encoding
 
 Binary floating point encodings are compatible with IEEE Standard for
-Floating-Point Arithmetic (IEEE 754-2008). They should be used for
+Floating-Point Arithmetic (IEEE 754-2019). They should be used for
 floating point numeric fields that do not represent prices or monetary
 amounts. Examples include interest rates, volatility and dimensionless
 quantities such as ratios. On the other hand, decimal prices should be
@@ -420,10 +420,10 @@ encoded as decimals; see section [*Decimal encoding*](#decimal-encoding) for det
 ### Primitive types
 
 Both single and double precision encodings are supported as primitive
-datatypes. See the IEEE 754-2008 standard for ranges and details of the
+datatypes. See the IEEE 754-2019 standard for ranges and details of the
 encodings.
 
-| Primitive type | Description                     | IEEE 754-2008 format | Length (octets) |
+| Primitive type | Description                     | IEEE 754-2019 format | Length (octets) |
 |----------------|---------------------------------|----------------------|----------------:|
 | float          | Single precision floating point | binary32             | 4               |
 | double         | Double precision floating point | binary64             | 8               |
