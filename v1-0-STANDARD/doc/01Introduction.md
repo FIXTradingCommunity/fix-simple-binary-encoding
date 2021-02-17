@@ -11,7 +11,7 @@ parties. Users are free to implement the standard in a way that best
 suits their needs.
 
 The encoding standard is complementary to other FIX standards for
-session protocol and application level behaviour.
+session protocol and application level behavior.
 
 ## Binary type system
 
