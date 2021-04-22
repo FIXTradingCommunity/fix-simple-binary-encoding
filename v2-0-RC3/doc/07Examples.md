@@ -41,12 +41,12 @@ Not all FIX enumeration values are listed in the samples.
 			<type name="numVarDataFields" primitiveType="uint16"/>
 		</composite>
 		<composite name="decimalEncoding">
-			<type name="mantissa" presence="optional" primitiveType="int64"/>
-			<type name="exponent" presence="constant" primitiveType="int8">-3</type>
+			<type name="mantissa" primitiveType="int64"/>
+			<type name="exponent" primitiveType="int8">-3</type>
 		</composite>
 		<composite name="qtyEncoding">
 			<type name="mantissa" primitiveType="int32"/>
-			<type name="exponent" presence="constant" primitiveType="int8">0</type>
+			<type name="exponent" primitiveType="int8">0</type>
 		</composite>
 		<composite name="timestampEncoding" description="UTC timestamp with nanosecond precision">
 			<type name="time" primitiveType="uint64"/>
