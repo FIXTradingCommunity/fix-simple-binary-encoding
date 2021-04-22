@@ -122,13 +122,18 @@ If the *received version is less than the decoder's version* (that is, the produ
 
 ## Message schema extension example
 
-Initial version of a message schema
+The following example walks through changes to a schema to reinforce how schema
+versioning works.
 
+### Initial schema
+
+Here's the initial example schema:
 ```xml
 <messageSchema package="FIXBinaryTest" byteOrder="littleEndian">
-    <types>
-        <type name="int8" primitiveType="int8"/>
-    </types>
+
+<types>
+    <type name="int8" primitiveType="int8"/>
+</types>
 
 <message name="FIX Binary Message1" id="1" blockLength="4">
     <field name="Field1" id="1" type="int8" semanticType="int"/>
@@ -137,7 +142,13 @@ Initial version of a message schema
 </messageSchema>
 ```
 
-Second version - a new message is added
+### Adding elements to the schema
+
+Below adds new elements to the schema. Upon any update we must increment the
+`version` attribute. When there is no `version` attribute, the version is zero.
+Hence, our new version is one. This version applies to all change. 
+
+This update chooses to document updates with the `sinceVersion` attribute.
 
 ```xml
 <messageSchema package="FIXBinaryTest" byteOrder="littleEndian"
@@ -161,7 +172,9 @@ Second version - a new message is added
 </messageSchema>
 ```
 
-Third version - a field is added
+### Adding a field to a message
+
+This update changes a message from the initial schema and adds a type.
 
 ```xml
 <messageSchema package="FIXBinaryTest" byteOrder="littleEndian"
@@ -187,3 +200,6 @@ Third version - a field is added
 </message>
 </messageSchema>
 ```
+
+Notice adding fields does not effect `sinceVersion` on the message that
+contains them.
