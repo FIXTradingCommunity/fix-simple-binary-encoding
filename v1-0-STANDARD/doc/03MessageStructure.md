@@ -2,6 +2,8 @@
 
 ## Message Framing
 
+### General
+
 SBE messages have no defined message delimiter. SBE makes it possible to walk the elements of a message to determine its limit, even when the message has been extended. Nevertheless, since internal framing depends on a correct starting point and not encountering malformed messages, it may be desirable to use an external framing protocol when used with transports that do not preserve message boundaries, such as when they are transmitted on a streaming
 session protocol or when persisting messages in storage.
 
@@ -47,6 +49,8 @@ The Simple Open Framing Header specification also lists values for other
 wire formats.
 
 ## SBE Message Encoding Header
+
+### General
 
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
@@ -152,6 +156,8 @@ A count of the variable-length fields at the root level of the message. The coun
 
 ## Message Body
 
+### General
+
 The message body conveys the business information of the message.
 
 ### Data only on the wire
@@ -256,6 +262,8 @@ Example of blockLength specification for 24 octets
 ```
 
 ## Repeating Groups
+
+### General
 
 A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
@@ -384,6 +392,8 @@ of zero implies that both that group and its child groups are empty. In
 that case, no NumInGroup is encoded on the wire for the child groups.
 
 ### Group dimension encoding
+
+#### General
 
 Every repeating group must be immediately preceded on the wire by its
 dimensions. The two dimensions are the count of entries in a repeating

@@ -2,6 +2,8 @@
 
 ## Objective
 
+### General
+
 It is not always practical to update all message publishers and
 consumers simultaneously. Within certain constraints, message schemas
 and wire formats can be extended in a controlled way. Consumers using an

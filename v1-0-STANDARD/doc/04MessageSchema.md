@@ -23,6 +23,8 @@ run-time.
 
 ## Name convention
 
+### General
+
 All symbolic names in a message schema are restricted to alphanumeric
 characters plus underscore without spaces. This is the same restriction
 applied to all names in FIX specifications.
@@ -37,6 +39,8 @@ is recommended that matching of type names should be case insensitive in
 schema parsers.
 
 ## Root element
+
+### General
 
 The root element of the XML document is `<messageSchema>`.
 
@@ -91,6 +95,8 @@ sequence:
 
 ### Encoding name
 
+#### General
+
 The namespace for encoding names is global across all encodings included
 in a schema, including simple, composite and enumeration types. That is,
 the name must be unique among all encoding instances.
@@ -112,6 +118,8 @@ Example of XML include usage to import common encoding types
 ```
 
 ### Simple encodings
+
+### General
 
 A simple encoding is backed by either a scalar type or an array of
 scalars, such as a character array. One or more simple encodings may be
@@ -160,6 +168,8 @@ Simple type examples
 ```
 
 ### Composite encodings
+
+#### General
 
 Composite encoding types are composed of two or more simple types.
 
@@ -213,6 +223,8 @@ mantissa element indicates that the price is null.
 
 ### Reference to reusable types
 
+#### General
+
 A composite type often has its elements defined in-line within the `<composite>` XML element as shown in the example above. Alternatively, a common type may be defined once on its own, and then referred to by name with the composite type using a `<ref>` element.
 
 #### `<ref>` attributes
@@ -261,6 +273,8 @@ In this example, a nested composite is formed by using a reference to another co
 ```
 
 ### Enumeration encodings
+
+#### General
 
 An enumeration explicitly lists the valid values of a data domain. Any
 number of fields may share the same enumeration.
@@ -319,6 +333,8 @@ are encoded as char codes.
 
 ### Multi-value choice encodings (bitset)
 
+#### General
+
 An enumeration explicitly lists the valid values of a data domain. Any
 number of fields may share the same set of choices.
 
@@ -373,6 +389,8 @@ Multi-value choice example, the choice is encoded as a bitset.
 ```
 
 ## Message template
+
+### General
 
 To define a message type, add a `<message>` element to the root element
 of the XML document, `<messageSchema>`.
@@ -502,13 +520,14 @@ The number of members of each type is unbound.
 
 ## Schema validation
 
+### General
+
 The first level of schema validation is enforced by XML schema
 validation tools to make sure that a schema is well-formed according to
 XSD schema rules. Well-formed XML is necessary but insufficient to prove
 that a schema is correct according to FIX Simple Binary Encoding rules.
 
-Additional conditions that render a schema invalid include the
-following.
+Additional conditions that render a schema invalid include the following.
 
 | Error condition                                                | Error description                                                                                                                                                                                                                                                                                             |
 |----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

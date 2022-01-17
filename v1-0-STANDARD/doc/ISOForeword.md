@@ -12,6 +12,8 @@ Any trade name used in this document is information given for the convenience of
 
 For an explanation on the voluntary nature of standards, the meaning of ISO specific terms and expressions related to conformity assessment, as well as information about ISO's adherence to the World Trade Organization (WTO) principles in the Technical Barriers to Trade (TBT) see the following URL: [www.iso.org/iso/foreword.html](www.iso.org/iso/foreword.html).
 
-This document was prepared by Technical Committee [or Project Committee] ISO/TC 68, *Financial Services*, Subcommittee SC 9, *Information Exchange*
+This document was prepared by Technical Committee ISO/TC 68, *Financial Services*, Subcommittee SC 9, *Information Exchange*
 
 A list of all parts in the ISO ##### series can be found on the ISO website.
+
+Any feedback or questions on this document should be directed to the user’s national standards body. A complete listing of these bodies can be found at [www.iso.org/members.html](www.iso.org/members.html).
