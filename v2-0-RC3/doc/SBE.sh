@@ -16,6 +16,16 @@ WPFOLDER="/wp-content/uploads/2020/03/"
 pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple-Binary-Encoding-v2-RC3.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
 echo SBE document version created
 
+# Create ISO document version with copyright etc.
+ISOYAML="$SOURCE/SBE_ISO.yaml"
+ISOSTYLE="ISO_TechStd_Style_MASTER.docx"
+ISOCOPYRIGHT="ISOCopyright.md"
+ISOFOREWORD="ISOForeword.md"
+ISOINTRO="ISOIntro.md"
+ISOBIBLIO="ISOBiblio.md"
+pandoc "$ISOCOPYRIGHT" "$ISOFOREWORD" "$ISOINTRO" $FILES "$ISOBIBLIO" -o "$TARGET/docx/ISOSimple_Binary_Encoding.docx" --reference-doc="$ISOSTYLE" --metadata-file="$ISOYAML" --filter pandoc-plantuml --toc --toc-depth=3
+echo SBE document version created for ISO
+
 # Create base online version without disclaimer
 pandoc $FILES -o "$TARGET/debug/SBEONLINE.html" -s --metadata-file="$YAML" --toc --toc-depth=2
 

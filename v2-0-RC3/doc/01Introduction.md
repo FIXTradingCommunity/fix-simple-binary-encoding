@@ -1,4 +1,74 @@
-# Introduction
+# Scope
+
+This document provides the normative specification of Simple Binary Encoding (SBE), which is one of the possible syntaxes for FIX messages, but not limited to FIX messages. The scope comprises the encoding (wire format) and the message schema for SBE.
+
+# Normative references
+
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+
+--- IETF RFC 2119 -- *Key words for use in RFCs to Indicate Requirement Levels* March 1997
+
+# Terms and definitions
+
+For the purposes of this document, the terms and definitions given in ISO/IEC 11404 and the following apply.
+
+ISO and IEC maintain terminological databases for use in standardization at the following addresses:
+
+—--	ISO Online browsing platform: available at [https://www.iso.org/obp](https://www.iso.org/obp)
+
+—--	IEC Electropedia: available at [http://www.electropedia.org/](http://www.electropedia.org/)
+
+
+## datatype
+field type with its associated encoding attributes
+
+Note 1 to entry: Includes backing primitive types and valid values or range. Some types
+have additional attributes, e.g. epoch of a date.
+
+## encoding
+message format for interchange
+
+Note 1 to entry: The term is commonly used
+to mean the conversion of one data format to another, such as text to
+binary. However, SBE strives to use native binary
+datatypes in order to make conversion unnecessary, or at least trivial.
+
+Note 2 to entry: Encoding also refers to the act of formatting a message, as opposed to decoding.
+
+## message schema
+metadata that specifies messages and their data types and identifiers
+
+Note 1 to entry: Message schemas may be disseminated out of band.
+
+Note 2 to entry: For SBE, message schemas are expressed as an XML
+document that conforms to an XML schema that is published as part of this standard.
+
+## message template
+metadata that specifies the fields that belong to one particular message type
+
+Note 1 to entry: A message template is contained by a
+message schema.
+
+## session protocol
+protocol concerned with the reliable delivery of messages over a transport.
+
+Note 1 to entry: FIX makes a distinction between
+session protocol and the encoding of a message payload, as described by
+this document. See the [specifications section](https://www.fixtrading.org/standards/) of the FIX Protocol web site
+for supported session protocols and encodings.
+
+## XML schema
+defines the elements and attributes that may appear in an XML document.
+
+Note 1 to entry: The SBE message schema is defined in W3C (XSD) schema
+language since it is the most widely adopted format for XML schemas.
+
+## Specification terms
+These key words in this document are to be interpreted as described in IETF RFC 2119.
+
+# Objectives
+
+## General
 
 FIX Simple Binary Encoding (SBE) targets high performance trading
 systems. It is optimized for low latency of encoding and decoding while
@@ -93,6 +163,8 @@ XML document. The SBE message schema is defined in W3C (XSD) schema
 language since it is the most widely adopted format for XML schemas.
 
 ## Documentation
+
+### General
 
 This document explains:
 

@@ -2,6 +2,8 @@
 
 ## Field aspects
 
+### General
+
 A field is a unit of data contained by a FIX message. Every field has
 the following aspects: semantic data type, encoding, and metadata. They
 will be specified in more detail in the sections on data type encoding
@@ -124,6 +126,8 @@ references are derived.
 
 ## Common field schema attributes
 
+### General
+
 Schema attributes alter the range of valid values for a field.
 Attributes are optional unless specified otherwise.
 
@@ -144,6 +148,8 @@ Encodings may be added to SBE messages that do not correspond to listed
 FIX data types. In that case, the fields that use the encoding will not have a `semanticType` attribute.
 
 ## Integer encoding
+
+### General
 
 Integer encodings should be used for cardinal or ordinal number fields.
 Signed integers are encoded in a two's complement binary format.
@@ -267,6 +273,8 @@ Wire format of uint32 null value 2^32^ - 1
 
 ## Decimal encoding
 
+### General
+
 Decimal encodings should be used for prices and related monetary data
 types like PriceOffset and Amt.
 
@@ -275,6 +283,8 @@ However, decimal encoding may be constrained to integer values if that
 is appropriate to the application or market.
 
 ### Composite encodings
+
+#### General
 
 Prices are encoded as a scaled decimal, consisting of a signed integer
 mantissa and signed exponent. For example, a mantissa of 123456 and
@@ -409,6 +419,8 @@ Schema attribute exponent = -2
 
 ## Float encoding
 
+### General
+
 Binary floating point encodings are compatible with IEEE Standard for
 Floating-Point Arithmetic (IEEE 754-2008). They should be used for
 floating point numeric fields that do not represent prices or monetary
@@ -475,6 +487,8 @@ Wire format of double 255.678
 
 ## String encodings
 
+### General
+
 Character data may either be of fixed size or variable size. In Simple
 Binary Encoding, fixed-length fields are recommended in order to support
 direct access to data. Variable-length encoding should be reserved for
@@ -482,6 +496,8 @@ character strings that cannot be constrained to a specific size. It may
 also be used for multi-byte encodings.
 
 ### Character
+
+#### General
 
 Character fields hold a single character of a single-byte character set. They are most commonly used
 for fields with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) below for
@@ -533,6 +549,8 @@ Wire format of char encoding of "A" (value 65, hexadecimal 41)
 `41`
 
 ### Fixed-length character array
+
+#### General
 
 Character arrays are allocated a fixed space in a message, supporting
 direct access to fields. A fixed size character array is distinguished
@@ -667,6 +685,8 @@ M S F T
 
 ## Data encodings
 
+### General
+
 Raw data is opaque to SBE. In other words, it is not constrained by any
 value range or structure known to the messaging layer other than length.
 Data fields simply convey arrays of octets.
@@ -678,6 +698,8 @@ Variable-length encoding should be reserved for raw data when its length
 is not known until run-time.
 
 ### Fixed-length data
+
+#### General
 
 Data arrays are allocated as a fixed space in a message, supporting
 direct access to fields. A fixed size array is distinguished from a
@@ -775,6 +797,8 @@ M S F T
 
 ## MonthYear encoding
 
+### General
+
 MonthYear encoding contains four members representing respectively
 year, month, and optionally day or week. A field of this type is not
 constrained to one date format. One message may contain only year and
@@ -830,6 +854,8 @@ Wire format of MonthYear 2014 June week 3 as hexadecimal
 `de0706ff03`
 
 ## Date and time encoding
+
+### General
 
 Dates and times represent Coordinated Universal Time (UTC). This is the
 preferred date/time format, except where regulations require local time
@@ -980,6 +1006,8 @@ The standard encoding specification for LocalMktDate
 
 ## Local time encoding
 
+### General
+
 Time with time zone encoding should only be used when required by market
 regulations. Otherwise, use UTC time encoding (see above).
 
@@ -1064,6 +1092,8 @@ Wire format of TZTimeOnly 8:30 with Chicago time zone offset (-6:00)
 `006c5ebe76000000fa00`
 
 ## Enumeration encoding
+
+### General
 
 An enumeration conveys a single choice of mutually exclusive valid
 values.
@@ -1207,6 +1237,8 @@ Wire format of null Boolean (or N/A) value as hexadecimal
 `ff`
 
 ## Multi-value choice encoding
+
+### General
 
 A multi-value field conveys a choice of zero or more non-exclusive valid values.
 
