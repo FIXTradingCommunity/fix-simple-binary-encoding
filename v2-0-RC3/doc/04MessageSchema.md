@@ -31,6 +31,8 @@ run-time
 
 ## Name convention
 
+### General
+
 All symbolic names in a message schema are restricted to alphanumeric
 characters plus underscore without spaces. This is the same restriction
 applied to all names in FIX specifications.
@@ -46,13 +48,15 @@ schema parsers.
 
 ## Root element
 
+### General
+
 The root element of the XML document is `<messageSchema>`.
 
 ### `<messageSchema>` attributes
 
 The root element provides basic identification of a schema.
 
-The `byteOrder` attribute controls the byte order of integer encodings
+The `byteOrder` attribute controls the byte order of integer and float encodings
 within the schema. It is a global setting for all specified messages and
 their encodings.
 
@@ -109,6 +113,8 @@ sequence:
 
 ### Encoding name
 
+#### General
+
 The namespace for encoding names is global across all encodings included
 in a schema, including simple, composite and enumeration types. That is,
 the name must be unique among all encoding instances.
@@ -131,6 +137,8 @@ Example of XML include usage to import common encoding types
 
 ### Simple encodings
 
+#### General
+
 A simple encoding is backed by either a scalar type or an array of
 scalars, such as a character array. One or more simple encodings may be
 defined, each specified by a `<type>` element.
@@ -145,7 +153,7 @@ the encoding.
 ##### Constant value
 
 The element value represents a constant if attribute
-`presence="constant"`. In this case, the value is required.
+`presence="constant"`. In this case, the value is conditionally required.
 
 #### `<type>` attributes
 
@@ -170,6 +178,8 @@ Simple type examples
 ```
 
 ### Composite encodings
+
+#### General
 
 Composite encoding types are composed of two or more simple types.
 
@@ -223,6 +233,8 @@ mantissa element indicates that the price is null.
 
 ### Reference to reusable types
 
+#### General
+
 A composite type often has its elements defined in-line within the `<composite>` XML element as shown in the example above. Alternatively, a common type may be defined once on its own, and then referred to by name with the composite type using a `<ref>` element.
 
 #### `<ref>` attributes
@@ -239,7 +251,7 @@ A composite type often has its elements defined in-line within the `<composite>`
 
 **Reference to an enum**
 
-In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit exponent, and a reused enum type.
+In this example, a futuresPrice is encoded as 64-bit integer mantissa,  8-bit exponent, and a reused enum type.
 
 ```xml
 <enum name="booleanEnum" encodingType="uint8">
@@ -256,7 +268,7 @@ In this example, a futuresPrice is encoded as 64 bit integer mantissa,  8 bit ex
 
 **Reference to a composite type**
 
-In this example, a nested composite is formed by using a reference to another composite type. It supports the expresson of a monetary amount with its currency, such as USD150.45. Note that a reference may carry an offset within the composite encoding that contains it.
+In this example, a nested composite is formed by using a reference to another composite type. It supports the expression of a monetary amount with its currency, such as USD 150.45. Note that a reference may carry an offset within the composite encoding that contains it.
 
 ```xml
 <composite name="price">
@@ -271,6 +283,8 @@ In this example, a nested composite is formed by using a reference to another co
 ```
 
 ### Enumeration encodings
+
+#### General
 
 An enumeration explicitly lists the valid values of a data domain. Any
 number of fields may share the same enumeration.
@@ -313,7 +327,7 @@ the encoding, such as an integer.
 
 Enumeration example (not all valid values listed)
 
-This enumeration is encoded as an 8 bit unsigned integer value. Others
+This enumeration is encoded as an 8-bit unsigned integer value. Others
 are encoded as char codes.
 
 ```xml
@@ -328,6 +342,8 @@ are encoded as char codes.
 ```
 
 ### Multi-value choice encodings (bitset)
+
+#### General
 
 An enumeration explicitly lists the valid values of a data domain. Any
 number of fields may share the same set of choices.
@@ -382,7 +398,9 @@ Multi-value choice example, The choice is encoded as a bitset.
 </set>
 ```
 
-## Message templates
+## Message template
+
+### General
 
 A `<messages>` element contains a set of message templates. A message schema may have multiple
 instances of `<messages>`, if desired, to organize them by categories. Each `<messages>` element may have an associated `package` name.
@@ -431,7 +449,7 @@ The number of members of each type is unbound.
 The order that fields are listed in the message schema governs the order
 that they are encoded on the wire.
 
-### `<message>` element attributes
+### `<message>` element attributes #message-element-attributes
 
 | `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|
@@ -495,7 +513,7 @@ Field that uses a composite encoding
 ## Repeating group schema
 
 A `<group>` has the same attributes as a `<message>` element since they
-both inherit attributes from the blockType XML type. A group has the
+both inherit attributes from the blockType XML type. See section [*Message element attributes*](#message-element-attributes) for details. A group has the
 same child members as a message, and they must appear in the same order:
 
 1.  Element `<field>` defines a fixed-length field
@@ -535,6 +553,8 @@ above.
 ```
 
 ## Schema validation
+
+### General
 
 The first level of schema validation is enforced by XML schema
 validation tools to make sure that a schema is well-formed according to

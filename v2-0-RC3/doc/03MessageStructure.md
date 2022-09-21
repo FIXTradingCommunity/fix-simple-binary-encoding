@@ -50,6 +50,8 @@ wire formats.
 
 ## SBE Message Encoding Header
 
+### General
+
 The purpose of the message encoding header is to tell which message
 template was used to encode the message and to give information about
 the size of the message body to aid in decoding, even when a message
@@ -77,7 +79,7 @@ The fields of the SBE message header are:
 Block length is specified in a message schema, but it is also serialized
 on the wire. By default, block length is set to the sum of the sizes of
 body fields in the message. However, it may be increased to force
-padding at the end of block. See section [*Padding*](#padding-at-end-of-a-message-or-group).
+padding at the end of block. See section [*Padding*](#padding-at-end-of-a-message-or-group) for details.
 
 ### Message header schema
 
@@ -86,7 +88,7 @@ position as shown below. Each of these fields must be encoded as an
 unsigned integer type. The encoding must carry the name "messageHeader".
 
 The message header is encoded in the same byte order as the message
-body, as specified in a message schema. See section [*Message Schema*](#message-schema).
+body, as specified in a message schema. See section [*Message schema attributes*](#message-schema) for the specification.
 
 Recommended message header encoding
 
@@ -121,7 +123,7 @@ The total space reserved for the root level of the message not counting
 any repeating groups or variable-length fields. (Repeating groups have
 their own block length; see section [*Group block length*](#group-block-length) below. Length of a
 variable-length Data field is given by its corresponding Length field;
-see section [*Variable-length string*](#variable-length-string-encoding).) Block length only represents message body
+see section [*Variable-length string*](#variable-length-string-encoding) for details.) Block length only represents message body
 fields; it does not include the length of the message header itself,
 which is a fixed size.
 
@@ -156,6 +158,8 @@ A count of the variable-length fields at the root level of the message. The coun
 
 
 ## Message Body
+
+### General
 
 The message body conveys the business information of the message.
 
@@ -292,6 +296,8 @@ Example of blockLength specification for 24 octets
 ```
 
 ## Repeating Groups
+
+### General
 
 A repeating group is a message structure that contains a variable number
 of entries. Each entry contains fields specified by a message schema.
@@ -430,6 +436,8 @@ that case, no NumInGroup is encoded on the wire for the child groups.
 
 ### Group dimension encoding
 
+#### General
+
 Every repeating group must be immediately preceded on the wire by its
 dimensions. The two dimensions are the count of entries in a repeating
 group and the space reserved for each entry of the group.
@@ -484,7 +492,7 @@ The number of entries in this repeating group, called NumInGroup in FIX.
 
 #### Number of repeating groups
 
-A count nested repeating groups in this repeating group.
+A count of the nested repeating groups in this repeating group.
 
 #### Number of variable-length fields
 
@@ -513,7 +521,7 @@ specified with this sequence of message body elements:
 
 1.  Fixed-length fields that reside at the root level of the message
     (that is, not members of repeating groups), including any of the
-    following, in the order specified by the message schema::
+    following, in the order specified by the message schema:
 
     a.  Fixed-length scalar fields, such as integers
 

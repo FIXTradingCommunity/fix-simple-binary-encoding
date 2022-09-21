@@ -2,6 +2,8 @@
 
 ## Objective
 
+### General
+
 It is not always practical to update all message publishers and
 consumers simultaneously. Within certain constraints, messages
 and repeating groups can be extended in a controlled way. Consumers using an
@@ -77,7 +79,7 @@ sent on the wire to consumers.
 Likewise, a repeating group has a blockLength attribute to tell how much
 space is reserved for group entries, and the value is sent on the wire.
 It is encoded in the schema as part of the NumInGroup field encoding.
-See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) above.
+See section [*Encoding of repeating group dimensions*](#encoding-of-repeating-group-dimensions) above for details.
 
 ### Deprecated elements
 
@@ -92,7 +94,7 @@ migration to replacement message layouts.
 ### Block size
 
 The length of the root level of the message is sent on the wire in the
-SBE message header. See section [*Root block length*](#root-block-length) above. Therefore, if new fields
+SBE message header. See section [*Root block length*](#root-block-length) above for details. Therefore, if new fields
 were appended in a later version of the schema, the consumer would still
 know how many octets to consume to find the next message element, such
 as repeating group or variable-length Data field. Without the current
