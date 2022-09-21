@@ -138,6 +138,8 @@ Not all FIX enumeration values are listed in the samples.
 
 ## Flat, fixed-length message
 
+### General
+
 This is an example of a simple, flat order message without repeating
 groups or variable-length data.
 
