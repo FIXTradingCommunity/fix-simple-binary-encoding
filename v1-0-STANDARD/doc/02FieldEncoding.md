@@ -4,7 +4,7 @@
 
 ### General
 
-A field is a unit of data contained by a FIX message. Every field has
+Every field has
 the following aspects: semantic datatype, encoding, and metadata. They
 will be specified in more detail in the sections on datatype encoding
 and message schema but are introduced here as an overview.
@@ -845,11 +845,11 @@ sent on the wire.
 
 | FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes      |
 |---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------|
-| UTCTimestamp  | UTC date/time   Default: nanoseconds since Unix epoch Range Jan. 1, 1970 - July 21, 2554  | uint64 time        | 8               | epoch=”unix” (default)                                                                        |                    |                 |                        |
-|               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                                           | uint8 unit         | 1               |                        |
+| UTCTimestamp  | UTC date/time   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64 time        | 8               | epoch="unix" (default)                                                                        |                    |                 |                        |
+|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8 unit         | 1               |                        |
 | UTCTimeOnly   | UTC time of day only  Default: nanoseconds since midnight today                                 | uint64                                                                                     time                | 8               |                        |
-|               | timeUnit = second or millisecond or microsecond or nanosecond   May be constant                                                           | uint8 unit         | 1               |                        |
-| UTCDateOnly   | UTC calendar date  Default: days since Unix epoch. Range: Jan. 1, 1970 - June 7, 2149        | uint16             | 2               | epoch=”unix” (default) |
+|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8 unit         | 1               |                        |
+| UTCDateOnly   | UTC calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149        | uint16             | 2               | epoch="unix" (default) |
 
 
 ### Encoding specifications for date and time
@@ -960,7 +960,7 @@ time at the market instead of UTC time.
 
 | FIX datatype | Description                                                                   | Backing primitives | Length (octets) | Schema attributes                  |
 |---------------|-------------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
-| LocalMktDate  | Local calendar date  Default: days since Unix epoch. Range: Jan. 1, 1970 - June 7, 2149 local time  | uint16             | 2               | epoch=”unix” (default)  
+| LocalMktDate  | Local calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149 local time  | uint16             | 2               | epoch="unix" (default)  
 
 The standard encoding specification for LocalMktDate
 
@@ -985,8 +985,8 @@ indicator as defined in ISO 8601:2004.
 
 | FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes                  |
 |---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
-| TZTimestamp   | date/time with timezone   Default: nanoseconds since Unix epoch Range Jan. 1, 1970 - July 21, 2554  | uint64             | 8               | epoch=”unix” (default) Represents Jan. 1, 1970 local time  |
-|               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                                           | uint8              | 1               |                                    |
+| TZTimestamp   | date/time with timezone   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64             | 8               | epoch="unix" (default) Represents January 1, 1970 local time  |
+|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8              | 1               |                                    |
 |               | Time zone hour offset                                                    | int8               | 1               | None                               |
 |               | Time zone minute offset                                                  | uint8              | 1               | None                               |
 
@@ -1025,7 +1025,7 @@ The sign telling ahead or behind UTC is on the hour subfield.
 | FIX datatype | Description                                                | Backing primitives | Length (octets) | Schema attributes |
 |---------------|------------------------------------------------------------|--------------------|----------------:|-------------------|
 | TZTimeOnly    | Time of day only with time zone  Default: nanoseconds since midnight today, local time       | uint64             | 8               | None              |
-|               | timeUnit = second or millisecond or microsecond or nanosecond  May be constant                                             | uint8              | 1               | None              |
+|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                             | uint8              | 1               | None              |
 |               | Time zone hour offset                                      | int8               | 1               | None              |
 |               | Time zone minute offset                                    | uint8              | 1               | None              |
 

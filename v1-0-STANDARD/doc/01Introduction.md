@@ -35,6 +35,9 @@ datatypes in order to make conversion unnecessary, or at least trivial.
 
 Note 2 to entry: Encoding also refers to the act of formatting a message, as opposed to decoding.
 
+## field
+unit of data contained by a message
+
 ## message schema
 metadata that specifies messages and their data types and identifiers
 
@@ -70,7 +73,7 @@ These key words in this document are to be interpreted as described in IETF RFC 
 
 ## General
 
-SBE targets high performance trading systems. It is optimized for low latency of encoding and decoding while
+SBE was designed to meet the needs of high performance trading systems, but it may also be applicable to other applications with similar performance characteristics. It is optimized for low latency of encoding and decoding while
 keeping bandwidth utilization reasonably small. For compatibility, it is intended to represent all FIX semantics.
 
 This encoding specification describes the wire protocol for messages.

@@ -4,6 +4,7 @@
 
 See [sbe.xsd](https://github.com/FIXTradingCommunity/fix-simple-binary-encoding/blob/master/v1-0-STANDARD/resources/sbe.xsd) for the normative XML Schema Definition (XSD) for SBE.
 
+**TODO: XSD file should be added as appendix into the specification for ISO submission.**
 
 ## XML namespace
 
@@ -21,7 +22,7 @@ not as a URL (physical resource locator). Firms should not depend on
 access to the FIX Trading Community web site to validate XML schemas at
 run-time.
 
-## Name convention
+## Naming convention
 
 ### General
 
