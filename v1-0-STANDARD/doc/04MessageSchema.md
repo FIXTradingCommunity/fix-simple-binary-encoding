@@ -53,15 +53,15 @@ The `byteOrder` attribute controls the byte order of integer and float encodings
 within the schema. It is a global setting for all specified messages and
 their encodings.
 
-| Schema attribute | Description                                                                                      | XML type           | Usage                  | Valid values                                                                 |
-|------------------|--------------------------------------------------------------------------------------------------|--------------------|------------------------|------------------------------------------------------------------------------|
-| package          | Name or category of a schema                                                                     | string             | optional               | Should be unique between counterparties but no naming convention is imposed. |
-| id               | Unique identifier of a schema                                                                    | unsignedInt        |                        | Should be unique between counterparties                                      |
-| version          | Version of this schema                                                                           | nonnegativeInteger |                        | Initial version is zero and is incremented for each version                  |
-| semanticVersion  | Version of FIX semantics                                                                         | string             | optional               | FIX versions, such as “FIX.5.0\_SP2”                                         |
-| byteOrder        | Byte order of encoding                                                                           | token              | default = littleEndian | littleEndian  bigEndian                                                                                                             |
-| description      | Documentation of the schema                                                                      | string             | optional               |                                                                              |
-| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string             | default= messageHeader | An encoding with this name must be contained by `<types>`.                   |
+| Schema attribute | Description | XML type | Usage | Valid values |
+|------------------|---------------------------------|--------------|--------------|--------------------------|
+| package          | Name or category of a schema  | string             | optional               | Should be unique between counterparties but no naming convention is imposed. |
+| id               | Unique identifier of a schema | unsignedInt        |                        | Should be unique between counterparties |
+| version          | Version of this schema        | nonnegativeInteger |                        | Initial version is zero and is incremented for each version |
+| semanticVersion  | Version of FIX semantics      | string             | optional               | FIX versions, such as “FIX.5.0\_SP2”|
+| byteOrder        | Byte order of encoding        | token              | default = littleEndian | littleEndian  bigEndian |
+| description      | Documentation of the schema   | string             | optional               | |
+| headerType       | Name of the encoding type of the message header, which is the same for all messages in a schema. | string | default= messageHeader | An encoding with this name must be contained by `<types>`. |
 
 
 ### Schema versioning
@@ -139,20 +139,20 @@ The element value represents a constant if attribute
 #### `<type>` attributes
 
 
-| `<type>` attribute | Description                                                                                                                                                                                            | XML type           | Usage                             | Valid values                                                                           |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-----------------------------------|----------------------------------------------------------------------------------------|
-| name               | Name of encoding                                                                                                                                                                                       | symbolicName\_t    | required                          | Must be unique among all encoding types in a schema.                                   |
-| description        | Documentation of the type                                                                                                                                                                              | string             | optional                          |                                                                                        |
-| presence           | Presence of any field encoded with this type                                                                                                                                                           | token              |  | required optional  constant                                                                                |
-| nullValue          | Override of special value used to indicate null for an optional field                                                                                                                                  | string             | Only valid if presence = optional | The XML string must be convertible to the scalar data type specified by primitiveType. |
-| minValue           | Lowest acceptable value                                                                                                                                                                                | string             |                                   |                                                                                        |
-| maxValue           | Highest acceptable value                                                                                                                                                                               | string             |                                   |                                                                                        |
-| length             | Number of elements of the primitive data type                                                                                                                                                          | nonnegativeInteger | default = 1                       | Value “0” represents variable length.                                                  |
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type)                                                                      |
-| primitiveType      | The primitive data type that backs the encoding                                                                                                                                                        | token              | required                          | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double                                                      |
-| semanticType       | Represents a FIX data type                                                                                                                                                                             | token              | optional                          | Same as field semanticType – see below.                                                |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                                                                                                            | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema.                       |
-| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages.                                                                                         | nonnegativeInteger | optional                          | Must be less than or equal to the version of the message schema.                       |
+| `<type>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name               | Name of encoding                                | symbolicName\_t    | required | Must be unique among all encoding types in a schema. |
+| description        | Documentation of the type                       | string             | optional | |
+| presence           | Presence of any field encoded with this type    | token |  | required optional  constant |
+| nullValue          | Override of special value used to indicate null for an optional field | string | Only valid if presence = optional | The XML string must be convertible to the scalar data type specified by primitiveType. |
+| minValue           | Lowest acceptable value                         | string             | | |
+| maxValue           | Highest acceptable value                        | string             | | |
+| length             | Number of elements of the primitive data type   | nonnegativeInteger | default = 1 | Value “0” represents variable length. |
+| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt | optional | See section [*Element offset within a composite type*](#element-offset-within-a-composite-type) |
+| primitiveType      | The primitive data type that backs the encoding | token | required | char int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double |
+| semanticType       | Represents a FIX data type                      | token              | optional                          | Same as field semanticType – see below. |
+| sinceVersion       | Documents the version of a schema in which a type was added | nonnegativeInteger | default = 0                       | Must be less than or equal to the version of the message schema. |
+| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional | Must be less than or equal to the version of the message schema. |
 
 #### FIX data type specification
 
@@ -176,13 +176,13 @@ Composite encoding types are composed of two or more simple types.
 
 #### `<composite>` attributes
 
-| `<composite>` attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                     |
-|--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
-| name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                         |
-| offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
-| description        | Documentation of the type                                                                                      | string             | optional    |                                                                  |
-| semanticType       | Represents a FIX data type                                                                                     | token              | optional    | Same as field semanticType – see below.                          |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
+| `<composite>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name               | Name of encoding                                            | symbolicName\_t    | required    | Must be unique among all encoding types. |
+| offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt | optional |  |
+| description        | Documentation of the type                                   | string             | optional    | |
+| semanticType       | Represents a FIX data type                                  | token              | optional    | Same as field semanticType – see below. |
+| sinceVersion       | Documents the version of a schema in which a type was added | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
 | deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
 #### Composite type elements
@@ -230,13 +230,13 @@ A composite type often has its elements defined in-line within the `<composite>`
 
 #### `<ref>` attributes
 
-| `<ref>` attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                     |
-|--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
-| name               | Usage of the type in this composite | symbolicName\_t    | required    |       |
-| type               | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set or composite name attribute. |
-| offset             | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |  |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
-| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+| `<ref>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name         | Usage of the type in this composite | symbolicName\_t    | required    |       |
+| type         | Name of referenced encoding         | symbolicName\_t    | required    | Must match a defined type, enum or set or composite name attribute. |
+| offset       | The offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt | optional |  |
+| sinceVersion | Documents the version of a schema in which a type was added | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
+| deprecated   | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
 
 #### Type reference examples
 
@@ -288,25 +288,25 @@ number of `<validValue>` elements.
 The `encodingType` attribute refers to a simple encoding of scalar type.
 The encoding of an enumeration may be char or any unsigned integer type.
 
-| `<enum>` attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                                      |
-|--------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|-----------------------------------------------------------------------------------|
-| name               | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                                          |
-| description        | Documentation of the type                                                                                      | string             | optional    |                                                                                   |
-| encodingType       | Name of a simple encoding type                                                                                 | symbolicName\_t    | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: char uint8 uint16 uint32 uint64 |
-| sinceVersion       | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
-| deprecated         | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.                  |
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |
+| `<enum>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name          | Name of encoding                                            | symbolicName\_t    | required    | Must be unique among all encoding types. |
+| description   | Documentation of the type                                   | string             | optional    | |
+| encodingType  | Name of a simple encoding type                              | symbolicName\_t    | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: char uint8 uint16 uint32 uint64 |
+| sinceVersion  | Documents the version of a schema in which a type was added | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
+| deprecated    | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+| offset        | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt | optional |
 
 #### `<validValue>` element attributes
 
 The name attribute of the `<validValue>` uniquely identifies it.
 
-| `<validValue>` attribute | Description                                                                                                     | XML type           | Usage       | Valid values                                                     |
-|--------------------|-----------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
-| name               | Symbolic name of value                                                                                          | symbolicName\_t    | required    | Must be unique among valid values in the enumeration.            |
-| description        | Documentation of the value                                                                                      | string             | optional    |                                                                  |
-| sinceVersion       | Documents the version of a schema in which a value was added                                                    | nonNegativeInteger | default = 0 |                                                                  |
-| deprecated         | Documents the version of a schema in which a value was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+| `<validValue>` attribute | Description | XML type | Usage | Valid values |
+|------------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name          | Symbolic name of value                                       | symbolicName\_t    | required    | Must be unique among valid values in the enumeration. |
+| description   | Documentation of the value                                   | string             | optional    | |
+| sinceVersion  | Documents the version of a schema in which a value was added | nonNegativeInteger | default = 0 | |
+| deprecated    | Documents the version of a schema in which a value was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional | Must be less than or equal to the version of the message schema. |
 
 #### `<validValue>` element content
 
@@ -349,25 +349,25 @@ uint64 encoding.
 The `encodingType` attribute refers to a simple encoding of scalar type.
 The encoding of a bitset should be an unsigned integer type.
 
-| `<set>` attribute | Description                                                                                                    | XML type           | Usage       | Valid values                                                                      |
-|-------------------|----------------------------------------------------------------------------------------------------------------|--------------------|-------------|-----------------------------------------------------------------------------------|
-| name              | Name of encoding                                                                                               | symbolicName\_t    | required    | Must be unique among all encoding types.                                          |
-| description       | Documentation of the type                                                                                      | string             | optional    |                                                                                   |
-| encodingType      | Name of a simple encoding type                                                                                 | string             | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: uint8 uint16 uint32 uint64                                                                          |
-| sinceVersion      | Documents the version of a schema in which a type was added                                                    | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema.                  |
-| deprecated        | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.       
-| offset             | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt        | optional                          |
+| `<set>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name          | Name of encoding                                            | symbolicName\_t    | required    | Must be unique among all encoding types. |
+| description   | Documentation of the type                                   | string             | optional    | |
+| encodingType  | Name of a simple encoding type                              | string             | required    | Must match the name attribute of a scalar `<type>` element *or* a primitive type: uint8 uint16 uint32 uint64 |
+| sinceVersion  | Documents the version of a schema in which a type was added | nonnegativeInteger | default = 0 | Must be less than or equal to the version of the message schema. |
+| deprecated    | Documents the version of a schema in which a type was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+| offset        | If a member of a composite type, tells the offset from the beginning of the composite. By default, the offset is the sum of preceding element sizes, but it may be increased to effect byte alignment. | unsignedInt | optional |
 
 #### `<choice>` element attributes
 
 The `name` attribute of the `<choice>` uniquely identifies it.
 
-| `<choice>` attribute | Description                                                                                                      | XML type           | Usage       | Valid values                                                     |
-|----------------------|------------------------------------------------------------------------------------------------------------------|--------------------|-------------|------------------------------------------------------------------|
-| name                 | Symbolic name of value                                                                                           | symbolicName\_t    | required    | Must be unique among choices in the set.                         |
-| description          | Documentation of the value                                                                                       | string             | optional    |                                                                  |
-| sinceVersion         | Documents the version of a schema in which a choice was added                                                    | nonNegativeInteger | default = 0 |                                                                  |
-| deprecated           | Documents the version of a schema in which a choice was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema. |
+| `<choice>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name          | Symbolic name of value                                        | symbolicName\_t    | required    | Must be unique among choices in the set. |
+| description   | Documentation of the value                                    | string             | optional    | |
+| sinceVersion  | Documents the version of a schema in which a choice was added | nonNegativeInteger | default = 0 | |
+| deprecated    | Documents the version of a schema in which a choice was deprecated. It should no longer be used in new messages. | nonnegativeInteger | optional | Must be less than or equal to the version of the message schema. |
 
 #### `<choice>` element content
 
@@ -413,9 +413,7 @@ A `<message>` element contains its field definitions in three
 categories, which must appear in this sequence:
 
 1.  Element `<field>` defines a fixed-length field
-
 2.  Element `<group>` defines a repeating group
-
 3.  Element `<data>` defines a variable-length field, such as raw data
 
 The number of members of each type is unbound.
@@ -427,15 +425,15 @@ that they are encoded on the wire.
 
 ### `<message>` element attributes
 
-| `<message>` attribute | Description                                                                                                                                | XML type           | Usage       | Valid values                                                             |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------|--------------------------------------------------------------------------|
-| name                  | Name of a message                                                                                                                          | symbolicName\_t    | required    | Must be unique among all messages in a schema                            |
-| id                    | Unique message template identifier                                                                                                         | unsignedInt        | required    | Must be unique within a schema                                           |
-| description           | Documentation                                                                                                                              | string             | optional    |                                                                          |
-| blockLength           | Reserved size in number of octets for root level of message body                                                                           | unsignedInt        | optional    | If specified, must be greater than or equal to the sum of field lengths. |
-| semanticType          | Documents value of FIX MsgType(35) field for a message                                                                                      | token              | optional    | Listed in FIX specifications                                             |
-| sinceVersion          | Documents the version of a schema in which a message was added                                                                             | nonNegativeInteger | default = 0 |                                                                          |
-| deprecated            | Documents the version of a schema in which a message was deprecated. It should no longer be sent but is documented for back-compatibility. | nonnegativeInteger | optional    | Must be less than or equal to the version of the message schema.         |
+| `<message>` attribute | Description | XML type | Usage | Valid values                                                             |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name                  | Name of a message                                                | symbolicName\_t    | required    | Must be unique among all messages in a schema |
+| id                    | Unique message template identifier                               | unsignedInt        | required    | Must be unique within a schema |
+| description           | Documentation                                                    | string             | optional    | |
+| blockLength           | Reserved size in number of octets for root level of message body | unsignedInt        | optional    | If specified, must be greater than or equal to the sum of field lengths. |
+| semanticType          | Documents value of FIX MsgType(35) field for a message           | token              | optional    | Listed in FIX specifications |
+| sinceVersion          | Documents the version of a schema in which a message was added   | nonNegativeInteger | default = 0 | |
+| deprecated            | Documents the version of a schema in which a message was deprecated. It should no longer be sent but is documented for back-compatibility. | nonnegativeInteger | optional | Must be less than or equal to the version of the message schema. |
 
 Note that there need not be a one-to-one relationship between message
 template (identified by `id` attribute) and `semanticType` attribute. You
@@ -455,17 +453,17 @@ Fields are added to a `<message>` element as child elements. See section [*Field
 These are the common attributes of all field types.
 
 
-| Schema attribute | Description                                                                                                                                                                               | XML type            | Usage                              | Valid values                                                                                          |
-|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|------------------------------------|-------------------------------------------------------------------------------------------------------|
-| name             | Name of a field                                                                                                                                                                           | symbolicName\_t     | required                           | Name and id must uniquely identify a field type within a message schema.                              |
-| id               | Unique field identifier (FIX tag number)                                                                                                                                                  | unsignedShort       | required                           |                                                                                                       |
-| description      | Documentation                                                                                                                                                                             | string              | optional                           |                                                                                                       |
-| type             | Encoding type name, one of simple type, composite type or enumeration.                                                                                                                    | string              | required                           | Must match the name attribute of a simple `<type>`, `<composite>` encoding type, `<enum>` or `<set>`. |
-| offset           | Offset to the start of the field within a message or repeating group entry. By default, the offset is the sum of preceding field sizes, but it may be increased to effect byte alignment. | unsignedInt         | optional                           | Must be greater than or equal to the sum of preceding field sizes.                                    |
-| presence         | Field presence                                                                                                                                                                            | enumeration         | Default = required                 | required = field value is required; not tested for null.                                                                                                                                                                                                                                                       optional = field value may be null.  constant = constant value not sent on wire.                                                                                                                         |
-| valueRef         | Constant value of a field as a valid value of an enumeration                                                                                                                              | qualifiedName\_t    | optional  Valid only if presence= ”constant”  | If provided, the qualified name must match the name attribute of a `<validValue>` within an `<enum>`  |
-| sinceVersion     | The version of a message schema in which this field was added.                                                                                                                            | InonnegativeInteger | default=0                          | Must not be greater than version attribute of `<messageSchema>` element.                              |
-| deprecated       | Documents the version of a schema in which a field was deprecated. It should no longer be used in new messages.                                                                           | nonnegativeInteger  | optional                           | Must be less than or equal to the version of the message schema.                                      |
+| Schema attribute | Description | XML type | Usage | Valid values |
+|----------------------|-----------------------------------------------|-------------------|-----------------|---------------------------|
+| name             | Name of a field                                                        | symbolicName\_t     | required | Name and id must uniquely identify a field type within a message schema. |
+| id               | Unique field identifier (FIX tag number)                               | unsignedShort       | required | |
+| description      | Documentation                                                          | string              | optional | |
+| type             | Encoding type name, one of simple type, composite type or enumeration. | string              | required | Must match the name attribute of a simple `<type>`, `<composite>` encoding type, `<enum>` or `<set>`. |
+| offset           | Offset to the start of the field within a message or repeating group entry. By default, the offset is the sum of preceding field sizes, but it may be increased to effect byte alignment. | unsignedInt | optional | Must be greater than or equal to the sum of preceding field sizes. |
+| presence         | Field presence                                                         | enumeration         | Default = required | required = field value is required; not tested for null. optional = field value may be null.  constant = constant value not sent on wire. |
+| valueRef         | Constant value of a field as a valid value of an enumeration           | qualifiedName\_t    | optional  Valid only if presence= ”constant”  | If provided, the qualified name must match the name attribute of a `<validValue>` within an `<enum>`  |
+| sinceVersion     | The version of a message schema in which this field was added.         | InonnegativeInteger | default=0                          | Must not be greater than version attribute of `<messageSchema>` element. |
+| deprecated       | Documents the version of a schema in which a field was deprecated. It should no longer be used in new messages. | nonnegativeInteger  | optional | Must be less than or equal to the version of the message schema. |
 
 
 Example field schemas
@@ -498,8 +496,8 @@ same child members as a message, and they must appear in the same order:
 The number of members of each type is unbound.
 
 
-| `<group>` attribute | Description                       | XML type        | Usage                       | Valid values                                                             |
-|---------------------|-----------------------------------|-----------------|-----------------------------|--------------------------------------------------------------------------|
+| `<group>` attribute | Description | XML type | Usage | Valid values |
+|----------------------|-------------------------------|------------------------|--------------|---------------------------|
 | name                | Name of a group                   | symbolicName\_t | required                    | Name and id must uniquely identify a group type within a message schema. |
 | id                  | Unique group identifier           | unsignedShort   | required                    |                                                                          |
 | description         | Documentation                     | string          | optional                    |                                                                          |
@@ -530,18 +528,18 @@ that a schema is correct according to FIX Simple Binary Encoding rules.
 
 Additional conditions that render a schema invalid include the following.
 
-| Error condition                                                | Error description                                                                                                                                                                                                                                                                                             |
-|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Missing field encoding                                         | A field or `<enum>` references a type name that is undefined.                                                                                                                                                                                                                                                 |
-| Missing message header encoding                                | Missing encoding type for headerType specified in `<messageSchema>`. Default name is “messageHeader”.                                                                                                                                                                                                         |
-| Duplicate encoding name                                        | An encoding name is non-unique, rendering a reference ambiguous.                                                                                                                                                                                                                                              |
-| nullValue specified for non-null encoding                      | Attribute nullValue is inconsistent with presence=required or constant                                                                                                                                                                                                                                        |
-| Attributes nullValue, minValue or maxValue of wrong data range | The specified values must be convertible to a scalar value consistent with the encoding. For example, if the primitive type is uint8, then the value must be in the range 0 through 255.                                                                                                                      |
-| semanticType mismatch                                          | If the attribute is specified on both a field and the encoding that it references, the values must be identical.                                                                                                                                                                                              |
-| presence mismatch                                              | If the attribute is specified on both a field and the encoding that it references, the values must be identical.                                                                                                                                                                                              |
-| Missing constant value                                         | If presence=constant is specified for a field or encoding, the element value must contain the constant value.                                                                                                                                                                                                 |
-| Missing validValue content                                     | A `<validValue>` element is required to carry its value.                                                                                                                                                                                                                                                      |
-| Incompatible offset and blockLength                            | A field offset greater than message or group blockLength is invalid                                                                                                                                                                                                                                           |
+| Error condition | Error description |
+|--------------------------|--------------------------------------------------------------------------------------|
+| Missing field encoding                                         | A field or `<enum>` references a type name that is undefined. |
+| Missing message header encoding                                | Missing encoding type for headerType specified in `<messageSchema>`. Default name is “messageHeader”. |
+| Duplicate encoding name                                        | An encoding name is non-unique, rendering a reference ambiguous. |
+| nullValue specified for non-null encoding                      | Attribute nullValue is inconsistent with presence=required or constant |
+| Attributes nullValue, minValue or maxValue of wrong data range | The specified values must be convertible to a scalar value consistent with the encoding. For example, if the primitive type is uint8, then the value must be in the range 0 through 255. |
+| semanticType mismatch                                          | If the attribute is specified on both a field and the encoding that it references, the values must be identical. |
+| presence mismatch                                              | If the attribute is specified on both a field and the encoding that it references, the values must be identical. |
+| Missing constant value                                         | If presence=constant is specified for a field or encoding, the element value must contain the constant value. |
+| Missing validValue content                                     | A `<validValue>` element is required to carry its value. |
+| Incompatible offset and blockLength                            | A field offset greater than message or group blockLength is invalid |
 | Duplicate ID or name of field or group                         | Attributes id and name must uniquely identify a type within a message schema. This applies to fields and groups. To be clear, the same field or group ID may be used in multiple messages, but each instance must represent the same type. Each of those instances must match on both id and name attributes. |
 
 ### Message with a repeating group

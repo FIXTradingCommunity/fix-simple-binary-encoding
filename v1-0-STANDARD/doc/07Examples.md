@@ -145,7 +145,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 **Interpretation**
 
 |Wire format|Field ID|Name|Offset|Length|Interpreted value|
-|-----------|-------:|----|-----:|-----:|-----------------|
+|------------------|:------:|---------------------|:------:|:------:|-------------|
 | `00000044` |   | SOFH message length | 0 | 4 | 68 |
 | `eb50` |   | SOFH encoding | 4 | 2 | SBE little-endian |
 | `3600` |   | SBE block length | 0 | 2 | 54 |
@@ -273,7 +273,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 Offset is from beginning of block.
 
 |Wire format|Field ID|Name|Offset|Length|Interpreted value|
-|-----------|-------:|----|-----:|-----:|-----------------|
+|------------------|:------:|---------------------|:------:|:------:|-------------|
 | `00000054` |   | SOFH message length | 0 | 4 | 84 |
 | `eb50` |   | SOFH encoding | 4 | 2 | SBE little-endian |
 | `2a00` |   | SBE block length | 0 | 2 | 42 |
@@ -343,7 +343,7 @@ Hexadecimal and ASCII representations (little-endian byte order):
 
 ### Interpretation
 |Wire format|Field ID|Name|Offset|Length|Interpreted value|
-|-----------|-------:|----|-----:|-----:|-----------------|
+|------------------|:------:|---------------------|:------:|:------:|-------------|
 | `00000040` |   | SOFH message length | 0 | 4 | 64 |
 | `eb50` |   | SOFH encoding | 4 | 2 | SBE little-endian |
 | `0900` |   | SBE block length | 0 | 2 | 9 |

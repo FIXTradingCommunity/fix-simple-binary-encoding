@@ -92,7 +92,7 @@ Schema attributes may restrict the range of valid values for a field.
 See section [*Common field schema attributes*](#common-field-schema-attributes) for details.
 
 | FIX semantic type  | Binary type                           | Value space (ISO/IEC 11404:2007) | Description       |
-|--------------------|---------------------------------------|-|-------------------|
+|--------------|-------------------------|-------------|-------------------|
 | int                | [Integer encoding](#integer-encoding) | integer range | An integer number |
 | Length             | [Integer encoding](#integer-encoding) | size | Field length in octets. Value must be non-negative. |
 | TagNum             | [Integer encoding](#integer-encoding) | ordinal | A field's tag number. Value must be positive. |
@@ -138,15 +138,15 @@ references are derived.
 
 Schema attributes alter the range of valid values for a field. Attributes are optional unless specified otherwise.
 
-| Schema attribute  | Description                                                                                                                                                                        |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| presence=required | The field must always be set. This is the default presence. Mutually exclusive with nullValue.                                                                                     |
-| presence=constant | The field has a constant value that need not be transmitted on the wire. Mutually exclusive with value attributes.                                                                 |
-| presence=optional | The field need not be populated. A special null value indicates that a field is not set. The presence attribute may be specified on either on a field or its encoding.             |
+| Schema attribute  | Description |
+|-------------------|-------------------------------------------------------------------|
+| presence=required | The field must always be set. This is the default presence. Mutually exclusive with nullValue. |
+| presence=constant | The field has a constant value that need not be transmitted on the wire. Mutually exclusive with value attributes. |
+| presence=optional | The field need not be populated. A special null value indicates that a field is not set. The presence attribute may be specified on either on a field or its encoding. |
 | nullValue         | A special value that indicates that an optional value is not set. See encodings below for default nullValue for each type. Mutually exclusive with presence=required and constant. |
-| minValue          | The lowest valid value of a range. Applies to scalar datatypes, but not to String or datatypes.                                                                                  |
-| maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar datatypes, but not to String or datatypes.                                          |
-| semanticType      | Specifies the FIX semantic type of a field or encoding. It may be specified on either a field or its encoding.                                                                         |
+| minValue          | The lowest valid value of a range. Applies to scalar datatypes, but not to String or datatypes. |
+| maxValue          | The highest valid value of a range (inclusive unless specified otherwise). Applies to scalar datatypes, but not to String or datatypes. |
+| semanticType      | Specifies the FIX semantic type of a field or encoding. It may be specified on either a field or its encoding. |
 
 ### Inherited attributes
 
@@ -202,7 +202,7 @@ Required and optional fields of the same primitive type have the same
 data range. The null value must not be set for a required field.
 
  Schema attribute  | int8 | uint8 | int16  | uint16 | int32      | uint32    | int64      | uint64    |
-|------------------|-----:|------:|-------:|-------:|-----------:|----------:|-----------:|----------:|
+|-----------|-----:|------:|-------:|-------:|--------:|-------:|--------:|-------:|
 | minValue         | –127 | 0     | –32767 | 0      | –2^31^ + 1 | 0         | –2^63^ + 1 | 0         |
 | maxValue         | 127  | 254   | 32767  | 65534  | 2^31^ – 1  | 2^32^ – 2 | 2^63^ – 1  | 2^64^ – 2 |
 | nullValue        | –128 | 255   | –32768 | 65535  | –2^31^     | 2^32^ – 1 | –2^63^     | 2^64^ – 1 |
@@ -323,9 +323,9 @@ sufficient for all FIX uses.
 
 | Encoding type | Description            | Backing primitives | Length (octets) |
 |---------------|------------------------|--------------------|:---------------:|
-| decimal       | Floating-point decimal | Composite: int64 mantissa, int8 exponent   | 9               |
-| decimal64     | Fixed-point decimal    | int64 mantissa, constant exponent    | 8               |
-| decimal32     | Fixed-point decimal    | int32 mantissa, constant exponent     | 4               |
+| decimal       | Floating-point decimal | Composite: int64 mantissa, int8 exponent   | 9 |
+| decimal64     | Fixed-point decimal    | int64 mantissa, constant exponent    | 8 |
+| decimal32     | Fixed-point decimal    | int32 mantissa, constant exponent     | 4 |
 
 Optionally, implementations may support any other signed integer types
 for mantissa and exponent.
@@ -340,13 +340,12 @@ values for a field. For optional fields, a special mantissa value is
 used to indicate that a field value is null.
 
 | Schema attribute | decimal                 | decimal64               | decimal32               |
-|------------------|------------------------:|------------------------:|------------------------:|
+|------------------|------------------------:|-------------------:|-------------------:|
 | exponent range   | –128 to 127             | –128 to 127             | –128 to 127             |
 | mantissa range   | –2^63^ + 1 to 2^63^ – 1 | –2^63^ + 1 to 2^63^ – 1 | –2^31^ + 1 to 2^31^ – 1 |
 | minValue         | (–2^63^ + 1) \* 10^127^ | (–2^63^ + 1) \* 10^127^ | (–2^31^ + 1) \* 10^127^ |
 | maxValue         | (2^63^ – 1) \* 10^127^  | (2^63^ – 1) \* 10^127^  | (2^31^ – 1) \* 10^127^  |
-| nullValue        | mantissa=–2^63^, exponent=–128 | mantissa =–2^63^ | mantissa =–2^31^        |
-
+| nullValue        | mantissa=–2^63^, exponent=–128 | mantissa =–2^63^        | mantissa =–2^31^        |
 
 ### Encoding specifications for decimal types
 
@@ -434,7 +433,7 @@ datatypes. See the IEEE 754-2019 standard for ranges and details of the
 encodings.
 
 | Primitive type | Description                     | IEEE 754-2019 format | Length (octets) |
-|----------------|---------------------------------|----------------------|----------------:|
+|----------------|---------------------------------|----------------------|:---------------:|
 | float          | Single precision floating point | binary32             | 4               |
 | double         | Double precision floating point | binary64             | 8               |
 
@@ -497,8 +496,8 @@ Character fields hold a single character. They are most commonly used
 for field with character code enumerations. See section [*Enumeration encoding*](#enumeration-encoding) for details.
 
 | FIX datatype | Description                 | Backing primitive | Length (octet) |
-|---------------|-----------------------------|-------------------|---------------:|
-| char          | A single US-ASCII character | char              | 1              |
+|--------------|-----------------------------|-------------------|:--------------:|
+| char         | A single US-ASCII character | char              | 1              |
 
 #### Range attributes for char fields
 
@@ -533,8 +532,8 @@ direct access to fields. A fixed size character array is distinguished
 from a variable length string by the presence of a length schema
 attribute or a constant attribute.
 
-| FIX datatype | Description     | Backing primitives                                                                                                          | Length (octets)               | Required schema attribute                                          |
-|---------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------|
+| FIX datatype | Description     | Backing primitives | Length (octets) | Required schema attribute|
+|-----------------|-----------------|---------------------------------|--------------------------|-------------------------------|
 | String        | character array | Array of char of specified length, padded by NUL character if a string is shorter than the length specified for a field. | Specified by length attribute | length (except may be inferred from a constant value, if present). |
 
 A length attribute set to zero indicates variable length. See section
@@ -590,10 +589,10 @@ is made at an encoding layer between an empty string and a null string.
 Semantics of an empty variable-length string should be specified at an
 application layer.
 
-| FIX datatype | Description                           | Backing primitives                                                                                                         | Length (octets) |
-|---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------|
-| Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"  May not hold null value.                                                                                        | 1 or 2          |
-| data          | Raw data                              | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length.   primitiveType="uint8"   length="0" indicates variable length                                                                                        | variable        |
+| FIX datatype | Description | Backing primitives | Length (octets) |
+|---------------|------------------|------------------------------------|-----------------|
+| Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"  May not hold null value. | 1 or 2 |
+| data          | Raw data | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length.   primitiveType="uint8"   length="0" indicates variable length | variable |
 
 Optionally, implementations may support any other unsigned integer types
 for length.
@@ -675,9 +674,9 @@ direct access to fields. A fixed size array is distinguished from a
 variable length data by the presence of a length schema attribute rather
 than sending length on the wire.
 
-| FIX datatype | Description | Backing primitives                  | Length (octets)               | Required schema attribute |
-|---------------|-------------|-------------------------------------|-------------------------------|---------------------------|
-| data          | octet array | Array of uint8 of specified length. | Specified by length attribute | length                    |
+| FIX datatype | Description | Backing primitives | Length (octets) | Required schema attribute |
+|--------------|----------------|-------------------------------------|-------------------------|---------------------|
+| data         | octet array | Array of uint8 of specified length. | Specified by length attribute | length                    |
 
 #### Encoding specifications for fixed-length data
 
@@ -710,10 +709,10 @@ case, no space is reserved for the data. Semantics of an empty
 variable-length data element should be specified at an application
 layer.
 
-| FIX datatype | Description                           | Backing primitives                                                                                                         | Length (octets) |
-|---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------|
-| Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"   May not hold null value.                                                                                                    | 1 or 2          |
-| data          | Raw data                              | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length. primitiveType="uint8"  | variable
+| FIX datatype | Description | Backing primitives | Length (octets) |
+|---------------|-------------------|--------------------------|------------|
+| Length        | The length of variable data in octets | primitiveType="uint8" or "uint16"   May not hold null value. | 1 or 2 |
+| data          | Raw data | Array of octet of size specified in associated Length field. The data field itself should be specified as variable length. primitiveType="uint8"  | variable |
 
 Optionally, implementations may support any other unsigned integer types
 for length.
@@ -780,7 +779,7 @@ special value indicating null if not present. If Year is set to the null
 value, then the entire field is considered null.
 
 | Subfield                         | Primitive type | Length (octets) | Null value |
-|----------------------------------|----------------|----------------:|-----------:|
+|----------------------------------|----------------|:---------------:|-----------:|
 | Year                             | uint16         | 2               | 65535      |
 | Month (1-12)                     | uint8          | 1               | —          |
 | Day of the month (1-31) optional | uint8          | 1               | 255        |
@@ -843,13 +842,13 @@ the other hand, if all timestamps have the same precision, then time
 unit may be set to a constant in the message schema. Then it need not be
 sent on the wire.
 
-| FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes      |
-|---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------|
-| UTCTimestamp  | UTC date/time   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64 time        | 8               | epoch="unix" (default)                                                                        |                    |                 |                        |
-|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8 unit         | 1               |                        |
-| UTCTimeOnly   | UTC time of day only  Default: nanoseconds since midnight today                                 | uint64                                                                                     time                | 8               |                        |
-|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8 unit         | 1               |                        |
-| UTCDateOnly   | UTC calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149        | uint16             | 2               | epoch="unix" (default) |
+| FIX datatype | Description | Backing primitives | Length (octets) | Schema attributes      |
+|------------------|---------------------------------------|--------------------|:-----------:|---------------|
+| UTCTimestamp | UTC date/time   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64 time  | 8 | epoch="unix" (default) |
+|              | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                | uint8 unit   | 1 | |
+| UTCTimeOnly  | UTC time of day only  Default: nanoseconds since midnight today                               | uint64 time  | 8 | |
+|              | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                | uint8 unit   | 1 | |
+| UTCDateOnly  | UTC calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149      | uint16       | 2 | epoch="unix" (default) |
 
 
 ### Encoding specifications for date and time
@@ -958,9 +957,9 @@ Wire format of UTCDateOnly
 Local date is encoded the same as UTCDateOnly, but it represents local
 time at the market instead of UTC time.
 
-| FIX datatype | Description                                                                   | Backing primitives | Length (octets) | Schema attributes                  |
-|---------------|-------------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
-| LocalMktDate  | Local calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149 local time  | uint16             | 2               | epoch="unix" (default)  
+| FIX datatype | Description | Backing primitives | Length (octets) | Schema attributes |
+|------------------|-----------------------------|----------------|:----------:|------------------|
+| LocalMktDate  | Local calendar date  Default: days since Unix epoch. Range: January 1, 1970 - June 7, 2149 local time  | uint16 | 2 | epoch="unix" (default) |
 
 The standard encoding specification for LocalMktDate
 
@@ -983,12 +982,12 @@ format ±hhmm.
 A binary UTCTimestamp followed by a number representing the time zone
 indicator as defined in ISO 8601:2004.
 
-| FIX datatype | Description                                                              | Backing primitives | Length (octets) | Schema attributes                  |
-|---------------|--------------------------------------------------------------------------|--------------------|----------------:|------------------------------------|
-| TZTimestamp   | date/time with timezone   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64             | 8               | epoch="unix" (default) Represents January 1, 1970 local time  |
-|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                                           | uint8              | 1               |                                    |
-|               | Time zone hour offset                                                    | int8               | 1               | None                               |
-|               | Time zone minute offset                                                  | uint8              | 1               | None                               |
+| FIX datatype | Description | Backing primitives | Length (octets) | Schema attributes |
+|------------------|-----------------------------|----------------|:----------:|------------------|
+| TZTimestamp   | date/time with timezone   Default: nanoseconds since Unix epoch. Range January 1, 1970 - July 21, 2554  | uint64 | 8 | epoch="unix" (default) Represents January 1, 1970 local time  |
+|               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant | uint8 | 1 | |
+|               | Time zone hour offset                                                          | int8  | 1 | None |
+|               | Time zone minute offset                                                        | uint8 | 1 | None |
 
 ### Composite encoding padding
 
@@ -1022,8 +1021,8 @@ The time zone hour offset tells the number of hours different to UTC
 time. The time zone minute tells the number of minutes different to UTC.
 The sign telling ahead or behind UTC is on the hour subfield.
 
-| FIX datatype | Description                                                | Backing primitives | Length (octets) | Schema attributes |
-|---------------|------------------------------------------------------------|--------------------|----------------:|-------------------|
+| FIX datatype | Description | Backing primitives | Length (octets) | Schema attributes |
+|------------------|-----------------------------|----------------|:----------:|------------------|
 | TZTimeOnly    | Time of day only with time zone  Default: nanoseconds since midnight today, local time       | uint64             | 8               | None              |
 |               | timeUnit = second or millisecond or microsecond or nanosecond. May be constant                                             | uint8              | 1               | None              |
 |               | Time zone hour offset                                      | int8               | 1               | None              |
@@ -1065,9 +1064,9 @@ types. They may additionally support other unsigned integer types to
 allow more choices.
 
 | Primitive type | Description            | Length (octets) | Maximum number of choices |
-|----------------|------------------------|----------------:|--------------------------:|
-| char           | character              | 1               | 95                        |
-| uint8          | 8-bit unsigned integer | 1               | 255                       |
+|----------------|------------------------|:-----------:|:-------------:|
+| char           | character              | 1           | 95  |
+| uint8          | 8-bit unsigned integer | 1           | 255 |
 
 ### Value encoding
 
@@ -1211,12 +1210,12 @@ choices. The encoding is backed by an unsigned integer. The smallest
 unsigned primitive type should be selected that can contain the number
 of valid choices.
 
-| Primitive type | Description             | Length (octets) | Maximum number of choices |
-|----------------|-------------------------|:---------------:|:-------------------------:|
-| uint8          | 8-bit unsigned integer  | 1               | 8                         |
-| uint16         | 16-bit unsigned integer | 2               | 16                        |
-| uint32         | 32-bit unsigned integer | 4               | 32                        |
-| uint64         | 64-bit unsigned integer | 8               | 64                        |
+| Primitive type | Description | Length (octets) | Maximum number of choices |
+|----------------|-------------------------|:---------:|:---------------:|
+| uint8          | 8-bit unsigned integer  | 1 | 8  |
+| uint16         | 16-bit unsigned integer | 2 | 16 |
+| uint32         | 32-bit unsigned integer | 4 | 32 |
+| uint64         | 64-bit unsigned integer | 8 | 64 |
 
 Like other integer-backed encodings, multi-value encodings follow the byte order specified by message schema when serializing to the wire. See section [*Message schema attributes*](#messageschema-attributes) for the specification, including byteOrder.
 
@@ -1294,13 +1293,13 @@ If a value violation is detected on a received message, the message
 should be rejected back to the counterparty in a way appropriate to the
 session protocol.
 
-| Error condition                                             | Error description                                                                                                            |
-|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Field value less than minValue                              | The encoded value falls below the specified valid range.                                                                     |
-| Field value greater than maxValue                           | The encoded value exceeds the specified valid range.                                                                         |
-| Null value set for required field                           | The null value of a datatype is invalid for a required field.                                                               |
+| Error condition | Error description |
+|----------------------|-----------------------------------------------|
+| Field value less than minValue                              | The encoded value falls below the specified valid range. |
+| Field value greater than maxValue                           | The encoded value exceeds the specified valid range. |
+| Null value set for required field                           | The null value of a datatype is invalid for a required field. |
 | String contains invalid characters                          | A String contains non-US-ASCII printable characters or other invalid sequence if a different characterEncoding is specified. |
-| Required subfields not populated in MonthYear               | Year and month must be populated with non-null values, and the month must be in the range 1-12.                              |
-| UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds.                                |
+| Required subfields not populated in MonthYear               | Year and month must be populated with non-null values, and the month must be in the range 1-12. |
+| UTCTimeOnly exceeds day range                               | The value must not exceed the number of time units in a day, e.g. greater than 86400 seconds. |
 | TZTimestamp and TZTimeOnly has missing or invalid time zone | The time zone hour and minute offset subfields must correspond to an actual time zone recognized by international standards. |
-| Value must match valid value of an enumeration field        | A value is invalid if it does not match one of the explicitly listed valid values.                                           |
+| Value must match valid value of an enumeration field        | A value is invalid if it does not match one of the explicitly listed valid values. |

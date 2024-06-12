@@ -12,19 +12,31 @@ YAML="$SOURCE/SBE.yaml"
 FILES="01Introduction.md 02FieldEncoding.md 03MessageStructure.md 04MessageSchema.md 05SchemaExtensionMechanism.md 06UsageGuidelines.md 07Examples.md"
 WPFOLDER="/wp-content/uploads/2020/03/"
 
+mkdir -p $TARGET $TARGET/docx $TARGET/html $TARGET/debug
+
 # Create FIX document version with disclaimer
 pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/Simple_Binary_Encoding_V1.0_with_Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
 echo SBE document version created for FIX
 
-# Create ISO document version with copyright etc.
-ISOYAML="$SOURCE/SBE_ISO.yaml"
-ISOSTYLE="ISO_TechStd_Style_MASTER.docx"
-ISOCOPYRIGHT="ISOCopyright.md"
-ISOFOREWORD="ISOForeword.md"
-ISOINTRO="ISOIntro.md"
-ISOBIBLIO="ISOBiblio.md"
-pandoc "$ISOCOPYRIGHT" "$ISOFOREWORD" "$ISOINTRO" $FILES "$ISOBIBLIO" -o "$TARGET/docx/ISOSimple_Binary_Encoding.docx" --reference-doc="$ISOSTYLE" --metadata-file="$ISOYAML" --filter pandoc-plantuml --toc --toc-depth=3
-echo SBE document version created for ISO
+# Create ISO JTC1 document version with copyright etc.
+JTC1YAML="$SOURCE/SBE_JTC1.yaml"
+JTC1STYLE="JTC1_TechStd_Style_MASTER.docx"
+JTC1COPYRIGHT="JTC1Copyright.md"
+JTC1FOREWORD="JTC1Foreword.md"
+JTC1INTRO="JTC1Intro.md"
+JTC1BIBLIO="JTC1Biblio.md"
+pandoc "$JTC1COPYRIGHT" "$JTC1FOREWORD" "$JTC1INTRO" $FILES "$JTC1BIBLIO" -o "$TARGET/docx/JTC1Simple_Binary_Encoding_V1.0_with_Errata.docx" --reference-doc="$JTC1STYLE" --metadata-file="$JTC1YAML" --filter pandoc-plantuml --toc --toc-depth=3
+echo SBE document version created for JTC1
+
+# Create ISO document version with copyright etc. (disabled)
+# ISOYAML="$SOURCE/SBE_ISO.yaml"
+# ISOSTYLE="ISO_TechStd_Style_MASTER.docx"
+# ISOCOPYRIGHT="ISOCopyright.md"
+# ISOFOREWORD="ISOForeword.md"
+# ISOINTRO="ISOIntro.md"
+# ISOBIBLIO="ISOBiblio.md"
+# pandoc "$ISOCOPYRIGHT" "$ISOFOREWORD" "$ISOINTRO" $FILES "$ISOBIBLIO" -o "$TARGET/docx/ISOSimple_Binary_Encoding_V1.0_with_Errata.docx" --reference-doc="$ISOSTYLE" --metadata-file="$ISOYAML" --filter pandoc-plantuml --toc --toc-depth=3
+# echo SBE document version created for ISO
 
 # Create base online version without disclaimer
 pandoc $FILES -o "$TARGET/debug/SBEONLINE.html" -s --metadata-file="$YAML" --toc --toc-depth=2

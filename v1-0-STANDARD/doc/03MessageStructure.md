@@ -105,12 +105,12 @@ Recommended message header encoding
 The recommended header encoding is 12 octets.
 
 | Element     | Description       | Primitive type | Length (octets) | Offset |
-|-------------|-------------------|----------------|----------------:|-------:|
+|------------------|-------------------|----------------|:---------------:|:------:|
 | blockLength | Root block length | uint16         | 2               | 0      |
 | templateId  | Template ID       | uint16         | 2               | 2      |
 | schemaId    | Schema ID         | uint16         | 2               | 4      |
 | version     | Schema Version    | uint16         | 2               | 6      |
-| numGroups   | Number of repeating groups | uint16 | 2               | 8     |
+| numGroups   | Number of repeating groups | uint16 | 2              | 8      |
 | numVarDataFields | Number of variable-length fields | uint16 | 2   | 10     |
 
 Optionally, implementations may support any other unsigned integer types
@@ -203,7 +203,7 @@ schema.
 ```
 
 | Field    | Size | Offset |
-|----------|-----:|-------:|
+|----------|:----:|:------:|
 | ClOrdID  | 14   | 0      |
 | Side     | 1    | 14     |
 | OrderQty | 4    | 15     |
@@ -234,7 +234,7 @@ Example of fields with specified offsets
 ```
 
 | Field    | Size | Padding preceding field | Offset |
-|----------|:-----|:-----------------------:|:------:|
+|----------|:----:|:-----------------------:|:------:|
 | ClOrdID  | 14   | 0                       | 0      |
 | Side     | 1    | 0                       | 14     |
 | OrderQty | 4    | 1                       | 16     |
@@ -408,9 +408,9 @@ unsigned integer types.
 By default, the minimum number of entries is zero, and the maximum number is the largest value of the primitiveType of the counter.
 
 | Primitive type | Description             | Length (octets) | Maximum number of entries |
-|----------------|-------------------------|:---------------:|--------------------------:|
-| uint8          | 8-bit unsigned integer  | 1               | 255                       |
-| uint16         | 16-bit unsigned integer | 2               | 65535                     |
+|----------------|-------------------------|:---------------:|:--------------------:|
+| uint8          | 8-bit unsigned integer  | 1               | 255                  |
+| uint16         | 16-bit unsigned integer | 2               | 65535                |
 
 The number of entries may be restricted to a specific range; see section [*Restricting repeating group entries*](#restricting-repeating-group-entries) for details.
 
@@ -481,9 +481,7 @@ specified with this sequence of message body elements:
     following, in the order specified by the message schema:
 
     a.  Fixed-length scalar fields, such as integers
-
     b.  Fixed-length character arrays
-
     c.  Fixed-length composite types, such as MonthYear
 
 2.  Repeating groups, if any.
