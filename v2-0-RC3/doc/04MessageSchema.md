@@ -69,15 +69,23 @@ their encodings.
 
 ### Schema versioning
 
-Changes to a message schema may be tracked by its `version` attribute. A
-version of a schema is a snapshot in time. All elements in a given
-generation of the schema share the same version number. That is,
-elements are not versioned individually. By convention, the initial
-version of a schema is version zero, and subsequent changes increment
-the version number.
+Changes to a message schema may be tracked by its `version` attribute. A version of a schema is a snapshot in time. All elements in a given generation of the schema share the same version number. That is, elements are not versioned individually. By convention, the initial version of a schema is version zero, and subsequent changes increment the version number.
 
-The `package` attribute should remain constant between versions, if it is
-supplied.
+The `package` attribute should remain constant between versions, if it is supplied.
+
+### Metadata
+
+Optionally, an SBE message schema may be identified and described using industry standard Dublin Core metadata terms. Any of those standard terms may be contained by a `<metadata>` element. The Dublin Core XML schema is imported by the SBE XML schema to support that usage.
+
+Metadata example
+```xml
+<metadata>
+	<dcterms:publisher>FIX Trading Community</dcterms:publisher>
+	<dcterms:title>SBE example</dcterms:title>
+	<dcterms:rights>© Copyright 2014-2020 FIX Protocol Limited</dcterms:rights>
+	<dcterms:created>2020-06-10T10:07-05:00</dcterms:created>
+</metadata>
+```
 
 ## Data encodings
 

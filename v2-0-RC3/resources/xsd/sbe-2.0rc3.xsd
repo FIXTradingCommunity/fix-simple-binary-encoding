@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" elementFormDefault="qualified" version="2.0RC3">
+<xs:schema xmlns:sbe="http://fixprotocol.io/2017/sbe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fixprotocol.io/2017/sbe" xmlns:dcterms="http://purl.org/dc/terms/" elementFormDefault="qualified" version="2.0RC3">
 	<xs:annotation>
 		<xs:documentation>
 			Message schema for FIX Simple Binary Encoding
 			*Namespace is tentative.*
-			Version: 2.0 RC2
-			© Copyright 2014-2019 FIX Protocol Limited
+			Version: 2.0 RC3
+			© Copyright 2014-2020 FIX Protocol Limited
 			License: Creative Commons Attribution-NoDerivatives 4.0 International Public License
 		</xs:documentation>
 	</xs:annotation>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+
 	<!-- Elements -->
 	<xs:element name="messageSchema">
 		<xs:annotation>
@@ -20,6 +22,7 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="metadata" type="dcterms:elementOrRefinementContainer" minOccurs="0"/>
 				<xs:element ref="sbe:types" maxOccurs="unbounded"/>
 				<xs:element ref="sbe:messages" maxOccurs="unbounded"/>
 			</xs:sequence>
@@ -81,8 +84,8 @@
 					<xs:documentation>Overrides the messageSchema package</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<!-- required to support XInclude -->
 			<xs:attribute ref="xml:base"/>
+			<!-- required to support XInclude -->
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="types">
@@ -107,8 +110,8 @@
 					<xs:documentation>Overrides the messageSchema package</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<!-- required to support XInclude -->
 			<xs:attribute ref="xml:base"/>
+			<!-- required to support XInclude -->
 		</xs:complexType>
 	</xs:element>
 	<!-- Complex types -->
